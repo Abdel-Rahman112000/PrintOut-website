@@ -1,0 +1,12 @@
+.brand-image {
+  width: 177.52px;
+  height: 85.55px;
+  border-radius: 12px;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: "all 0.5";
+}
+
+.brand-image:hover {
+  transform: scale(1.08);
+}

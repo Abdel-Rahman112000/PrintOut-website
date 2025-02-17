@@ -1,0 +1,12 @@
+.media-component {
+  .plyr {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    video {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+  }
+}
