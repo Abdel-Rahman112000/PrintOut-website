@@ -46,7 +46,25 @@ export default function ProductsFiltersInWebScreen() {
           "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
         color: "#fff",
         borderRadius: "15px",
-        minHeight: "100vh",
+        maxHeight: "80vh",
+        overflow: "auto",
+        "&::-webkit-scrollbar": {
+          width: "10px",
+        },
+        "&::-webkit-scrollbar-track": {
+          background: "rgba(0, 0, 0, 0.1)",
+          borderRadius: "10px",
+          my: 2,
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background:
+            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
+          borderRadius: "10px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          background:
+            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
+        },
       }}
     >
       <Stack
@@ -204,7 +222,7 @@ export default function ProductsFiltersInWebScreen() {
           </AccordionDetails>
         </Accordion>
       )}
-      <Box sx={{ width: 250, my: 1 }}>
+      <Box sx={{ width: 200, my: 1 }}>
         <Typography
           variant="body1"
           sx={{ color: "#fff", fontSize: "16px", fontWeight: "500", py: 2 }}
