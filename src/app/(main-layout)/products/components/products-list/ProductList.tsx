@@ -55,7 +55,7 @@ const ProductCard = (props: ProductCardPropsType) => {
     productNameLen > 20 ? `${product?.name?.slice(0, 15)}..` : product?.name;
 
   return (
-    <Grid item md={4} sx={{ mt: 4 }}>
+    <Grid item md={4} sx={{ mt: 4, width: "100%" }}>
       <Paper
         sx={{
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)", // Adds a gray shadow
@@ -68,6 +68,7 @@ const ProductCard = (props: ProductCardPropsType) => {
             alignItems: "end",
             justifyContent: "space-between",
             height: "280px",
+            width: "100%",
             borderStartStartRadius: "12px",
             borderStartEndRadius: "12px",
             backgroundImage: `url(${imgUrl})`,

@@ -82,7 +82,7 @@ function PrintTypesCards() {
 
           {/* tasks */}
           <Grid container spacing={3} sx={{ mt: 5 }}>
-            <Grid item md={4}>
+            <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Customize products.png"
                 title="Upload your files"
@@ -90,14 +90,14 @@ function PrintTypesCards() {
               />
               <Divider orientation="vertical" flexItem />
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Ready-Made Products.png"
                 title="Customize Products"
                 description="Create Your Perfect Product\nDesign It, We Deliver It"
               />
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Laser Cutting.png"
                 title="Ready-made Products"
