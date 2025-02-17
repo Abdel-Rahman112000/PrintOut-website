@@ -19,7 +19,7 @@ export default function ProductsList() {
   return (
     <Stack>
       {/* brands */}
-      <Stack direction={"row"} spacing={2} p={3} overflow={"auto"}>
+      {/* <Stack direction={"row"} spacing={2} p={3} overflow={"auto"}>
         {filter?.categories.length != 0 && (
           <Button
             variant="text"
@@ -57,7 +57,7 @@ export default function ProductsList() {
               {cat?.name}
             </Button>
           ))}
-      </Stack>
+      </Stack> */}
       {/* products */}
       {loadingProducts ? <Loader /> : <ProductsDataList />}
     </Stack>
