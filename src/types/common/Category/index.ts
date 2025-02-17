@@ -13,5 +13,5 @@ export interface Category {
   pictures?: any[];
   name: string;
   products?: Product[];
-  media?: Media[];
+  media: Media[];
 }

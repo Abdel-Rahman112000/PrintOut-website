@@ -17,7 +17,7 @@ export default function ProductsPageEntryPoint() {
     return (
       <Stack
         sx={{
-          height: "100vh",
+          height: "75vh",
           width: "100%",
           display: "flex",
           justifyContent: "center",

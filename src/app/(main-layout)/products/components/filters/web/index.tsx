@@ -8,6 +8,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Avatar,
   Box,
   List,
   ListItem,
@@ -20,8 +21,7 @@ import {
 import TuneIcon from "@mui/icons-material/Tune";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ProductsContext } from "../../../context";
-import { Category } from "@/types/common/Category";
-import Loader from "../../products-list/Loader";
+
 function valuetext(value: number) {
   return `${value}$`;
 }
@@ -166,12 +166,10 @@ export default function ProductsFiltersInWebScreen() {
                     });
                   }}
                 >
-                  <Typography
-                    variant="body1"
+                  <Box
                     sx={{
-                      color: "#fff",
-                      fontSize: "14px",
-                      fontWeight: 600,
+                      display: "flex",
+                      alignItems: "center",
                       "&::before": {
                         content:
                           Number(searchParams.category_id) === cat.id
@@ -183,8 +181,23 @@ export default function ProductsFiltersInWebScreen() {
                       },
                     }}
                   >
-                    {cat.name}
-                  </Typography>
+                    <Avatar
+                      alt={cat.name}
+                      src={cat?.media[0].original_url}
+                      sx={{ width: "30px", height: "30px" }}
+                    />
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: "#fff",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        px: 2,
+                      }}
+                    >
+                      {cat.name}
+                    </Typography>
+                  </Box>
                 </ListItem>
               </List>
             ))}
@@ -240,201 +253,6 @@ export default function ProductsFiltersInWebScreen() {
           >{`$${value[1]}`}</Typography>
         </Box>
       </Box>
-      {/* Price */}
-      {/* <Accordion
-        sx={{
-          width: "90%",
-          color: "#fff",
-          bgcolor: "#40BFAC",
-        }}
-        expanded={false}
-      >
-        <AccordionSummary
-          expandIcon={<KeyboardArrowRightIcon sx={{ color: "#fff" }} />}
-          aria-controls="panel2-content"
-          id="panel2-header"
-        >
-          <Typography
-            color={"#fff"}
-            variant="body1"
-            fontSize={20}
-            fontWeight={600}
-          >
-            Price
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Slider
-            getAriaLabel={() => "Temperature range"}
-            value={price}
-            onChange={handlePriceChange}
-            valueLabelDisplay="auto"
-          />
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            justifyContent={"space-evenly"}
-            width={"100%"}
-          >
-            <Stack
-              alignItems={"center"}
-              justifyContent={"center"}
-              sx={{
-                width: "95px",
-                height: "30",
-                border: "1px solid #807D7E",
-                borderRadius: "6px",
-              }}
-            >
-              {price?.[0] ?? 0} $
-            </Stack>
-            <Stack
-              alignItems={"center"}
-              justifyContent={"center"}
-              sx={{
-                width: "95px",
-                height: "30",
-                border: "1px solid #807D7E",
-                borderRadius: "6px",
-              }}
-            >
-              {price?.[1] ?? 0} $
-            </Stack>
-          </Stack>
-        </AccordionDetails>
-      </Accordion> */}
-      {/* Color */}
-      {/* <Accordion
-        sx={{
-          width: "90%",
-          color: "#fff",
-          bgcolor: "#40BFAC",
-        }}
-        expanded={false}
-      >
-        <AccordionSummary
-          expandIcon={<KeyboardArrowRightIcon sx={{ color: "#fff" }} />}
-          aria-controls="panel3-content"
-          id="panel3-header"
-        >
-          <Typography
-            color={"#fff"}
-            variant="body1"
-            fontSize={20}
-            fontWeight={600}
-          >
-            Color
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Stack
-            spacing={3}
-            direction={"row"}
-            alignItems={"center"}
-            justifyContent={"center"}
-            flexWrap={"wrap"}
-          >
-            <Box>
-              <Box
-                sx={{
-                  width: 37,
-                  height: 37,
-                  borderRadius: "12px",
-                  bgcolor: "purple",
-                }}
-              />
-              <Typography variant="body2">purple</Typography>
-            </Box>
-
-            <Box>
-              <Box
-                sx={{
-                  width: 37,
-                  height: 37,
-                  borderRadius: "12px",
-                  bgcolor: "purple",
-                }}
-              />
-              <Typography variant="body2">purple</Typography>
-            </Box>
-
-            <Box>
-              <Box
-                sx={{
-                  width: 37,
-                  height: 37,
-                  borderRadius: "12px",
-                  bgcolor: "purple",
-                }}
-              />
-              <Typography variant="body2">purple</Typography>
-            </Box>
-
-            <Box>
-              <Box
-                sx={{
-                  width: 37,
-                  height: 37,
-                  borderRadius: "12px",
-                  bgcolor: "purple",
-                }}
-              />
-              <Typography variant="body2">purple</Typography>
-            </Box>
-          </Stack>
-        </AccordionDetails>
-      </Accordion> */}
-      {/* Can be edited ? */}
-      {/* <Accordion
-        sx={{
-          width: "90%",
-          color: "#fff",
-          bgcolor: "#40BFAC",
-        }}
-        expanded={false}
-      >
-        <AccordionSummary
-          expandIcon={<KeyboardArrowRightIcon sx={{ color: "#fff" }} />}
-          aria-controls="panel4-content"
-          id="panel4-header"
-        >
-          <Typography
-            color={"#fff"}
-            variant="body1"
-            fontSize={20}
-            fontWeight={600}
-          >
-            Can be edited ?
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Stack
-            spacing={3}
-            direction={"row"}
-            alignItems={"center"}
-            justifyContent={"space-evenly"}
-            flexWrap={"wrap"}
-          >
-            <Chip label="yes" variant="outlined" />
-            <Chip label="no" variant="outlined" />
-          </Stack>
-        </AccordionDetails>
-      </Accordion> */}
-      {/* Style */}
     </Stack>
   );
 }
-
-const CategoryItem = ({ cat }: { cat: Category }) => {
-  const { searchParams } = useContext(ProductsContext);
-  return (
-    <Typography
-      variant="body1"
-      fontSize={18}
-      fontWeight={600}
-      color={searchParams?.category_id == cat.id.toString() ? "#000" : "#fff"}
-    >
-      {cat.name}
-    </Typography>
-  );
-};
