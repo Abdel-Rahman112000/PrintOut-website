@@ -128,7 +128,7 @@ const PrintProductType = (props: PrintProductTypeProps) => {
         transition: "all 0.5s ease-in-out",
         py: 4,
         background:
-          " radial-gradient(42.78% 42.79% at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(252, 252, 252, 0.2) 6%, rgba(204, 204, 204, 0.2) 100%)",
+          "radial-gradient(64.55% 64.93% at 28.24% 75.62%, rgba(124, 255, 98, 0.6) 7.9%, rgba(252, 252, 252, 0.6) 51.9%, rgba(99, 221, 255, 0.6) 100%) ",
         borderRadius: "25px",
         ":hover": {
           "& .MuiTypography-root": {

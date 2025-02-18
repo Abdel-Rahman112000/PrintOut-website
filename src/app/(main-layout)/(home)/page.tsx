@@ -3,10 +3,11 @@ import HeroCards from "./components/hero-cards";
 import Slider from "./components/slider";
 import PrintTypesCards from "./components/print-types-cards";
 import { HomeContextProvider } from "./context";
-import ProductsSection from "./components/products-section";
 import TopCategoriesSection from "./components/top-categories";
 import TopBrands from "./components/top-brands";
 import FeedbackMessages from "./components/feedback-messages";
+import CustomPrintSection from "./components/CustomPrint-section";
+import GiveawaysProduct from "./components/Giveaways-section";
 
 function HomePage() {
   return (
@@ -16,7 +17,8 @@ function HomePage() {
         <HeroCards />
         <PrintTypesCards />
       </Stack>
-      <ProductsSection />
+      <GiveawaysProduct />
+      <CustomPrintSection />
       <TopCategoriesSection />
       <TopBrands />
       <FeedbackMessages />

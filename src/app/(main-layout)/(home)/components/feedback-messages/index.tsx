@@ -5,7 +5,6 @@ import "swiper/css/pagination";
 import { Box, Rating, Stack, Typography } from "@mui/material";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRef } from "react";
 
 export default function FeedbackMessages() {
   return (
