@@ -1,8 +1,8 @@
 import { Button, Stack, Typography } from "@mui/material";
-import ProductsDataList from "./ProductList";
 import { useContext } from "react";
 import { ProductsContext } from "../../context";
 import Loader from "./Loader";
+import { ProductCard } from "./ProductList";
 
 export default function ProductsList() {
   const {
@@ -59,7 +59,7 @@ export default function ProductsList() {
           ))}
       </Stack> */}
       {/* products */}
-      {loadingProducts ? <Loader /> : <ProductsDataList />}
+      {loadingProducts ? <Loader /> : <ProductCard />}
     </Stack>
   );
 }

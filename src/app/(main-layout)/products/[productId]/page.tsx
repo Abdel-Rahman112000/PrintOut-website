@@ -3,7 +3,7 @@ import ProductDetailsImage from "./components/productImage";
 import ProductDetailsMainInfo from "./components/productMainInfo";
 import ProductDetailsDescription from "./components/ProductDescription";
 import VideoDesciption from "./components/ProductVideo";
-import ProductsDataList from "../components/products-list/ProductList";
+import { ProductCard } from "../components/products-list/ProductList";
 
 export default function ProductDetails() {
   return (
@@ -37,7 +37,7 @@ export default function ProductDetails() {
               Similar Products
             </Typography>
           </Stack>
-          <ProductsDataList />
+          <ProductCard />
         </Grid>
       </Grid>
     </Container>

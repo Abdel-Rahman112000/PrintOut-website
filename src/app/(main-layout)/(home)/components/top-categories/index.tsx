@@ -2,7 +2,14 @@
 // Icons
 import EastIcon from "@mui/icons-material/East";
 // MUI
-import { Box, IconButton, Skeleton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useContext } from "react";
 import { HomeContext } from "../../context";
 import { Category } from "@/types/common/Category";
@@ -20,13 +27,14 @@ export default function TopCategoriesSection() {
         }}
       >
         {/* title */}
-        <Stack direction={"row"} spacing={4}>
+        <Stack direction={"row"} spacing={5}>
           <Box
             sx={{
               width: "6px",
               height: "30px",
               borderRadius: "10px",
-              background: "#8A33FD",
+              background:
+                "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
             }}
           ></Box>
           <Typography variant="h5" fontWeight={800} fontSize={26}>
@@ -34,33 +42,16 @@ export default function TopCategoriesSection() {
           </Typography>
         </Stack>
         {/* Categories Cards */}
-        <Stack direction={"row"} flexWrap={"wrap"} spacing={4}>
+        <Grid container spacing={3}>
           {Array.isArray(categoriesRegularGiveaway) &&
             categoriesRegularGiveaway?.map((category) => (
               <CategoryCard key={category.id} category={category} />
             ))}
-        </Stack>
+        </Grid>
       </Stack>
     </Stack>
   );
 }
-
-const LoadingCard = () => (
-  <Stack spacing={4} m={5} p={3}>
-    <Skeleton
-      variant="rectangular"
-      width={270}
-      height={395}
-      sx={{ borderRadius: "12px" }}
-    />
-    <Skeleton
-      variant="rectangular"
-      width={270}
-      height={45}
-      sx={{ borderRadius: "12px" }}
-    />
-  </Stack>
-);
 
 const CategoryCard = ({ category }: { category: Category }) => {
   const len = category?.name?.length;
@@ -68,27 +59,36 @@ const CategoryCard = ({ category }: { category: Category }) => {
     len > 20 ? `${category?.name?.slice(0, 18)}..` : category?.name;
 
   return (
-    <Stack spacing={4} minWidth={282} p={"15px"}>
+    <Grid
+      item
+      lg={3}
+      md={4}
+      sm={6}
+      xs={12}
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems={"center"}
+    >
       <img
         src={category?.media?.[0]?.original_url ?? ""}
         width={270}
         height={395}
-        className="hvr-rotate"
         style={{ borderRadius: "12px", objectFit: "fill" }}
       />
       <Stack
         direction={"row"}
         alignItems={"center"}
-        className="hvr-icon-forward"
         justifyContent={"space-between"}
+        width={"270px"}
       >
         <Typography variant="h6" fontSize={19} fontWeight={600}>
           {categoryName ?? ""}
         </Typography>
-        <IconButton className="hvr-icon">
+        <IconButton>
           <EastIcon />
         </IconButton>
       </Stack>
-    </Stack>
+    </Grid>
   );
 };

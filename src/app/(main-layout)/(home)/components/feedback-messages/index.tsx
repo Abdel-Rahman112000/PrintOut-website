@@ -23,7 +23,8 @@ export default function FeedbackMessages() {
               width: "6px",
               height: "30px",
               borderRadius: "10px",
-              background: "#8A33FD",
+              background:
+                "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
             }}
           ></Box>
           <Typography variant="h5" fontWeight={800} fontSize={26}>
@@ -56,7 +57,7 @@ export default function FeedbackMessages() {
           pagination={{
             clickable: true,
           }}
-          navigation={true}
+          // navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper mt-5"
           loop
@@ -88,9 +89,9 @@ const FeedBackMessage = () => (
     m={"5px"}
     minHeight={"200px"}
     borderRadius={"10px"}
-    border={"1.8px solid"}
     sx={{
       cursor: "pointer",
+      background: "linear-gradient(180deg, #18BEDE 0%, #5ABF8B 100%);",
     }}
   >
     <Stack
@@ -101,21 +102,18 @@ const FeedBackMessage = () => (
       <img
         src="https://images.unsplash.com/photo-1514906594387-3f184d228478?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="user"
-        width={58}
-        height={58}
+        width={65}
+        height={65}
       />
-      <Rating readOnly name="half-rating" defaultValue={2.5} precision={0.5} />
+      <Rating readOnly name="half-rating" defaultValue={3.5} precision={0.5} />
     </Stack>
     <Typography
       variant="body2"
-      my={2}
-      fontWeight={500}
-      fontSize={18}
-      color={"#000"}
+      sx={{ marginY: 3, fontSize: "22px", fontWeight: 500, color: "#fff" }}
     >
       Floyd Miles
     </Typography>
-    <Typography variant="body2">
+    <Typography variant="body2" sx={{ marginb: 2, color: "#fff" }}>
       Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.
       Velit officia consequat duis enim velit mollit. Exercitation veniam
       consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est

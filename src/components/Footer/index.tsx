@@ -1,14 +1,9 @@
 "use client";
 
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Container,
-  Divider,
   Grid,
-  GridProps,
   IconButton,
   Stack,
   Typography,
@@ -26,7 +21,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const SectionItem = ({ label, children }: SectionItemProps) => (
   <CinzelAddLabelToEl
@@ -37,9 +31,6 @@ export const SectionItem = ({ label, children }: SectionItemProps) => (
   </CinzelAddLabelToEl>
 );
 
-const GridItem = (props: GridProps) => (
-  <Grid item xs={12} md={6} lg={4} {...props} />
-);
 export type SectionItemProps = {
   children: ReactNode;
   label: string;

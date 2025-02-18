@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 // import required modules
 import { Keyboard, Pagination, Navigation, Autoplay } from "swiper/modules";
-import { ProductCard } from "./ProductCard";
+import CustomProductCard from "@/components/CustomProductCard";
 export default function GiveawaysProduct() {
   const { productsRegularGiveaway } = useContext(HomeContext);
   if (
@@ -26,7 +26,8 @@ export default function GiveawaysProduct() {
               width: "6px",
               height: "30px",
               borderRadius: "10px",
-              background: "#8A33FD",
+              background:
+                "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
             }}
           ></Box>
           <Typography variant="h5" fontWeight={800} fontSize={26}>
@@ -68,7 +69,7 @@ export default function GiveawaysProduct() {
         {Array.isArray(productsRegularGiveaway) &&
           productsRegularGiveaway?.map((product) => (
             <SwiperSlide key={product.id}>
-              <ProductCard key={product.id} product={product} />
+              <CustomProductCard product={product} />
             </SwiperSlide>
           ))}
       </Swiper>
