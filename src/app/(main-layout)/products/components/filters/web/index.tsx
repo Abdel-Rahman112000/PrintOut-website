@@ -176,7 +176,7 @@ export default function ProductsFiltersInWebScreen() {
             {filter?.categories?.map((cat) => (
               <List key={cat.id}>
                 <ListItem
-                  sx={{ cursor: "pointer" }}
+                  sx={{ cursor: "pointer", p: 0 }}
                   onClick={() => {
                     handleChangeSearchParams({
                       ...searchParams,

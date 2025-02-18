@@ -10,7 +10,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Stack
       sx={{
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
         mb: 3,
         borderRadius: "15px",
       }}

@@ -47,10 +47,17 @@ export type SectionItemProps = {
 
 function Footer() {
   return (
-    <Box component="footer" mt={6} py={12} sx={{ bgcolor: "#3C4242" }}>
-      <Container maxWidth="xl">
+    <Box component="footer" mt={10}>
+      <Container
+        maxWidth="xl"
+        sx={{
+          background:
+            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
+          py: 4,
+        }}
+      >
         {/* pages links */}
-        <Grid spacing={2} rowSpacing={12} container>
+        <Grid spacing={2} container>
           <Grid item xs={12} md={3}>
             <FooterMenuList />
           </Grid>
@@ -136,19 +143,25 @@ function Footer() {
               </Stack>
             </Stack>
           </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant="body2"
-              textAlign={"center"}
-              fontSize={20}
-              fontWeight={700}
-              color={"#fff"}
-            >
-              Copyright © 2024 MKMO. All rights reserved.
-            </Typography>
-          </Grid>
         </Grid>
       </Container>
+      <Box
+        sx={{
+          py: 3,
+          background:
+            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
+        }}
+      >
+        <Typography
+          variant="body2"
+          textAlign={"center"}
+          fontSize={16}
+          fontWeight={700}
+          color={"#fff"}
+        >
+          Copyright © 2024 MKMO. All rights reserved.
+        </Typography>
+      </Box>
     </Box>
   );
 }

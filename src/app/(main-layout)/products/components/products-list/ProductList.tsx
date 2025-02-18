@@ -58,7 +58,7 @@ const ProductCard = (props: ProductCardPropsType) => {
     <Grid item md={4} sx={{ mt: 4, width: "100%" }}>
       <Paper
         sx={{
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)", // Adds a gray shadow
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Adds a gray shadow
         }}
       >
         <Stack
@@ -129,6 +129,19 @@ const ProductCard = (props: ProductCardPropsType) => {
             </Typography>
             <Typography variant="body2">product description</Typography>
           </Box>
+        </Stack>
+        <Stack
+          sx={{ flexDirection: "row", justifyContent: "space-between", p: 2 }}
+        >
+          <Button
+            startIcon={<ShoppingCartIcon />}
+            sx={{ bgcolor: "#40BFAC", borderRadius: 5 }}
+            onClick={() => {
+              AddItemToCard(product.id, product?.type_id);
+            }}
+          >
+            Add to Cart
+          </Button>
           {/* product price */}
           {product?.product_price?.price && (
             <Stack
@@ -136,27 +149,20 @@ const ProductCard = (props: ProductCardPropsType) => {
               justifyContent={"center"}
               sx={{
                 bgcolor: "#F6F6F6",
-                height: "30",
-                fontSize: "17px",
+                height: "40px",
+                width: "90px",
+                fontSize: "22px",
                 borderRadius: "10px",
                 px: 2,
                 py: 0.5,
+                fontWeight: 600,
+                color: "#40BFAC",
               }}
             >
-              $ {product?.product_price?.price ?? "_"}
+              {product?.product_price?.price ?? "_"} $
             </Stack>
           )}
         </Stack>
-        {/* <Button
-        startIcon={<ShoppingCartIcon />}
-        sx={{ bgcolor: "#40BFAC", borderRadius: 0 }}
-        className="hvr-bounce-to-right"
-        onClick={() => {
-          AddItemToCard(product.id, product?.type_id);
-        }}
-      >
-        Add to Cart
-      </Button> */}
       </Paper>
     </Grid>
   );
