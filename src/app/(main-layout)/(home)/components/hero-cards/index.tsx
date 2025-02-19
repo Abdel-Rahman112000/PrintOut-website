@@ -17,7 +17,7 @@ function HeroCards() {
                   transform: "scale(1.05)",
                 },
               }}
-              src="/assets/images/demo/home-page-sale.png"
+              src="/assets/images/demo/Fouty precentage.jpeg"
             />
           </AspectRatio>
         </Grid>
@@ -32,7 +32,7 @@ function HeroCards() {
                   transform: "scale(1.05)",
                 },
               }}
-              src="/assets/images/demo/home-page-sale.png"
+              src="/assets/images/demo/Fiftypresentage.jpeg"
             />
           </AspectRatio>
         </Grid>
