@@ -15,6 +15,7 @@ export interface Product {
   updated_at: string;
   status: number;
   feature: number;
+  description?: string;
   pictures?: any[];
   name: string;
   color?: number;
@@ -26,7 +27,7 @@ export interface Product {
   category?: Category;
   product_price?: ProductPrice;
   customizations?: Customization[];
-  media?: Media[];
+  media: Media[];
 }
 
 export type Brand = {

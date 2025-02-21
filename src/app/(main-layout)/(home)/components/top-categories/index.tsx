@@ -74,7 +74,7 @@ const CategoryCard = ({ category }: { category: Category }) => {
         src={category?.media?.[0]?.original_url ?? ""}
         width={270}
         height={395}
-        style={{ borderRadius: "12px", objectFit: "fill" }}
+        style={{ borderRadius: "12px", objectFit: "cover" }}
       />
       <Stack
         direction={"row"}

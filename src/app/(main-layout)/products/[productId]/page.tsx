@@ -1,43 +1,34 @@
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import ProductDetailsImage from "./components/productImage";
+import { Container, Grid } from "@mui/material";
 import ProductDetailsMainInfo from "./components/productMainInfo";
-import ProductDetailsDescription from "./components/ProductDescription";
-import VideoDesciption from "./components/ProductVideo";
-import { ProductCard } from "../components/products-list/ProductList";
 
-export default function ProductDetails() {
+import ProductSwiper from "./components/ProductSwiper";
+import { getProduct } from "@/utils/api/product/get-product";
+import { getServerAuthHeaders } from "@/libs/auth/getServerAuthHeaders";
+import { notFound } from "next/navigation";
+
+export default async function ProductDetails({
+  params,
+}: {
+  params: { productId: string };
+}) {
+  const headers = await getServerAuthHeaders();
+
+  const product = (await getProduct(headers, params?.productId)).data;
+
+  console.log(product);
+
+  if (!product) {
+    notFound();
+  }
+
   return (
-    <Container maxWidth="xl">
-      <Grid container>
-        {/* Image */}
+    <Container maxWidth="lg" sx={{ mt: "40px" }}>
+      <Grid container spacing={3}>
         <Grid item xs={12} md={5}>
-          <ProductDetailsImage />
+          <ProductSwiper product={product} />
         </Grid>
-        {/* main info */}
         <Grid item xs={12} md={7}>
-          <ProductDetailsMainInfo />
-        </Grid>
-        {/* description */}
-        <Grid container my={4}>
-          <ProductDetailsDescription />
-          <VideoDesciption />
-        </Grid>
-        <Grid item xs={12}>
-          {/* title */}
-          <Stack direction={"row"} spacing={4}>
-            <Box
-              sx={{
-                width: "6px",
-                height: "30px",
-                borderRadius: "10px",
-                background: "#FA4A0C",
-              }}
-            ></Box>
-            <Typography variant="h5" fontWeight={800} fontSize={26}>
-              Similar Products
-            </Typography>
-          </Stack>
-          <ProductCard />
+          <ProductDetailsMainInfo product={product} />
         </Grid>
       </Grid>
     </Container>
