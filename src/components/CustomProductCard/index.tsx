@@ -5,22 +5,22 @@ import {
   IconButton,
   Paper,
   Stack,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import RoundedButton from "@/components/RoundedButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Product } from "@/types/common/Product";
 import Link from "next/link";
-function CustomProductCard({ product }: { product: Product }) {
+
+function CustomProductCard({ product, addToCart }: PropsType) {
   const isFavorite = product?.is_favorite ?? false;
   const productNameLen = product?.name?.length;
   const productName =
     productNameLen > 20 ? `${product?.name?.slice(0, 15)}..` : product?.name;
+
   return (
-    <Stack component={Link} href={`/products/${product.id}`}>
+    <Link href={`/products/${product.id}`} passHref>
       <Paper
         sx={{
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -56,18 +56,6 @@ function CustomProductCard({ product }: { product: Product }) {
             alignItems={"center"}
             justifyContent={"space-between"}
           >
-            {/* {brandImg && (
-            <Tooltip title={brandTitle} placement="top">
-              <img
-                src={brandImg}
-                alt={`brand:${brandTitle}`}
-                style={{
-                  width: "30px",
-                  height: "30px",
-                }}
-              />
-            </Tooltip>
-          )} */}
             <Chip
               label={product?.type?.name ?? ""}
               variant="filled"
@@ -76,14 +64,8 @@ function CustomProductCard({ product }: { product: Product }) {
           </Stack>
         </Stack>
         <Stack
-          sx={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            p: 2,
-          }}
+          sx={{ flexDirection: "row", justifyContent: "space-between", p: 2 }}
         >
-          {/* product name */}
           <Box>
             <Typography
               variant="body1"
@@ -101,13 +83,13 @@ function CustomProductCard({ product }: { product: Product }) {
           <Button
             startIcon={<ShoppingCartIcon />}
             sx={{ bgcolor: "#40BFAC", borderRadius: 5 }}
-            //   onClick={() => {
-            //     AddItemToCard(product.id, product?.type_id);
-            //   }}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent navigation when adding to cart
+              addToCart(product.id, product?.type_id);
+            }}
           >
             Add to Cart
           </Button>
-          {/* product price */}
           {product?.product_price?.price && (
             <Stack alignItems={"center"} justifyContent={"center"}>
               <Typography
@@ -123,8 +105,13 @@ function CustomProductCard({ product }: { product: Product }) {
           )}
         </Stack>
       </Paper>
-    </Stack>
+    </Link>
   );
 }
 
 export default CustomProductCard;
+
+type PropsType = {
+  product: Product;
+  addToCart: (id: number, typeId: number) => void;
+};

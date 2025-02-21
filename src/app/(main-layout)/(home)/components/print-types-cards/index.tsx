@@ -68,7 +68,7 @@ function PrintTypesCards() {
             }}
           >
             <Typography variant="h3" sx={{ color: "#fff", mb: 3 }}>
-              Create <br /> custom print
+              Upload <br /> your files
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography variant="body1" sx={{ color: "#fff", mb: 3 }}>
@@ -85,7 +85,7 @@ function PrintTypesCards() {
             <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Customize products.png"
-                title="Upload your files"
+                title="Customize products"
                 description="Print Your Ideas, Your Way\nCustomize Your Prints with Precision"
               />
               <Divider orientation="vertical" flexItem />
@@ -93,14 +93,14 @@ function PrintTypesCards() {
             <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Ready-Made Products.png"
-                title="Customize Products"
+                title="Ready-Made Products"
                 description="Create Your Perfect Product\nDesign It, We Deliver It"
               />
             </Grid>
             <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Laser Cutting.png"
-                title="Ready-made Products"
+                title="Laser Cutting"
                 description="Pre-Designed Perfection\nBrowse, Pick, and Enjoy"
               />
             </Grid>
