@@ -1,3 +1,4 @@
+"use client";
 // Icons
 import CommentIcon from "@mui/icons-material/Comment";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
@@ -11,6 +12,10 @@ import {
   Box,
   Breadcrumbs,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Grid,
   IconButton,
@@ -20,8 +25,17 @@ import {
   Typography,
 } from "@mui/material";
 import { Product } from "@/types/common/Product";
+import { Controller, useForm } from "react-hook-form";
+import { FilePond } from "react-filepond";
+import { useState } from "react";
 
 export default function ProductDetailsMainInfo({ product }: PropsType) {
+  const [open, setOpen] = useState(false);
+  const { control, handleSubmit } = useForm();
+  const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
+  });
+
   return (
     <Stack spacing={3} p={"10px"}>
       <Breadcrumbs aria-label="breadcrumb">
@@ -78,7 +92,8 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
         <Button
           variant="contained"
           startIcon={<ShoppingCartOutlinedIcon />}
-          disabled
+          type="submit"
+          onClick={onSubmit}
           sx={{
             color: "#fff",
             bgcolor: "#40BFAC",
@@ -88,11 +103,16 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
         >
           Add to Cart
         </Button>
-        {product.type?.id == 1 && (
-          <Button variant="outlined" sx={{ p: "10px" }}>
-            Upload Custom Design
-          </Button>
-        )}
+        {/* {product.type?.id == 1 && ( */}
+        <Button
+          onClick={() => setOpen(true)}
+          variant="outlined"
+          sx={{ p: "10px" }}
+        >
+          Upload Custom Design
+        </Button>
+
+        {/* )} */}
       </Stack>
       <Divider />
       <Grid container spacing={2}>
@@ -122,6 +142,46 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
           </Typography>
         </Grid>
       </Grid>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        fullWidth
+        maxWidth="xs"
+      >
+        <DialogContent>
+          <Controller
+            name="file"
+            control={control}
+            render={({ field, fieldState }) => (
+              <>
+                <FilePond
+                  files={field.value}
+                  onupdatefiles={(files) => {
+                    field.onChange(
+                      files.map((filepondFile) => filepondFile.file)
+                    );
+                  }}
+                  allowMultiple={true}
+                />
+                <Typography color="error">
+                  {fieldState.error?.message}
+                </Typography>
+              </>
+            )}
+          />
+        </DialogContent>
+        <DialogActions
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button onClick={() => setOpen(false)}>الغاء</Button>
+          <Button variant="outlined" onClick={() => setOpen(false)}>
+            حفظ
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   );
 }
