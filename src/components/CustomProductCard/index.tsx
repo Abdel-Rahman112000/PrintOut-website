@@ -13,7 +13,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Product } from "@/types/common/Product";
 import Link from "next/link";
 
-function CustomProductCard({ product, addToCart }: PropsType) {
+function CustomProductCard({ product }: PropsType) {
   const isFavorite = product?.is_favorite ?? false;
   const productNameLen = product?.name?.length;
   const productName =
@@ -113,5 +113,5 @@ export default CustomProductCard;
 
 type PropsType = {
   product: Product;
-  addToCart: (id: number, typeId: number) => void;
+  // addToCart: (id: number, typeId: number) => void;
 };
