@@ -85,7 +85,7 @@ function CustomProductCard({ product }: PropsType) {
             sx={{ bgcolor: "#40BFAC", borderRadius: 5 }}
             onClick={(e) => {
               e.stopPropagation(); // Prevent navigation when adding to cart
-              addToCart(product.id, product?.type_id);
+              // addToCart(product.id, product?.type_id);
             }}
           >
             Add to Cart
