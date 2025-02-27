@@ -12,15 +12,16 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Product } from "@/types/common/Product";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 function CustomProductCard({ product, addToCart }: PropsType) {
   const isFavorite = product?.is_favorite ?? false;
   const productNameLen = product?.name?.length;
   const productName =
     productNameLen > 20 ? `${product?.name?.slice(0, 15)}..` : product?.name;
-
+  const param = useParams();
   return (
-    <Link href={`/products/${product.id}`} passHref>
+    <Link href={`/products/${param.productName}/${product.id}`} passHref>
       <Paper
         sx={{
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",

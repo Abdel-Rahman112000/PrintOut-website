@@ -8,7 +8,11 @@ import Loader from "../products-list/Loader";
 import { ProductsContext } from "../../context";
 import { useContext } from "react";
 
-export default function ProductsPageEntryPoint() {
+export default function ProductsPageEntryPoint({
+  productType,
+}: {
+  productType?: string;
+}) {
   const { filter, loadingProducts } = useContext(ProductsContext);
   // Check if the screen width is less than 768px (mobile)
 
@@ -33,7 +37,7 @@ export default function ProductsPageEntryPoint() {
         <ProductsFiltersInMobileScreen />
       ) : (
         <Grid item xs={12} md={3}>
-          <ProductsFiltersInWebScreen />
+          <ProductsFiltersInWebScreen productType={productType} />
         </Grid>
       )}
       <Grid item xs={12} md={9}>

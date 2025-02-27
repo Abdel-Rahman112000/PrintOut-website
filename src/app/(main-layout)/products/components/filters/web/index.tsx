@@ -1,7 +1,7 @@
 "use client";
 
 // Hooks
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // MUI
 import {
@@ -21,21 +21,29 @@ import {
 import TuneIcon from "@mui/icons-material/Tune";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ProductsContext } from "../../../context";
+import { useRouter } from "next/navigation";
 
 function valuetext(value: number) {
   return `${value}$`;
 }
-export default function ProductsFiltersInWebScreen() {
+export default function ProductsFiltersInWebScreen({
+  productType,
+}: {
+  productType?: string;
+}) {
   const [value, setValue] = useState<number[]>([20, 37]);
   const [expand1, setExpand1] = useState(true);
   const [expand2, setExpand2] = useState(true);
-
+  const router = useRouter();
   const { filter, handleChangeSearchParams, searchParams } =
     useContext(ProductsContext);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
+  useEffect(() => {
+    handleChangeSearchParams({ ...searchParams, type_id: productType });
+  }, [productType]);
   return (
     <Stack
       width={"100%"}
@@ -117,6 +125,7 @@ export default function ProductsFiltersInWebScreen() {
               <ListItem
                 sx={{ cursor: "pointer", p: 0 }}
                 onClick={() => {
+                  router.push(`${type.id}`);
                   handleChangeSearchParams({
                     ...searchParams,
                     type_id: type.id.toString(),
@@ -132,7 +141,9 @@ export default function ProductsFiltersInWebScreen() {
 
                     "&::before": {
                       content:
-                        Number(searchParams.type_id) === type.id ? '"•"' : '""',
+                        Number(searchParams.type_id || productType) === type.id
+                          ? '"•"'
+                          : '""',
                       color: "#fff",
                       marginRight: "8px",
                       fontSize: "25px",

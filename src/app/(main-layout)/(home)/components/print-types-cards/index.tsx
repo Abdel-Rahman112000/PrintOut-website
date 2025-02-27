@@ -85,6 +85,7 @@ function PrintTypesCards() {
             <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Customize products.png"
+                path={`products/1`}
                 title="Customize products"
                 description="Print Your Ideas, Your Way\nCustomize Your Prints with Precision"
               />
@@ -93,6 +94,7 @@ function PrintTypesCards() {
             <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Ready-Made Products.png"
+                path={`products/2`}
                 title="Ready-Made Products"
                 description="Create Your Perfect Product\nDesign It, We Deliver It"
               />
@@ -100,6 +102,7 @@ function PrintTypesCards() {
             <Grid item md={4} sx={{ width: "100%" }}>
               <PrintProductType
                 url="/assets/images/demo/Laser Cutting.png"
+                path={`products`}
                 title="Laser Cutting"
                 description="Pre-Designed Perfection\nBrowse, Pick, and Enjoy"
               />
@@ -117,7 +120,7 @@ const PrintProductType = (props: PrintProductTypeProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/custom-print");
+    router.push(props.path);
   };
 
   return (
@@ -169,4 +172,5 @@ type PrintProductTypeProps = {
   url: string;
   title: string;
   description: string;
+  path: string;
 };
