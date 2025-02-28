@@ -2,20 +2,14 @@
 import "swiper/css";
 import "swiper/css/pagination";
 // MUI
-import { Box, Rating, Stack, Typography } from "@mui/material";
+import { Box, Container, Rating, Stack, Typography } from "@mui/material";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function FeedbackMessages() {
   return (
-    <Stack my={6} alignItems={"center"} justifyContent={"center"}>
-      <Stack
-        spacing={6}
-        width={{
-          xs: "100%",
-          md: "90%",
-        }}
-      >
+    <Box pt={10} alignItems={"center"} justifyContent={"center"}>
+      <Stack spacing={6}>
         {/* title */}
         <Stack direction={"row"} spacing={4}>
           <Box
@@ -79,7 +73,7 @@ export default function FeedbackMessages() {
           </SwiperSlide>
         </Swiper>
       </Stack>
-    </Stack>
+    </Box>
   );
 }
 

@@ -4,6 +4,7 @@ import EastIcon from "@mui/icons-material/East";
 // MUI
 import {
   Box,
+  Container,
   Grid,
   IconButton,
   Skeleton,
@@ -18,37 +19,29 @@ export default function TopCategoriesSection() {
   const { categoriesRegularGiveaway } = useContext(HomeContext);
 
   return (
-    <Stack my={6} alignItems={"center"} justifyContent={"center"}>
-      <Stack
-        spacing={6}
-        width={{
-          xs: "100%",
-          md: "90%",
-        }}
-      >
-        {/* title */}
-        <Stack direction={"row"} spacing={5}>
-          <Box
-            sx={{
-              width: "6px",
-              height: "30px",
-              borderRadius: "10px",
-              background:
-                "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
-            }}
-          ></Box>
-          <Typography variant="h5" fontWeight={800} fontSize={26}>
-            Top Categories
-          </Typography>
-        </Stack>
-        {/* Categories Cards */}
-        <Grid container spacing={3}>
-          {Array.isArray(categoriesRegularGiveaway) &&
-            categoriesRegularGiveaway?.map((category) => (
-              <CategoryCard key={category.id} category={category} />
-            ))}
-        </Grid>
+    <Stack spacing={6} pt={10}>
+      {/* title */}
+      <Stack direction={"row"} spacing={5}>
+        <Box
+          sx={{
+            width: "6px",
+            height: "30px",
+            borderRadius: "10px",
+            background:
+              "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
+          }}
+        ></Box>
+        <Typography variant="h5" fontWeight={800} fontSize={26}>
+          Top Categories
+        </Typography>
       </Stack>
+      {/* Categories Cards */}
+      <Grid container spacing={3}>
+        {Array.isArray(categoriesRegularGiveaway) &&
+          categoriesRegularGiveaway?.map((category) => (
+            <CategoryCard key={category.id} category={category} />
+          ))}
+      </Grid>
     </Stack>
   );
 }

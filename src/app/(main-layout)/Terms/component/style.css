@@ -1,0 +1,19 @@
+.orderList > li {
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+dt {
+  font-size: 19px;
+  font-weight: 500;
+}
+
+ul {
+  list-style: inside;
+}
+.orderList li ul li {
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 0;
+}

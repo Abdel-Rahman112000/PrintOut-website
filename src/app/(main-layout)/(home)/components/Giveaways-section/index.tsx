@@ -17,7 +17,7 @@ export default function GiveawaysProduct() {
   )
     return <></>;
   return (
-    <Container>
+    <Box pt={10}>
       <Stack my={6} alignItems={"start"} justifyContent={"center"}>
         {/* title */}
         <Stack direction={"row"} spacing={4}>
@@ -73,6 +73,6 @@ export default function GiveawaysProduct() {
             </SwiperSlide>
           ))}
       </Swiper>
-    </Container>
+    </Box>
   );
 }

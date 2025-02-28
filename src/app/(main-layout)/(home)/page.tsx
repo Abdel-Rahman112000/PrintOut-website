@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Container } from "@mui/material";
 import HeroCards from "./components/hero-cards";
 import Slider from "./components/slider";
 import PrintTypesCards from "./components/print-types-cards";
@@ -13,15 +13,24 @@ function HomePage() {
   return (
     <HomeContextProvider>
       <Slider />
-      <Stack spacing={16} mt={16} alignItems="center">
+      <Container
+        sx={{
+          maxWidth: {
+            xs: "sm",
+            sm: "md",
+            md: "lg",
+            xl: "xl",
+          },
+        }}
+      >
         <HeroCards />
         <PrintTypesCards />
-      </Stack>
-      <GiveawaysProduct />
-      <CustomPrintSection />
-      <TopCategoriesSection />
-      <TopBrands />
-      <FeedbackMessages />
+        <GiveawaysProduct />
+        <CustomPrintSection />
+        <TopCategoriesSection />
+        <TopBrands />
+        <FeedbackMessages />
+      </Container>
     </HomeContextProvider>
   );
 }

@@ -38,15 +38,15 @@ export type SectionItemProps = {
 
 function Footer() {
   return (
-    <Box component="footer" mt={10}>
-      <Container
-        maxWidth="xl"
-        sx={{
-          background:
-            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
-          py: 4,
-        }}
-      >
+    <Box
+      component="footer"
+      mt={10}
+      sx={{
+        background:
+          "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
+      }}
+    >
+      <Container maxWidth="xl" sx={{ py: 4 }}>
         {/* pages links */}
         <Grid spacing={2} container>
           <Grid item xs={12} md={3}>
@@ -140,7 +140,7 @@ function Footer() {
         sx={{
           py: 3,
           background:
-            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
+            "linear-gradient(180deg, rgba(24,190,222,1)  ,rgba(90,191,139,1)  100%);",
         }}
       >
         <Typography

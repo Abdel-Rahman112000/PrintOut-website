@@ -120,10 +120,10 @@ function Navbar() {
               "linear-gradient(180deg,rgba(90,191,139,1) 20%,  rgba(24,190,222,1)  100%);",
           }}
         >
-          <Container maxWidth="lg" sx={{ height: 1 }}>
+          <Container maxWidth="xl" sx={{ height: 1 }}>
             <Grid container alignItems={"center"} sx={{ height: 1 }}>
               {/* Logo Container */}
-              <Grid item md={4} lg={2.5} flexGrow={1}>
+              <Grid item md={4} lg={2} flexGrow={1}>
                 <img
                   src={Logo.src}
                   height={100}
@@ -137,7 +137,7 @@ function Navbar() {
                 item
                 xs={0}
                 md={8}
-                lg={7}
+                lg={7.5}
                 sx={{
                   display: {
                     xs: "none",

@@ -22,6 +22,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ProductsContext } from "../../../context";
 import { useRouter } from "next/navigation";
+import SideBar from "@/components/SideBar";
 
 function valuetext(value: number) {
   return `${value}$`;
@@ -45,36 +46,7 @@ export default function ProductsFiltersInWebScreen({
     handleChangeSearchParams({ ...searchParams, type_id: productType });
   }, [productType]);
   return (
-    <Stack
-      width={"100%"}
-      alignItems={"center"}
-      mt={4}
-      sx={{
-        background:
-          "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
-        color: "#fff",
-        borderRadius: "15px",
-        maxHeight: "80vh",
-        overflow: "auto",
-        "&::-webkit-scrollbar": {
-          width: "10px",
-        },
-        "&::-webkit-scrollbar-track": {
-          background: "rgba(0, 0, 0, 0.1)",
-          borderRadius: "10px",
-          my: 2,
-        },
-        "&::-webkit-scrollbar-thumb": {
-          background:
-            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
-          borderRadius: "10px",
-        },
-        "&::-webkit-scrollbar-thumb:hover": {
-          background:
-            "linear-gradient(180deg, rgba(24,190,222,1)  20%,rgba(90,191,139,1)  100%);",
-        },
-      }}
-    >
+    <SideBar>
       <Stack
         p={"1.2rem"}
         width={"100%"}
@@ -125,11 +97,11 @@ export default function ProductsFiltersInWebScreen({
               <ListItem
                 sx={{ cursor: "pointer", p: 0 }}
                 onClick={() => {
-                  router.push(`${type.id}`);
-                  handleChangeSearchParams({
-                    ...searchParams,
-                    type_id: type.id.toString(),
-                  });
+                  router.push(`/products/${type.id}`);
+                  // handleChangeSearchParams({
+                  //   ...searchParams,
+                  //   type_id: type.id.toString(),
+                  // });
                 }}
               >
                 <Typography
@@ -282,6 +254,6 @@ export default function ProductsFiltersInWebScreen({
           >{`$${value[1]}`}</Typography>
         </Box>
       </Box>
-    </Stack>
+    </SideBar>
   );
 }

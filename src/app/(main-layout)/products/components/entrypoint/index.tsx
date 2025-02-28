@@ -3,7 +3,6 @@ import { Grid, Stack, useMediaQuery } from "@mui/material";
 import ProductsFiltersInMobileScreen from "../filters/mobile";
 import ProductsFiltersInWebScreen from "../filters/web";
 import ProductsList from "../products-list";
-import { Product } from "@/types/common/Product";
 import Loader from "../products-list/Loader";
 import { ProductsContext } from "../../context";
 import { useContext } from "react";

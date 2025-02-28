@@ -19,6 +19,7 @@ export const routes = [
   createRoute("Explore", "/products", <GridViewIcon />),
   createRoute("PrintOut", "/custom-print", <QuestionMarkIcon />),
   createRoute("Orders ", "/orders", <AssignmentIcon />),
+  createRoute("Terms & Conditions", "/Terms", <AssignmentIcon />),
 ];
 
 export type RouteType = {
