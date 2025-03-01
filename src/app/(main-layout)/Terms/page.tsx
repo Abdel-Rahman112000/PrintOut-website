@@ -10,13 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import {
-  Dashboard,
-  Settings,
-  Person,
-  Notifications,
-} from "@mui/icons-material"; // Import Material UI icons
+import { Dashboard } from "@mui/icons-material";
+import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import RestorePageIcon from "@mui/icons-material/RestorePage";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import PrivacyPage from "./component/PrivacyPage";
+import TermsPage from "./component/TermsPage";
+import ShippingPage from "./component/ShippingPage";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -78,7 +78,7 @@ function Term() {
           backgroundImage: `url(/assets/images/demo/terms.png)`,
           backgroundPosition: "center 0",
           backgroundRepeat: "no-repeat",
-          height: "70vh",
+          height: "90vh",
         }}
       ></Box>
       <Container maxWidth="xl">
@@ -115,7 +115,7 @@ function Term() {
                 <Tab
                   label="Returns & Refund Policy"
                   {...a11yProps(1)}
-                  icon={<Settings />}
+                  icon={<RestorePageIcon />}
                   iconPosition="start"
                   sx={{
                     color: "#fff",
@@ -134,7 +134,7 @@ function Term() {
                 <Tab
                   label="Terms & Conditions"
                   {...a11yProps(2)}
-                  icon={<Person />}
+                  icon={<NoteAltIcon />}
                   iconPosition="start"
                   sx={{
                     color: "#fff",
@@ -153,7 +153,7 @@ function Term() {
                 <Tab
                   label="Shipping Policy"
                   {...a11yProps(3)}
-                  icon={<Notifications />}
+                  icon={<AddBusinessIcon />}
                   iconPosition="start"
                   sx={{
                     color: "#fff",
@@ -177,13 +177,13 @@ function Term() {
               <PrivacyPage />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              Settings Content
+              <PrivacyPage />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-              Profile Content
+              <TermsPage />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
-              Notifications Content
+              <ShippingPage />
             </CustomTabPanel>
           </Grid>
         </Grid>
