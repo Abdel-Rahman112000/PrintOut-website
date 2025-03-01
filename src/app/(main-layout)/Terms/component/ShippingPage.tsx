@@ -67,7 +67,9 @@ function ShippingPage() {
             <ul>
               <li>
                 For any shipping-related queries, email
-                support@printout.solutions.
+                <span>
+                  <a href=""> support@printout.solutions.</a>
+                </span>
               </li>
             </ul>
           </li>

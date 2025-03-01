@@ -79,7 +79,12 @@ function TermsPage() {
           </li>
           <li>
             Contact Information
-            <dt>For any issues, contact support@printout.solutions.</dt>
+            <dt>
+              For any issues, contact{" "}
+              <span>
+                <a href=""> support@printout.solutions.</a>
+              </span>
+            </dt>
           </li>
         </ol>
       </Stack>
