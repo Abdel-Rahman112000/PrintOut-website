@@ -17,6 +17,7 @@ import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import PrivacyPage from "./component/PrivacyPage";
 import TermsPage from "./component/TermsPage";
 import ShippingPage from "./component/ShippingPage";
+import ReturnsPage from "./component/ReturnsPage";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -177,7 +178,7 @@ function Term() {
               <PrivacyPage />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              <PrivacyPage />
+              <ReturnsPage />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
               <TermsPage />
