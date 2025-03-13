@@ -127,7 +127,7 @@ function Navbar() {
                 <img
                   src={Logo.src}
                   height={100}
-                  alt="Tasheed"
+                  alt="printout logo"
                   // className="hvr-grow-shadow"
                   // style={{ cursor: "pointer" }}
                 />

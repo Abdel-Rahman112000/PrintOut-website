@@ -11,6 +11,7 @@ import {
 import CinzelAddLabelToEl from "../AddLabelToEl/CinzelAddLabelToEl";
 import { ReactNode } from "react";
 import FooterMenuList from "./FooterMenuList";
+import Logo from "@/assets/images/printout-logo-white.png";
 
 // Images
 import GooglePlay from "@/assets/images/google-play-icon.png";
@@ -21,6 +22,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { Location, MoreInfo, Services } from "./dumyData";
 
 export const SectionItem = ({ label, children }: SectionItemProps) => (
   <CinzelAddLabelToEl
@@ -48,22 +50,28 @@ function Footer() {
     >
       <Container maxWidth="xl" sx={{ py: 4 }}>
         {/* pages links */}
-        <Grid spacing={2} container>
+        <Grid spacing={2} container mb={5}>
           <Grid item xs={12} md={3}>
-            <FooterMenuList />
+            <img
+              src={Logo.src}
+              height={200}
+              alt="printout logo"
+              // className="hvr-grow-shadow"
+              // style={{ cursor: "pointer" }}
+            />
           </Grid>
           <Grid item xs={12} md={3}>
-            <FooterMenuList />
+            <FooterMenuList items={Services} />
           </Grid>
           <Grid item xs={12} md={3}>
-            <FooterMenuList />
+            <FooterMenuList items={MoreInfo} />
           </Grid>
           <Grid item xs={12} md={3}>
-            <FooterMenuList />
+            <FooterMenuList items={Location} />
           </Grid>
         </Grid>
         {/* social links & mobile app link */}
-        <Grid spacing={2} rowSpacing={12} container>
+        <Grid spacing={2} rowSpacing={12} container mb={5}>
           <Grid
             item
             xs={12}
@@ -95,11 +103,22 @@ function Footer() {
               fontSize={25}
               fontWeight={700}
               color={"#fff"}
+              mb={5}
             >
               Download The App
             </Typography>
             <Stack direction={"row"} alignItems={"center"} spacing={4}>
-              <Stack direction={"row"} alignItems={"center"} spacing={2}>
+              <Stack
+                direction={"row"}
+                alignItems={"center"}
+                spacing={2}
+                sx={{
+                  px: 2,
+                  py: 1,
+                  backgroundColor: "#404040",
+                  borderRadius: 2,
+                }}
+              >
                 <img
                   src={GooglePlay.src}
                   width={30}
@@ -116,7 +135,17 @@ function Footer() {
                 </Box>
               </Stack>
 
-              <Stack direction={"row"} alignItems={"center"} spacing={2}>
+              <Stack
+                direction={"row"}
+                alignItems={"center"}
+                spacing={2}
+                sx={{
+                  px: 2,
+                  py: 1,
+                  backgroundColor: "#404040",
+                  borderRadius: 2,
+                }}
+              >
                 <img
                   src={mobileApp.src}
                   width={20}
@@ -139,8 +168,7 @@ function Footer() {
       <Box
         sx={{
           py: 3,
-          background:
-            "linear-gradient(180deg, rgba(24,190,222,1)  ,rgba(90,191,139,1)  100%);",
+          backgroundColor: "#404040",
         }}
       >
         <Typography

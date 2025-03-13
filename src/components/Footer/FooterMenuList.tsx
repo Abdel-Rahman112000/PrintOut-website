@@ -6,64 +6,27 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 
-export default function FooterMenuList() {
+export default function FooterMenuList({ items }: any) {
   return (
     <Box>
-      <Typography variant="body1" fontSize={30} fontWeight={700} color={"#fff"}>
-        Need Help
+      <Typography variant="body1" fontSize={30} fontWeight={600} color={"#fff"}>
+        {items?.title}
       </Typography>
       <List>
-        <ListItem disablePadding>
-          <ListItemButton component="a" href="#simple-list">
-            <ListItemText
-              sx={{
-                "& .MuiTypography-root": { color: "#fff" },
-              }}
-              primary="Contact Us"
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component="a" href="#simple-list">
-            <ListItemText
-              sx={{
-                "& .MuiTypography-root": { color: "#fff" },
-              }}
-              primary="Track Order"
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component="a" href="#simple-list">
-            <ListItemText
-              sx={{
-                "& .MuiTypography-root": { color: "#fff" },
-              }}
-              primary="Returns & Refunds"
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component="a" href="#simple-list">
-            <ListItemText
-              sx={{
-                "& .MuiTypography-root": { color: "#fff" },
-              }}
-              primary="FAQ's"
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component="a" href="#simple-list">
-            <ListItemText
-              sx={{
-                "& .MuiTypography-root": { color: "#fff" },
-              }}
-              primary="Career"
-            />
-          </ListItemButton>
-        </ListItem>
+        {items?.items.map((item: any, index: number) => (
+          <ListItem disablePadding key={index}>
+            <ListItemButton component={Link} href={item.link}>
+              <ListItemText
+                sx={{
+                  "& .MuiTypography-root": { color: "#fff" },
+                }}
+                primary={item.text}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
     </Box>
   );

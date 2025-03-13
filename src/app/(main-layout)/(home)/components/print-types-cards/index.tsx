@@ -1,18 +1,13 @@
 "use client";
 
-import RedeemIcon from "@mui/icons-material/Redeem";
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
   Box,
   Button,
-  ButtonBase,
   ButtonProps,
-  Container,
   Divider,
   Grid,
   IconButton,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -41,7 +36,7 @@ function PrintTypesCards() {
   const { printTypes } = useContext(HomeContext);
 
   return (
-    <Grid container spacing={4} pt={10}>
+    <Grid container spacing={4} pt={10} component={Link} href="/custom-print">
       <Grid item xs={12}>
         <Typography
           width={"100%"}
@@ -73,7 +68,7 @@ function PrintTypesCards() {
             <Typography variant="body1" sx={{ color: "#fff", mb: 3 }}>
               Upload your files and start ordering your custom print.
             </Typography>
-            <IconButton sx={{ color: "#fff" }} href="/custom-print">
+            <IconButton sx={{ color: "#fff" }}>
               <ArrowForwardIcon />
             </IconButton>
           </Box>
@@ -123,6 +118,8 @@ const PrintProductType = (props: PrintProductTypeProps) => {
 
   return (
     <Stack
+      component={Link}
+      href={props.path}
       alignItems={"start"}
       sx={{
         pt: 10,
@@ -152,13 +149,13 @@ const PrintProductType = (props: PrintProductTypeProps) => {
           alignItems: "center",
           mt: 2,
           width: 1,
-          px: 3,
+          p: 5,
         }}
       >
         <Typography variant="body1" fontWeight={700} sx={{ fontSize: "22px" }}>
           {props.title}
         </Typography>
-        <IconButton onClick={handleClick}>
+        <IconButton>
           <ArrowForwardIcon />
         </IconButton>
       </Box>

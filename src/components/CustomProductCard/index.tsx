@@ -22,16 +22,18 @@ function CustomProductCard({ product, addToCart }: PropsType) {
   const param = useParams();
 
   return (
-    <Link
-      href={`/products/${param.productName ?? product.type_id}/${product.id}`}
-      passHref
+    <Paper
+      sx={{
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        background:
+          "linear-gradient(180deg, rgba(24, 190, 222, 0.5) 66.9%, rgba(90, 191, 139, 0.5) 100%)",
+      }}
     >
-      <Paper
-        sx={{
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-          background:
-            "linear-gradient(180deg, rgba(24, 190, 222, 0.5) 66.9%, rgba(90, 191, 139, 0.5) 100%)",
-        }}
+      <Link
+        href={`/products/${param?.productName ?? product.type_id}/${
+          product.id
+        }`}
+        passHref
       >
         <Stack
           sx={{
@@ -82,35 +84,35 @@ function CustomProductCard({ product, addToCart }: PropsType) {
             <Typography variant="body2">product description</Typography>
           </Box>
         </Stack>
-        <Stack
-          sx={{ flexDirection: "row", justifyContent: "space-between", p: 2 }}
+      </Link>
+      <Stack
+        sx={{ flexDirection: "row", justifyContent: "space-between", p: 2 }}
+      >
+        <Button
+          startIcon={<ShoppingCartIcon />}
+          sx={{ bgcolor: "#40BFAC", borderRadius: 5 }}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent navigation when adding to cart
+            addToCart && addToCart(product.id, product?.type_id);
+          }}
         >
-          <Button
-            startIcon={<ShoppingCartIcon />}
-            sx={{ bgcolor: "#40BFAC", borderRadius: 5 }}
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent navigation when adding to cart
-              addToCart && addToCart(product.id, product?.type_id);
-            }}
-          >
-            Add to Cart
-          </Button>
-          {product?.product_price?.price && (
-            <Stack alignItems={"center"} justifyContent={"center"}>
-              <Typography
-                sx={{
-                  fontSize: "19px",
-                  fontWeight: 600,
-                  color: "#40BFAC",
-                }}
-              >
-                {product?.product_price?.price ?? "_"}$
-              </Typography>
-            </Stack>
-          )}
-        </Stack>
-      </Paper>
-    </Link>
+          Add to Cart
+        </Button>
+        {product?.product_price?.price && (
+          <Stack alignItems={"center"} justifyContent={"center"}>
+            <Typography
+              sx={{
+                fontSize: "19px",
+                fontWeight: 600,
+                color: "#40BFAC",
+              }}
+            >
+              {product?.product_price?.price ?? "_"}$
+            </Typography>
+          </Stack>
+        )}
+      </Stack>
+    </Paper>
   );
 }
 
