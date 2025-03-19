@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { withAuth } from "@/guards/auth.guard";
 import dynamic from "next/dynamic";
 const CustomPrintTabs = dynamic(() => import("./components/page-content"), {
@@ -10,9 +10,9 @@ function CustomPrintPage() {
 
   return (
     <Container>
-      <div>
+      <Stack>
         <CustomPrintTabs />
-      </div>
+      </Stack>
     </Container>
   );
 }

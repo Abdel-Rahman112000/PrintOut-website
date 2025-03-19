@@ -118,11 +118,11 @@ function LoginForm() {
               helperText={errors.password?.message}
             />
           </AddLabelToEl>
-          <div>
+          <Stack>
             <Button type="submit" sx={{ px: 10, py: 1.5 }} size="large">
               Register
             </Button>
-          </div>
+          </Stack>
         </Box>
       </Stack>
     </Box>

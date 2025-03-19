@@ -239,7 +239,7 @@ export default function ProductsFiltersInWebScreen({
               fontWeight: 500,
               fontSize: "16px",
             }}
-          >{`$${value[0]}`}</Typography>
+          >{`EGP${value[0]}`}</Typography>
           <Typography
             variant="body1"
             sx={{
@@ -251,7 +251,7 @@ export default function ProductsFiltersInWebScreen({
               fontWeight: 500,
               fontSize: "16px",
             }}
-          >{`$${value[1]}`}</Typography>
+          >{`EGP${value[1]}`}</Typography>
         </Box>
       </Box>
     </SideBar>

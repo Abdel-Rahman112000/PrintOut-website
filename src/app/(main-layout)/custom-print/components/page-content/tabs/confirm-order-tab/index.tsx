@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import CustomInputHorizontal from "@/components/custom-inputs/Horizontal";
 import { api } from "@/constants/api";
 import { getClientAuthHeaders } from "@/libs/auth/getClientAuthHeaders";
@@ -26,10 +26,10 @@ function ConfirmOrderTab({ order }: Props) {
   console.log(selectedAddress);
 
   return (
-    <div>
+    <Stack>
       <Grid container spacing={4}>
         <Grid item xs={12} md={8} lg={9}>
-          <div>
+          <Stack>
             <Typography fontWeight={700} gutterBottom>
               Select your preferable address
             </Typography>
@@ -67,7 +67,7 @@ function ConfirmOrderTab({ order }: Props) {
                   />
                 </Paper>
               ))}
-              <div>
+              <Stack>
                 <Button
                   sx={{ mt: 2 }}
                   color="secondary"
@@ -76,7 +76,7 @@ function ConfirmOrderTab({ order }: Props) {
                 >
                   Add New Address
                 </Button>
-              </div>
+              </Stack>
               <Button
                 onClick={async () => {
                   try {
@@ -99,12 +99,12 @@ function ConfirmOrderTab({ order }: Props) {
                 Submit Order
               </Button>
             </Stack>
-          </div>
+          </Stack>
           <Stack spacing={4}></Stack>
         </Grid>
         <Grid item xs={12} md={4} lg={3}></Grid>
       </Grid>
-    </div>
+    </Stack>
   );
 }
 

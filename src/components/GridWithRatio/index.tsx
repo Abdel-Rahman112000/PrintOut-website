@@ -1,4 +1,4 @@
-import { Grid, GridProps } from "@mui/material";
+import { Grid, GridProps, Stack } from "@mui/material";
 import AspectRatio from "../AspectRatio";
 import { ReactNode } from "react";
 
@@ -10,7 +10,7 @@ const GridItem = ({ children, ...props }: GridProps) => (
 
 function GridWithRatio({ items }: Props) {
   return (
-    <div>
+    <Stack>
       <Grid container spacing={4}>
         {items.map(({ children, key, gridProps }) => (
           <GridItem key={key} {...gridProps}>
@@ -18,7 +18,7 @@ function GridWithRatio({ items }: Props) {
           </GridItem>
         ))}
       </Grid>
-    </div>
+    </Stack>
   );
 }
 

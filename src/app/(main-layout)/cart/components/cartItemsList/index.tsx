@@ -97,7 +97,7 @@ const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
             Product Description
           </Typography> */}
           <Typography variant="body1" fontSize={"body2"} fontWeight={400}>
-            {cartItem?.total_price ?? "0"} $
+            {cartItem?.total_price ?? "0"} EGP
           </Typography>
         </Box>
       </Stack>

@@ -5,11 +5,24 @@ import { getClientAuthHeaders } from "@/libs/auth/getClientAuthHeaders";
 import { Order } from "@/types/common/Order";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { createContext, ReactNode } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from "react";
+
+type ActiveTabType = "Track_Order" | "Tracking" | "Addresses";
 
 export const UserOrdersCxt = createContext<UserOrdersCxtType>({
   orders: [],
   loadingOrders: false,
+  handleChange: () => {},
+  value: 0,
+  setValue: () => {},
+  setActiveTabName: () => {},
+  activeTabName: "Track_Order",
 });
 
 const fetchOrdersData = async () => {
@@ -18,10 +31,14 @@ const fetchOrdersData = async () => {
     headers,
   });
 
+  console.log(response.data.data);
   return response.data;
 };
 
 export const UserOrdersCxtProvider = (props: PropsType) => {
+  const [value, setValue] = useState(0);
+  const [activeTabName, setActiveTabName] =
+    useState<ActiveTabType>("Track_Order");
   // TODO::declare and define component state and variables
   const { children } = props;
   const query = useQuery({
@@ -30,6 +47,9 @@ export const UserOrdersCxtProvider = (props: PropsType) => {
   });
 
   // TODO::declare and define helper methods
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   // ** return component ui
   return (
@@ -40,6 +60,11 @@ export const UserOrdersCxtProvider = (props: PropsType) => {
           ...(query?.data?.data?.current ?? []),
         ],
         loadingOrders: query?.isLoading,
+        handleChange,
+        value,
+        setValue,
+        setActiveTabName,
+        activeTabName,
       }}
     >
       {children}
@@ -57,6 +82,11 @@ type PropsType = {
 };
 
 type UserOrdersCxtType = {
+  value: number;
   orders: Order[];
   loadingOrders: boolean;
+  handleChange: (event: React.SyntheticEvent, newValue: number) => void;
+  setValue: Dispatch<SetStateAction<number>>;
+  setActiveTabName: Dispatch<SetStateAction<ActiveTabType>>;
+  activeTabName: ActiveTabType;
 };

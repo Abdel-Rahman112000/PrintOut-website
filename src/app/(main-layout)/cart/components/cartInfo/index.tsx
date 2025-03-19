@@ -61,7 +61,7 @@ export default function CartInformation() {
           Total Amount :{" "}
         </Typography>
         <Typography variant="body2" fontWeight={600} fontSize={20}>
-          {totalPrice} $
+          {totalPrice} EGP
         </Typography>
       </Stack>
       {/* addresses */}

@@ -72,7 +72,7 @@ function Footer() {
         </Grid>
         {/* social links & mobile app link */}
         <Grid spacing={2} rowSpacing={12} container mb={5}>
-          <Grid
+          {/* <Grid
             item
             xs={12}
             md={6}
@@ -96,7 +96,7 @@ function Footer() {
                 <LinkedInIcon sx={{ color: "#F6F6F6" }} />
               </IconButton>
             </Stack>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6}>
             <Typography
               variant="body2"

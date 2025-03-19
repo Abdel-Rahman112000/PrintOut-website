@@ -68,24 +68,26 @@ function ContactUs() {
           </Box>
         </Grid>
         <Grid item xs={12} md={7} lg={6}>
-          <Typography variant="h4" sx={{ my: 5 }}>
-            Sent us a message
-          </Typography>
-
           <Box>
-            <TextField fullWidth label="Full Name" sx={{ mb: 3 }} />
-            <TextField fullWidth label="Email Address" sx={{ mb: 3 }} />
-            <TextField fullWidth label="Subject" sx={{ mb: 3 }} />
-            <TextField
-              fullWidth
-              label="Message"
-              sx={{ mb: 3 }}
-              multiline
-              rows={5}
-            />
-            <Button variant="contained" sx={{ px: 3, py: 2 }}>
-              Create Account
-            </Button>
+            <Typography variant="h4" sx={{ my: 5 }}>
+              Sent us a message
+            </Typography>
+
+            <Box>
+              <TextField fullWidth label="Full Name" sx={{ mb: 3 }} />
+              <TextField fullWidth label="Email Address" sx={{ mb: 3 }} />
+              <TextField fullWidth label="Subject" sx={{ mb: 3 }} />
+              <TextField
+                fullWidth
+                label="Message"
+                sx={{ mb: 3 }}
+                multiline
+                rows={5}
+              />
+              <Button variant="contained" sx={{ px: 3, py: 2 }}>
+                Create Account
+              </Button>
+            </Box>
           </Box>
         </Grid>
       </Grid>

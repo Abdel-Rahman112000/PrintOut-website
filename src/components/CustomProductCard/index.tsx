@@ -107,7 +107,7 @@ function CustomProductCard({ product, addToCart }: PropsType) {
                 color: "#40BFAC",
               }}
             >
-              {product?.product_price?.price ?? "_"}$
+              {product?.product_price?.price ?? "_"} EGP
             </Typography>
           </Stack>
         )}

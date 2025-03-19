@@ -3,9 +3,9 @@ import { ReactNode } from "react";
 
 function SectionFloatingTitle({ title, children }: Props) {
   return (
-    <div style={{ position: "relative" }}>
+    <Box style={{ position: "relative" }}>
       <Stack bgcolor={"background.paper"}>
-        <div>
+        <Box>
           <Typography
             variant="h2"
             sx={{ mt: "-0.5em", zIndex: 5, position: "relative" }}
@@ -13,12 +13,12 @@ function SectionFloatingTitle({ title, children }: Props) {
           >
             {title}
           </Typography>
-        </div>
+        </Box>
         <Box pt={3} pb={6}>
           {children}
         </Box>
       </Stack>
-    </div>
+    </Box>
   );
 }
 

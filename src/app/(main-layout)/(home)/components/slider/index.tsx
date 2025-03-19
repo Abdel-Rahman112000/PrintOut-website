@@ -2,7 +2,7 @@
 
 import FullSizeImage from "@/components/FullSizeImage";
 import { $Heights } from "@/constants/sizes";
-import { styled } from "@mui/material";
+import { Stack, styled } from "@mui/material";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Autoplay } from "swiper/modules";
@@ -13,12 +13,11 @@ const StyledSwiper = styled(Swiper)(({ theme }) => ({
   height: `calc(100vh - ${$Heights.Navbar}px)`,
 }));
 
-
 function Slider() {
   const { covers } = useContext(HomeContext);
 
   return (
-    <div>
+    <Stack>
       <StyledSwiper
         slidesPerView={1}
         onSlideChange={() => console.log("slide change")}
@@ -39,7 +38,7 @@ function Slider() {
           ))}
         ...
       </StyledSwiper>
-    </div>
+    </Stack>
   );
 }
 

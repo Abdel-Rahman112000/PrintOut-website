@@ -16,6 +16,8 @@ export default function AddNewAddress(props: PropsType) {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
+    reset,
+    watch,
   } = useForm<FormType>({ mode: "onSubmit" });
   const [addressPosition, setAddressPosition] = useState<[number, number]>([
     30.0444, 31.2357,
@@ -34,7 +36,8 @@ export default function AddNewAddress(props: PropsType) {
         .post(api`client/address`, body, { headers })
         .then(() => {
           toast.success("Address added successfully");
-          setActiveTab("ActiveList")
+          setActiveTab("ActiveList");
+          reset({});
         })
         .catch((err) => {
           toast.error("Failed to add address");

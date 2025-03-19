@@ -14,6 +14,7 @@ export interface Order {
   method: string;
   latitude: string;
   longitude: string;
+  delivery_within: number;
   delivery_type: string;
   note: any;
   total_price: string;
@@ -30,6 +31,8 @@ export interface Order {
     name: string;
     key: string;
     by: string;
+
+    badge_color: string;
   };
   client?: User;
   media: Media[];

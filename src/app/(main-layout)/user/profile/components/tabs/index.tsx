@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuList,
   Paper,
+  Stack,
 } from "@mui/material";
 import { FC, ReactNode, useMemo } from "react";
 import { StringParam, useQueryParam, withDefault } from "use-query-params";
@@ -79,7 +80,7 @@ function ProfileTabs() {
           </Paper>
         </Grid>
         <Grid item xs={12} md={8} lg={9}>
-          <div>{current}</div>
+          <Stack>{current}</Stack>
         </Grid>
       </Grid>
     </Container>

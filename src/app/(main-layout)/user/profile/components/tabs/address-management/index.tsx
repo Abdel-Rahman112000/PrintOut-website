@@ -19,9 +19,9 @@ function AddressManagement() {
         refresh={refetch}
       />
       <Stack spacing={4}>
-        <div>
+        <Stack>
           <Button onClick={() => setOpen(true)}>Add New Address</Button>
-        </div>
+        </Stack>
         {data?.data?.map((address) => (
           <Paper key={address.id}>
             <Stack p={2} spacing={4} direction="row" alignItems="center">

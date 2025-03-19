@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import { ReactNode, useEffect, useRef, useState } from "react";
 
 function RotatedTitleInSide({ children, title }: Props) {
@@ -10,7 +10,7 @@ function RotatedTitleInSide({ children, title }: Props) {
     if (ref.current) setMinHeight(ref.current.clientWidth + 60);
   }, [ref.current, title]);
   return (
-    <div>
+    <Stack>
       <Grid container spacing={6} sx={{ overflow: "hidden" }}>
         <Grid
           item
@@ -54,7 +54,7 @@ function RotatedTitleInSide({ children, title }: Props) {
           {children}
         </Grid>
       </Grid>
-    </div>
+    </Stack>
   );
 }
 
