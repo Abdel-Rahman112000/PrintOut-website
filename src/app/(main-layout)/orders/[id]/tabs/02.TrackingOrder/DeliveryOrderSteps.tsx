@@ -5,16 +5,12 @@ import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Check from "@mui/icons-material/Check";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import OtherHousesIcon from "@mui/icons-material/OtherHouses";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
@@ -118,7 +114,7 @@ export default function DeliveryOrderSteps(props: PropsType) {
       </Typography>
       <Stepper
         alternativeLabel
-        activeStep={3}
+        activeStep={0}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (

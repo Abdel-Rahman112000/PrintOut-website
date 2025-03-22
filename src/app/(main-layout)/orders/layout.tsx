@@ -1,5 +1,4 @@
-import SideBar from "@/components/SideBar";
-import { Container, Grid, Stack, Tabs, Typography } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 import { UserOrdersCxtProvider } from "./context/UserOrdersCxt";
 import SideBarLayout from "./components/SideBar";
 
@@ -13,7 +12,7 @@ export default async function RootLayout({
       <Container maxWidth="xl">
         {/* orders page header */}
 
-        <Stack spacing={2}>
+        <Stack spacing={4}>
           <>
             <Grid container>
               <Grid item md={3} xs={12}>

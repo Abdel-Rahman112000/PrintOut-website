@@ -25,23 +25,18 @@ export const MoreInfo = {
   items: [
     {
       text: "Term and Conditions",
-      link: "/Terms",
+      link: "",
     },
     {
       text: "Privacy Policy",
-      link: "/Terms",
+      link: "",
     },
     {
       text: "Shipping Policy",
-      link: "/Terms",
-    },
-    {
-      text: "Returns & Refund Policy",
-      link: "/Terms",
+      link: "",
     },
   ],
 };
-
 export const Location = {
   title: "Location",
   items: [
