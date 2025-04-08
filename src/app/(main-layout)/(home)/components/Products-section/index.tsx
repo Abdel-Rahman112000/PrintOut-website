@@ -9,13 +9,12 @@ import "swiper/css/navigation";
 // import required modules
 import { Keyboard, Pagination, Navigation, Autoplay } from "swiper/modules";
 import CustomProductCard from "@/components/CustomProductCard";
-export default function GiveawaysProduct() {
-  const { productsRegularGiveaway } = useContext(HomeContext);
-  if (
-    Array.isArray(productsRegularGiveaway) &&
-    productsRegularGiveaway.length == 0
-  )
-    return <></>;
+import { CartContext } from "@/contexts/cart/CartContext";
+import { Product } from "@/types/common/Product";
+export default function ProductsSection({ title, products }: PropsType) {
+  const { AddItemToCard } = useContext(CartContext);
+
+  if (Array.isArray(products) && products.length == 0) return <></>;
   return (
     <Box pt={10}>
       <Stack my={6} alignItems={"start"} justifyContent={"center"}>
@@ -31,7 +30,7 @@ export default function GiveawaysProduct() {
             }}
           ></Box>
           <Typography variant="h5" fontWeight={800} fontSize={26}>
-            Giveaways Products
+            {title}
           </Typography>
         </Stack>
         {/* product row */}
@@ -63,16 +62,21 @@ export default function GiveawaysProduct() {
           enabled: true,
         }}
         modules={[Keyboard, Pagination, Navigation, Autoplay]}
-        className="mySwiper mt-5"
+        className="mySwiper mt-5 "
         loop
       >
-        {Array.isArray(productsRegularGiveaway) &&
-          productsRegularGiveaway?.map((product) => (
+        {Array.isArray(products) &&
+          products?.map((product) => (
             <SwiperSlide key={product.id}>
-              <CustomProductCard product={product} />
+              <CustomProductCard product={product} addToCart={AddItemToCard} />
             </SwiperSlide>
           ))}
       </Swiper>
     </Box>
   );
 }
+
+type PropsType = {
+  title: string;
+  products: Product[] | undefined;
+};

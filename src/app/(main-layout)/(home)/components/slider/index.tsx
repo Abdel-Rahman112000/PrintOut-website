@@ -15,7 +15,7 @@ const StyledSwiper = styled(Swiper)(({ theme }) => ({
 
 function Slider() {
   const { covers } = useContext(HomeContext);
-
+  console.log("covers", covers);
   return (
     <Stack>
       <StyledSwiper

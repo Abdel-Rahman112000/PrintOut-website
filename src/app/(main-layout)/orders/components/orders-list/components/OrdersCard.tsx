@@ -21,6 +21,7 @@ function OrdersCard({ order }: { order: Order }) {
           flexDirection: "row",
           p: 2,
           background: "#FAFAFC",
+          cursor: "pointer",
         }}
         onClick={GoToDetails}
       >

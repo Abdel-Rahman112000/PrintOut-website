@@ -178,7 +178,7 @@ function Footer() {
           fontWeight={700}
           color={"#fff"}
         >
-          Copyright © 2024 MKMO. All rights reserved.
+          Copyright © 2025 MKMO. All rights reserved.
         </Typography>
       </Box>
     </Box>

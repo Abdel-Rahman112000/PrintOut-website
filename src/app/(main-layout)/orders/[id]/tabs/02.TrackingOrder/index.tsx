@@ -2,14 +2,14 @@ import { Box, Stack, Typography } from "@mui/material";
 import DeliveryOrderSteps from "./DeliveryOrderSteps";
 import OrderActivities from "./OrderActivities";
 import ProductsTable from "./ProductsTable";
-import TrackingDeliveryMap from "./TrackingMap";
 import { Order } from "@/types/common/Order";
+import TrackGoogleMap from "./TrackGoogleMap";
 
 export default function TrackingOrder(props: PropsType) {
   const { mainOrder } = props;
 
   return (
-    <Box p={3} my={3} border={"1px solid lightgray"}>
+    <Box p={3} m={5} border={"1px solid lightgray"}>
       {/* title */}
       <Typography variant="body2" fontSize={20} fontWeight={500}>
         Order Details
@@ -18,8 +18,8 @@ export default function TrackingOrder(props: PropsType) {
       {/* Order information */}
       <Stack
         my={2}
-        p={5}
-        bgcolor={"#F7E99E"}
+        p={3}
+        bgcolor={"#FDFAE7"}
         alignItems={"center"}
         justifyContent={"space-between"}
         border={"1px solid lightgray"}
@@ -52,13 +52,13 @@ export default function TrackingOrder(props: PropsType) {
       <DeliveryOrderSteps mainOrder={mainOrder} />
 
       {/* TrackingDeliveryMap */}
-      <TrackingDeliveryMap />
+      <TrackGoogleMap />
 
       {/* orders activities */}
       <OrderActivities mainOrder={mainOrder} />
 
       {/* Products table */}
-      <ProductsTable mainOrder={mainOrder}/>
+      <ProductsTable mainOrder={mainOrder} />
 
       {/*  */}
     </Box>

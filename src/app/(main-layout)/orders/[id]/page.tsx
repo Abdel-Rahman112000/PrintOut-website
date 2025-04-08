@@ -8,7 +8,7 @@ import MainOrderDetailsTabs from "./tabs";
 
 export default function OrderDetailsPage() {
   const params = useParams();
-  const { id } = params;
+  const id = params?.id as string;
   // /client/order/main/29
   const { data: mainOrder, isLoading } = useQuery({
     queryKey: [`main-order-data`],
@@ -24,11 +24,7 @@ export default function OrderDetailsPage() {
   if (isLoading) return <LoadingMainOrder />;
 
   // Show main order data
-  return (
-    <Container>
-      <MainOrderDetailsTabs mainOrder={mainOrder} />
-    </Container>
-  );
+  return <MainOrderDetailsTabs mainOrder={mainOrder} />;
 }
 
 const LoadingMainOrder = () => (
@@ -37,11 +33,8 @@ const LoadingMainOrder = () => (
       md: "row",
       xs: "column",
     }}
+    sx={{ mt: 3 }}
   >
-    <Skeleton variant="rounded" width={255} height={345} sx={{ m: 2 }} />
-    <Box gap={1} flexGrow={1} p={2}>
-      <Skeleton variant="rounded" height={162} />
-      <Skeleton variant="rounded" height={162} sx={{ my: 2 }} />
-    </Box>
+    <Skeleton variant="rounded" width={1000} height={345} sx={{ m: 2 }} />
   </Stack>
 );

@@ -24,24 +24,19 @@ export const MoreInfo = {
   title: "More Info",
   items: [
     {
-      text: "Term and Conditions",
-      link: "/Terms",
+      text: "Terms and Conditions",
+      link: "",
     },
     {
       text: "Privacy Policy",
-      link: "/Terms",
+      link: "",
     },
     {
       text: "Shipping Policy",
-      link: "/Terms",
-    },
-    {
-      text: "Returns & Refund Policy",
-      link: "/Terms",
+      link: "",
     },
   ],
 };
-
 export const Location = {
   title: "Location",
   items: [

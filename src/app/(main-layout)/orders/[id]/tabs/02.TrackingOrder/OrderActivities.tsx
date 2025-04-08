@@ -11,7 +11,7 @@ export default function OrderActivities(props: PropsType) {
   const { mainOrder } = props;
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} mt={3}>
       <Typography variant="body2" fontWeight={500} fontSize={18}>
         OrderActivities
       </Typography>
@@ -20,11 +20,15 @@ export default function OrderActivities(props: PropsType) {
           key={status.id}
           bgcolor={status.action === 1 ? "#D5EDFD" : "#D5F0D3"}
           statement={status.status}
-          subStatement={status.updated_at ? new Date(status.updated_at).toLocaleString() : '-'}
+          subStatement={
+            status.updated_at
+              ? new Date(status.updated_at).toLocaleString()
+              : "-"
+          }
           icon={<DateRangeOutlinedIcon color="success" />}
         />
       ))}
-      {/* <OrderActivityItem
+      <OrderActivityItem
         bgcolor="#D5F0D3"
         statement="Your order has been Printed successfully."
         subStatement="23 Jan, 2021 at 7:32 PM"
@@ -47,7 +51,7 @@ export default function OrderActivities(props: PropsType) {
         statement="Your order has been confirmed."
         subStatement="19 Jan, 2021 at 2:61 PM"
         icon={<DateRangeOutlinedIcon color="primary" />}
-      /> */}
+      />
     </Stack>
   );
 }

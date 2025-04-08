@@ -66,7 +66,7 @@ function SelectType() {
       <div>
         <Stack direction={"row"} spacing={2}>
           <Typography variant="h6" flexGrow={1}>
-            Print Type
+            {/* Print Type */}
           </Typography>
           <TuneIcon />
         </Stack>
