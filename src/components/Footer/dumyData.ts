@@ -24,7 +24,7 @@ export const MoreInfo = {
   title: "More Info",
   items: [
     {
-      text: "Term and Conditions",
+      text: "Terms and Conditions",
       link: "",
     },
     {

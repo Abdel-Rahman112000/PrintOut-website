@@ -41,9 +41,9 @@ export default function TopBrands() {
           md: "row",
         }}
         alignItems={"center"}
-        justifyContent={"space-evenly"}
+        justifyContent={"center"}
         my={4}
-        spacing={2}
+        spacing={8}
       >
         {brands?.map((brand) => (
           <img

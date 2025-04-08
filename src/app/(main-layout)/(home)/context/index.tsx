@@ -11,6 +11,7 @@ export const HomeContext = createContext<HomeContextType>({
   brands: undefined,
   productsRegularGiveaway: [],
   categoriesRegularGiveaway: [],
+  readyMadeGiveaways: [],
 } as HomeContextType);
 
 export const HomeContextProvider = (props: PropsType) => {
@@ -29,6 +30,7 @@ export const HomeContextProvider = (props: PropsType) => {
         printTypes: homeQuery.data?.types,
         productsRegularGiveaway: homeQuery.data?.productsRegularGiveaway,
         categoriesRegularGiveaway: homeQuery.data?.categoriesRegularGiveaway,
+        readyMadeGiveaways: homeQuery.data?.productsStationery,
       }}
     >
       {children}
@@ -46,4 +48,5 @@ type HomeContextType = {
   printTypes: PrintType[] | undefined;
   productsRegularGiveaway: Product[] | undefined;
   categoriesRegularGiveaway: Category[] | undefined;
+  readyMadeGiveaways: Product[] | undefined;
 };

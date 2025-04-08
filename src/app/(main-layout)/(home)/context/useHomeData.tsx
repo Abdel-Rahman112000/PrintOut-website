@@ -11,7 +11,7 @@ const fetchData = async () => {
   const response = await axios.get<HomeReqResponseType>(api`client/home`, {
     headers,
   });
-
+  console.log("response.data", response.data);
   return response.data;
 };
 
@@ -28,6 +28,7 @@ type HomeReqResponseType = {
   brands: CoverType[];
   productsRegularGiveaway: Product[];
   categoriesRegularGiveaway: Category[];
+  productsStationery: Product[];
 };
 
 export type CoverType = {

@@ -1,10 +1,12 @@
-import { Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Stack } from "@mui/material";
 import ProductDetailsMainInfo from "./components/productMainInfo";
-
 import ProductSwiper from "./components/ProductSwiper";
 import { getProduct } from "@/utils/api/product/get-product";
 import { getServerAuthHeaders } from "@/libs/auth/getServerAuthHeaders";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
+import VideoCard from "./components/VideoCard";
+import { getProductsList } from "@/utils/api/product/get-products-list";
+import ProductsSection from "@/app/(main-layout)/(home)/components/Products-section";
 
 export default async function ProductDetails({
   params,
@@ -15,22 +17,43 @@ export default async function ProductDetails({
 
   const product = (await getProduct(headers, params?.productId)).data;
 
-  console.log(product);
-
   if (!product) {
     notFound();
   }
 
+  const products = await getProductsList(headers, {
+    params: { type_id: product?.type_id }, // ← use real product type_id
+  });
+
   return (
-    <Container maxWidth="lg" sx={{ mt: "40px" }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={5}>
-          <ProductSwiper product={product} />
+    <>
+      <Container
+        sx={{
+          maxWidth: {
+            xs: "sm",
+            sm: "md",
+            md: "lg",
+            xl: "xl",
+          },
+          mt: "40px",
+        }}
+      >
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={5}>
+            <ProductSwiper product={product} />
+          </Grid>
+          <Grid item xs={12} md={7}>
+            <ProductDetailsMainInfo product={product} />
+          </Grid>
+          <Grid item xs={0} md={2}></Grid>
+
+          <Grid item xs={12} md={8}>
+            <VideoCard product={product} />
+          </Grid>
+          <Grid item xs={0} md={2}></Grid>
         </Grid>
-        <Grid item xs={12} md={7}>
-          <ProductDetailsMainInfo product={product} />
-        </Grid>
-      </Grid>
-    </Container>
+        <ProductsSection products={products} title={"Related Products"} />
+      </Container>
+    </>
   );
 }

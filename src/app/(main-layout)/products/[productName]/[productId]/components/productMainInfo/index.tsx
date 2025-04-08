@@ -28,14 +28,16 @@ import { Product } from "@/types/common/Product";
 import { Controller, useForm } from "react-hook-form";
 import { FilePond } from "react-filepond";
 import { useState } from "react";
+import { useParams } from "next/navigation";
 
 export default function ProductDetailsMainInfo({ product }: PropsType) {
+  const params = useParams();
   const [open, setOpen] = useState(false);
   const { control, handleSubmit } = useForm();
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
   });
-
+  const customDesc = product.description?.replace(/(\r\n|\n|\r)/g, "\n");
   return (
     <Stack spacing={3} p={"10px"}>
       <Breadcrumbs aria-label="breadcrumb">
@@ -67,7 +69,7 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
           3.5
         </Typography>
 
-        <Stack
+        {/* <Stack
           direction={"row"}
           alignItems={"center"}
           justifyContent={"start"}
@@ -78,11 +80,15 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
           <Typography variant="body2" fontSize={16}>
             120 comment
           </Typography>
-        </Stack>
+        </Stack> */}
       </Stack>
       <Stack>
-        <Typography variant="body2" width={"60%"} sx={{ mb: 8 }}>
-          {product.description}
+        <Typography
+          variant="body2"
+          width={"60%"}
+          sx={{ mb: 8, whiteSpace: "pre-wrap" }}
+        >
+          {customDesc}
         </Typography>
       </Stack>
       {/* size */}
@@ -104,14 +110,15 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
           Add to Cart
         </Button>
         {/* {product.type?.id == 1 && ( */}
-        <Button
-          onClick={() => setOpen(true)}
-          variant="outlined"
-          sx={{ p: "10px" }}
-        >
-          Upload Custom Design
-        </Button>
-
+        {params?.productName && params?.productName != "2" && (
+          <Button
+            onClick={() => setOpen(true)}
+            variant="outlined"
+            sx={{ p: "10px" }}
+          >
+            Upload Custom Design
+          </Button>
+        )}
         {/* )} */}
       </Stack>
       <Divider />

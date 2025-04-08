@@ -43,7 +43,7 @@ export default function ProductSwiper({ product }: PropsType) {
         className="mySwiper"
         style={{ width: "80%" }}
       >
-        {product?.media.length > 1 &&
+        {product?.media.length > 1000 &&
           product?.media.map((image) => (
             <SwiperSlide key={image.id}>
               <img src={image.original_url} />

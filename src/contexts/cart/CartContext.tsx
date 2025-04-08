@@ -11,7 +11,7 @@ export const CartContext = createContext<CartContextType>({
   totalAmount: 0,
   totalQuantity: 0,
   cartItems: [],
-  AddItemToCard: (id: number, typeId: number) => {},
+  AddItemToCard: (id: number, typeId: number, name: string) => {},
   RemoveItemFromCard: (id: number) => {},
   handleUpdateTotalQuantity: (num: number) => {},
 });
@@ -29,7 +29,7 @@ export const CartContextProvider = (props: PropsType) => {
     setTotalQuantity(num);
   };
 
-  async function AddItemToCard(id: number, typeId: number) {
+  async function AddItemToCard(id: number, typeId: number, name: string) {
     const existingItem = cartItems?.find((item) => item.productId == id);
     const headers = await getClientAuthHeaders();
     const body = {
@@ -54,8 +54,10 @@ export const CartContextProvider = (props: PropsType) => {
               return item;
             })
           );
+          toast.success(`Product "${name}"  is added to cart successfully.`);
         } else {
           setCartItems((prev) => [...prev, { productId: id, amount: 1 }]);
+          toast.success(`Product "${name}"  is added to cart successfully.`);
         }
         setTotalQuantity((prev) => prev + 1);
       })
@@ -112,6 +114,6 @@ type CartContextType = {
   totalQuantity: number;
   cartItems: CartItem[];
   RemoveItemFromCard(id: number): void;
-  AddItemToCard(id: number, typeId: number): void;
+  AddItemToCard(id: number, typeId: number, name: string): void;
   handleUpdateTotalQuantity: (num: number) => void;
 };
