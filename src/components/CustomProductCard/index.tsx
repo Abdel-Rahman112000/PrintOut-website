@@ -19,12 +19,12 @@ function CustomProductCard({ product, addToCart }: PropsType) {
   const isFavorite = product?.is_favorite ?? false;
   const productNameLen = product?.name?.length;
   const productName =
-    productNameLen > 20 ? `${product?.name?.slice(0, 30)}..` : product?.name;
+    productNameLen > 35 ? `${product?.name?.slice(0, 35)}..` : product?.name;
 
   const productDescLen = product?.description?.length || 0;
   const productDesc =
-    productDescLen > 30
-      ? `${product?.description?.slice(0, 60)}..`
+    productDescLen > 80
+      ? `${product?.description?.slice(0, 80)}..`
       : product?.description;
   return (
     <Paper
@@ -87,7 +87,7 @@ function CustomProductCard({ product, addToCart }: PropsType) {
             justifyContent={"space-between"}
           >
             <Chip
-              label={product?.type?.name ?? ""}
+              label={product?.brand?.name ?? ""}
               variant="filled"
               sx={{ bgcolor: "#1ABFDC", color: "#fff", fontSize: 12 }}
             />

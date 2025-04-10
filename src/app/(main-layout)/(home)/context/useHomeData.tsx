@@ -10,6 +10,9 @@ const fetchData = async () => {
   const headers = await getServerAuthHeaders();
   const response = await axios.get<HomeReqResponseType>(api`client/home`, {
     headers,
+    params: {
+      limit: 9,
+    },
   });
   console.log("response.data", response.data);
   return response.data;

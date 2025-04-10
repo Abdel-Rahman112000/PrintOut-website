@@ -39,7 +39,7 @@ function LoginForm() {
       if (!access_token) throw new Error("Token not found in response body");
       signIn("credentials", { token: access_token, redirect: false });
       // redirect to previous page
-      router.back()
+      router.back();
     } catch (error) {
       setError("email", { message: "Email or Password is incorrect" });
       setFocus("email");

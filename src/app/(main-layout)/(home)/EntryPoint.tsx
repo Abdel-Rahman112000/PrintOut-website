@@ -10,10 +10,15 @@ import TopCategoriesSection from "./components/top-categories";
 import FeedbackMessages from "./components/feedback-messages";
 import { useContext } from "react";
 import { HomeContext } from "./context";
+import useHomeData from "./context/useHomeData";
+import Loader from "../products/components/products-list/Loader";
 
 function EntryPoint() {
+  const homeQuery = useHomeData();
   const { productsRegularGiveaway, readyMadeGiveaways } =
     useContext(HomeContext);
+
+  if (homeQuery.isLoading) return <Loader />;
 
   return (
     <>

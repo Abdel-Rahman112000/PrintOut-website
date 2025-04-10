@@ -16,25 +16,7 @@ import { useContext } from "react";
 import { HomeContext } from "../../context";
 import { useRouter } from "next/navigation";
 
-const CustomButton = (props: ButtonProps) => (
-  <Button
-    fullWidth
-    {...props}
-    sx={{
-      borderColor: "text.disabled",
-      borderWidth: "2px !important",
-      borderRadius: 2,
-      color: "text.primary",
-      px: 4,
-      py: 4,
-      ...props.sx,
-    }}
-  />
-);
-
 function PrintTypesCards() {
-  const { printTypes } = useContext(HomeContext);
-
   return (
     <Grid container spacing={4} pt={10} component={Link} href="/custom-print">
       <Grid item xs={12}>
@@ -111,10 +93,6 @@ export default PrintTypesCards;
 
 const PrintProductType = (props: PrintProductTypeProps) => {
   const router = useRouter();
-
-  const handleClick = () => {
-    router.push(props.path);
-  };
 
   return (
     <Stack

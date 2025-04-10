@@ -12,7 +12,13 @@ import {
 } from "@/utils/api/category/get-categories";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { createContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from "react";
 
 export const ProductsContext = createContext<ProductsContextType>({
   products: [],
@@ -21,10 +27,14 @@ export const ProductsContext = createContext<ProductsContextType>({
   searchParams: {},
   loadingProducts: false,
   handleChangeSearchParams: (_params: ProductsSearchParamsType) => {},
+  setLimit: () => {},
+  limit: 15,
 });
 
 export const ProductsContextProvider = (props: PropsType) => {
   // TODO::declare and define component state and variables
+  const [limit, setLimit] = useState(9);
+
   const { children } = props;
   const [searchParams, setSearchParams] = useState<ProductsSearchParamsType>(
     {}
@@ -51,15 +61,17 @@ export const ProductsContextProvider = (props: PropsType) => {
   const { data: products, isLoading: loadingProducts } = useQuery({
     queryKey: [`products-data`, searchParams],
     queryFn: async () => {
-      const headers = await getClientAuthHeaders();
       const response = await axios.get<ProductsResponseType>(
         api`client/products`,
         {
           params: {
             ...searchParams,
+            limit: limit,
           },
         }
       );
+      console.log(searchParams);
+
       return response.data.data;
     },
   });
@@ -79,6 +91,8 @@ export const ProductsContextProvider = (props: PropsType) => {
         searchParams,
         loadingProducts,
         handleChangeSearchParams,
+        setLimit,
+        limit,
       }}
     >
       {children}
@@ -97,6 +111,7 @@ export type ProductsSearchParamsType = {
   type_id?: string;
   search?: string;
   feature?: string;
+  limit?: number;
 };
 type PropsType = { children: ReactNode; products: Product[] };
 type ProductsContextType = {
@@ -106,4 +121,6 @@ type ProductsContextType = {
   loadingProducts: boolean;
   filter: TypeCategories | undefined;
   handleChangeSearchParams(_params: ProductsSearchParamsType): void;
+  setLimit: Dispatch<SetStateAction<number>>;
+  limit: number;
 };

@@ -1,4 +1,4 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
 import { useContext } from "react";
 import { ProductsContext } from "../../context";
 import Loader from "./Loader";
@@ -19,45 +19,75 @@ export default function ProductsList() {
   return (
     <Stack>
       {/* brands */}
-      {/* <Stack direction={"row"} spacing={2} p={3} overflow={"auto"}>
-        {filter?.categories.length != 0 && (
-          <Button
-            variant="text"
-            sx={{
-              fontWeight: searchParams?.category_id ? "500" : "800",
-              color: "#000",
-            }}
-            onClick={() =>
-              handleChangeSearchParams({ ...searchParams, category_id: "0" })
-            }
-          >
-            All
-          </Button>
-        )}
-
-        {Array.isArray(filter?.categories) &&
-          filter?.categories?.map((cat) => (
-            <Button
-              key={cat.id}
-              variant="text"
+      <Stack direction={"row"} spacing={2} p={3} overflow={"auto"}>
+        {brands?.length != 0 && (
+          <Box>
+            <Avatar
               sx={{
-                fontWeight:
-                  searchParams?.category_id == cat.id.toString()
-                    ? "800"
-                    : "500",
-                color: "#000",
+                width: "70px",
+                height: "70px",
+                border:
+                  searchParams?.category_id == "0"
+                    ? "3px solid #000"
+                    : "0px solid #000",
+                bgcolor: "primary.main",
+                cursor: "pointer",
               }}
               onClick={() =>
-                handleChangeSearchParams({
-                  ...searchParams,
-                  category_id: cat.id.toString(),
-                })
+                handleChangeSearchParams({ ...searchParams, category_id: "0" })
               }
             >
-              {cat?.name}
-            </Button>
+              All
+            </Avatar>
+          </Box>
+        )}
+
+        {Array.isArray(brands) &&
+          brands?.map((brand) => (
+            <Stack
+              key={brand.id}
+              sx={{
+                display: "flex",
+                flexDirection: "col",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Avatar
+                src={brand?.media?.[0]?.original_url}
+                sx={{
+                  width: "70px",
+                  height: "70px",
+                  border:
+                    searchParams?.category_id == brand.id.toString()
+                      ? "3px solid #20B9C9"
+                      : "0px solid #000",
+                }}
+              />
+              <Button
+                variant="text"
+                sx={{
+                  fontWeight:
+                    searchParams?.category_id == brand.id.toString()
+                      ? "800"
+                      : "500",
+                  color:
+                    searchParams?.category_id == brand.id.toString()
+                      ? "primary.main"
+                      : "#000",
+                }}
+                onClick={() =>
+                  handleChangeSearchParams({
+                    ...searchParams,
+                    category_id: brand.id.toString(),
+                  })
+                }
+              >
+                {brand?.name}
+              </Button>
+            </Stack>
           ))}
-      </Stack> */}
+      </Stack>
       {/* products */}
       {loadingProducts ? <Loader /> : <ProductCard />}
     </Stack>

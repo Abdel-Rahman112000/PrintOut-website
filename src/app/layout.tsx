@@ -13,8 +13,8 @@ import AppProvider from "@/components/AppProvider";
 import NextTopLoader from "nextjs-toploader";
 import { AuthProvider } from "@/contexts/AuthProvider";
 import { Suspense } from "react";
-import 'hover.css/css/hover-min.css'; 
-import 'animate.css';
+import "hover.css/css/hover-min.css";
+import "animate.css";
 
 export const metadata: Metadata = {
   title: "Printout",

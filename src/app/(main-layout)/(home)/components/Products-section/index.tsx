@@ -65,12 +65,11 @@ export default function ProductsSection({ title, products }: PropsType) {
         className="mySwiper mt-5 "
         loop
       >
-        {Array.isArray(products) &&
-          products?.map((product) => (
-            <SwiperSlide key={product.id}>
-              <CustomProductCard product={product} addToCart={AddItemToCard} />
-            </SwiperSlide>
-          ))}
+        {products?.map((product) => (
+          <SwiperSlide key={product.id}>
+            <CustomProductCard product={product} addToCart={AddItemToCard} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </Box>
   );

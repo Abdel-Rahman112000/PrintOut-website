@@ -5,7 +5,7 @@ export default function Loader() {
   return (
     <Stack
       width={"100%"}
-      height={"60vh"}
+      height={"90vh"}
       alignItems={"center"}
       justifyContent={"center"}
     >
