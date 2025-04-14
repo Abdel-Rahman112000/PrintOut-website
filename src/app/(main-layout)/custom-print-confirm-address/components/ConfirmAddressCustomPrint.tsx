@@ -54,7 +54,6 @@ function ConfirmAddressCustomPrint() {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
-
   if (isLoading) {
     return (
       <Stack spacing={3} alignItems={"center"} justifyContent={"center"}>
@@ -97,7 +96,6 @@ function ConfirmAddressCustomPrint() {
                       ),
                     }}
                     handleChange={(e) => {
-                      console.log(e);
                       setSelectedAddress(
                         Number(typeof e === "string" ? e : e.target.value)
                       );

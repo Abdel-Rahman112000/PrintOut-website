@@ -59,11 +59,6 @@ function CustomPrintTabs() {
     },
   });
 
-  console.log(
-    "orderQuery.data.dataorderQuery.data.data",
-    orderQuery?.data?.data
-  );
-
   let view: ReactNode = useMemo(() => {
     if (orderId) {
       if (!orderQuery.data?.data) return;

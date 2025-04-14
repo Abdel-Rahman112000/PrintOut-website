@@ -11,12 +11,14 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Product } from "@/types/common/Product";
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 function CustomProductCard({ product, addToCart }: PropsType) {
   const param = useParams();
+  const router = useRouter();
+
   const isFavorite = product?.is_favorite ?? false;
+
   const productNameLen = product?.name?.length;
   const productName =
     productNameLen > 35 ? `${product?.name?.slice(0, 35)}..` : product?.name;
@@ -26,6 +28,18 @@ function CustomProductCard({ product, addToCart }: PropsType) {
     productDescLen > 80
       ? `${product?.description?.slice(0, 80)}..`
       : product?.description;
+
+  const productUrl = `/products/${param?.productName ?? product.type_id}/${
+    product.id
+  }`;
+
+  const handleCardClick = () => {
+    // Navigate only for type_id == 1 (Upload Design), or on card click
+    if (product?.type_id === 1) {
+      router.push(productUrl);
+    }
+  };
+
   return (
     <Paper
       sx={{
@@ -36,78 +50,79 @@ function CustomProductCard({ product, addToCart }: PropsType) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        cursor: "pointer",
       }}
+      onClick={handleCardClick}
     >
-      <Link
-        href={`/products/${param?.productName ?? product.type_id}/${
-          product.id
-        }`}
-        passHref
-      >
-        <Stack
-          sx={{
-            p: 2,
-            display: "flex",
-            alignItems: "end",
-            justifyContent: "space-between",
-            height: "280px",
+      <Stack
+        sx={{
+          p: 2,
+          display: "flex",
+          alignItems: "end",
+          justifyContent: "space-between",
+          height: "280px",
+          width: "100%",
+          borderStartStartRadius: "12px",
+          borderStartEndRadius: "12px",
+          position: "relative",
+          overflow: "hidden",
+          "::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
             width: "100%",
-            borderStartStartRadius: "12px",
-            borderStartEndRadius: "12px",
-            position: "relative",
-            overflow: "hidden",
-            "::before": {
-              content: '""',
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundImage: `url(${product?.media?.[0]?.original_url})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-              transition: "transform 0.3s ease-in-out",
-            },
-            "&:hover::before": {
-              transform: "scale(1.1)",
-            },
-          }}
+            height: "100%",
+            backgroundImage: `url(${product?.media?.[0]?.original_url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            transition: "transform 0.3s ease-in-out",
+          },
+          "&:hover::before": {
+            transform: "scale(1.1)",
+          },
+        }}
+      >
+        <IconButton
+          sx={{ bgcolor: "#fff", ":hover": { bgcolor: "#fff" } }}
+          onClick={(e) => e.stopPropagation()} // Prevent click bubbling
         >
-          <IconButton sx={{ bgcolor: "#fff", ":hover": { bgcolor: "#fff" } }}>
-            {isFavorite ? (
-              <FavoriteIcon sx={{ color: "#ff0000b0" }} />
-            ) : (
-              <FavoriteBorderIcon />
-            )}
-          </IconButton>
-          <Stack
-            width={"100%"}
-            direction={"row"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-          >
-            <Chip
-              label={product?.brand?.name ?? ""}
-              variant="filled"
-              sx={{ bgcolor: "#1ABFDC", color: "#fff", fontSize: 12 }}
-            />
-          </Stack>
-        </Stack>
+          {isFavorite ? (
+            <FavoriteIcon sx={{ color: "#ff0000b0" }} />
+          ) : (
+            <FavoriteBorderIcon />
+          )}
+        </IconButton>
+
         <Stack
-          sx={{ flexDirection: "row", justifyContent: "space-between", p: 2 }}
+          width={"100%"}
+          direction={"row"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
         >
-          <Box>
-            <Typography
-              variant="body1"
-              fontWeight={600}
-              sx={{ fontSize: "16px", fontWeight: "600" }}
-            >
-              {productName}
-            </Typography>
-            <Typography variant="body2">{productDesc}</Typography>
-          </Box>
+          <Chip
+            label={product?.brand?.name ?? ""}
+            variant="filled"
+            sx={{ bgcolor: "#1ABFDC", color: "#fff", fontSize: 12 }}
+          />
         </Stack>
-      </Link>
+      </Stack>
+
+      <Stack
+        sx={{ flexDirection: "row", justifyContent: "space-between", p: 2 }}
+      >
+        <Box>
+          <Typography
+            variant="body1"
+            fontWeight={600}
+            sx={{ fontSize: "16px", fontWeight: "600" }}
+          >
+            {productName}
+          </Typography>
+          <Typography variant="body2">{productDesc}</Typography>
+        </Box>
+      </Stack>
+
       <Stack
         sx={{
           flexDirection: "row",
@@ -117,14 +132,18 @@ function CustomProductCard({ product, addToCart }: PropsType) {
         }}
       >
         <Button
-          startIcon={<ShoppingCartIcon />}
+          startIcon={product?.type_id === 2 && <ShoppingCartIcon />}
           sx={{ bgcolor: "#40BFAC", borderRadius: 5 }}
           onClick={(e) => {
-            e.stopPropagation(); // Prevent navigation when adding to cart
-            addToCart && addToCart(product.id, product?.type_id, productName);
+            e.stopPropagation(); // Prevent card click
+            if (product?.type_id === 2 && addToCart) {
+              addToCart(product.id, product?.type_id, productName);
+            } else if (product?.type_id === 1) {
+              router.push(productUrl); // Navigate manually
+            }
           }}
         >
-          Add to Cart
+          {product?.type_id === 1 ? "Upload Design" : "Add to Cart"}
         </Button>
         <Stack alignItems={"center"} justifyContent={"center"}>
           <Typography

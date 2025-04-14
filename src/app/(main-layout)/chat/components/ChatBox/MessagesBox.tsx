@@ -76,7 +76,6 @@ export default function MessagesBox() {
     const channel = pusher.subscribe(channelName);
 
     channel.bind("new-message", (data: MessageType) => {
-      console.log("Pusherrrr", data);
       handleStoreNewRTMessage(data);
     });
 
@@ -360,7 +359,6 @@ const DocsMessage = ({
   file: Media;
 }) => {
   const handleDownload = () => {
-    console.log("asssssssssddddddddddddd");
     // Create an anchor element
     const anchor = document.createElement("a");
     anchor.href = file.original_url;

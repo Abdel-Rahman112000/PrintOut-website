@@ -28,7 +28,7 @@ export default function OrderActivities(props: PropsType) {
           icon={<DateRangeOutlinedIcon color="success" />}
         />
       ))}
-      <OrderActivityItem
+      {/* <OrderActivityItem
         bgcolor="#D5F0D3"
         statement="Your order has been Printed successfully."
         subStatement="23 Jan, 2021 at 7:32 PM"
@@ -51,7 +51,7 @@ export default function OrderActivities(props: PropsType) {
         statement="Your order has been confirmed."
         subStatement="19 Jan, 2021 at 2:61 PM"
         icon={<DateRangeOutlinedIcon color="primary" />}
-      />
+      /> */}
     </Stack>
   );
 }
@@ -73,7 +73,9 @@ const OrderActivityItem = (props: OrderActivityItemProps) => {
       </Stack>
       {/* information */}
       <Box>
-        <Typography variant="body1">{statement}</Typography>
+        <Typography variant="body1" sx={{ textTransform: "capitalize" }}>
+          {statement.replace("_", " ")}
+        </Typography>
         <Typography variant="body2">{subStatement}</Typography>
       </Box>
     </Stack>

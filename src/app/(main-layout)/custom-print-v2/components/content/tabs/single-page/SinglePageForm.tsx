@@ -47,7 +47,7 @@ export default function SinglePageForm(props: PropsType) {
           justifyContent={"space-between"}
         >
           <Typography variant="body2" fontSize={20} fontWeight={800}>
-            Custom Style For Page Num# {(pageStyle?.pageIndex ?? 0)}
+            Custom Style For Page Num# {pageStyle?.pageIndex ?? 0}
           </Typography>
           <IconButton
             onClick={() =>
@@ -72,7 +72,6 @@ export default function SinglePageForm(props: PropsType) {
                 label={customization.name}
                 handleChange={(str) => {
                   let arr = pageStyle?.customizationChoices ?? [];
-                  console.log("TargetPoint", str);
                   arr.push(+str);
                   handleSetSpecificPageStyle({
                     ...pageStyle,
@@ -91,7 +90,6 @@ export default function SinglePageForm(props: PropsType) {
                 choices={customization?.choices ?? []}
                 handleChange={(str) => {
                   let arr = pageStyle?.customizationChoices ?? [];
-                  console.log("TargetPoint", str);
                   arr.push(+str);
                   handleSetSpecificPageStyle({
                     ...pageStyle,

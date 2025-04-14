@@ -10,13 +10,13 @@ import CustomProductCard from "@/components/CustomProductCard";
 export const ProductCard = () => {
   const { products, searchParams, handleChangeSearchParams, limit, setLimit } =
     useContext(ProductsContext);
-
+  console.log("products", products);
   const { AddItemToCard } = useContext(CartContext);
   useEffect(() => {
     const handleScroll = () => {
       const isNearBottom =
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.scrollHeight - 500;
+        window.innerHeight + document.documentElement.scrollTop + 600 >=
+        document.documentElement.scrollHeight;
 
       if (isNearBottom) {
         setLimit((prevLimit) => {
@@ -33,7 +33,6 @@ export const ProductCard = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [products, searchParams]);
-
   return (
     <Grid container spacing={2}>
       {products?.map((product) => (

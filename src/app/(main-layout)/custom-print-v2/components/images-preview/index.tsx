@@ -48,7 +48,6 @@ export default function FileImagesPreview() {
           let removedWidth = generalDocSetting?.width
             ? (selectedPage?.size?.width ?? 0) - generalDocSetting?.width
             : 0;
-          console.log("generalDocSettinggeneralDocSetting", generalDocSetting);
 
           return (
             <Stack

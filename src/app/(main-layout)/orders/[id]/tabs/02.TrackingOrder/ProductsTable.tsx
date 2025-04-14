@@ -21,6 +21,8 @@ export default function ProductsTable(props: PropsType) {
         >
           <TableRow>
             <TableCell>Products</TableCell>
+            <TableCell>Products Name</TableCell>
+            <TableCell>Products Type</TableCell>
             <TableCell>Price</TableCell>
             <TableCell>Quantity</TableCell>
             <TableCell>Sub-Total</TableCell>
@@ -46,19 +48,17 @@ export default function ProductsTable(props: PropsType) {
                     alt="product image"
                     style={{ objectFit: "cover" }}
                   />
-                  <Box>
-                    <Typography
-                      fontSize={15}
-                      fontWeight={500}
-                      color={"primary"}
-                    >
-                      {order?.type?.name}
-                    </Typography>
-                    <Typography variant="body2">
-                    {order?.product_name}
-                    </Typography>
-                  </Box>
                 </Stack>
+              </TableCell>
+              <TableCell>
+                <Typography variant="body2">{order?.product_name}</Typography>
+              </TableCell>
+              <TableCell>
+                {
+                  <Typography fontSize={15} fontWeight={500} color={"primary"}>
+                    {order?.type?.name}
+                  </Typography>
+                }
               </TableCell>
               <TableCell>{order?.total_price}</TableCell>
               <TableCell>x1</TableCell>

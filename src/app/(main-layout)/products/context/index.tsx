@@ -70,7 +70,6 @@ export const ProductsContextProvider = (props: PropsType) => {
           },
         }
       );
-      console.log(searchParams);
 
       return response.data.data;
     },

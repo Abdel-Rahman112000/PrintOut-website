@@ -33,6 +33,7 @@ function CustomTabPanel(props: TabPanelProps) {
 export default function UsersOrdersList() {
   // declare and define component state and variables
   const { orders, value, activeTabName } = useContext(UserOrdersCxt);
+  const order_reverse = orders?.slice().reverse() || [];
 
   const TheRightScreen = () => {
     switch (activeTabName) {
@@ -53,7 +54,7 @@ export default function UsersOrdersList() {
                 </Typography>
               </Link>
             </Box>
-            {orders?.map((order) => (
+            {order_reverse?.map((order) => (
               <OrdersCard key={order.id} order={order} />
             ))}
           </>

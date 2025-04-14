@@ -23,8 +23,6 @@ function ConfirmOrderTab({ order }: Props) {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
-  console.log(selectedAddress);
-
   return (
     <Stack>
       <Grid container spacing={4}>
@@ -56,7 +54,6 @@ function ConfirmOrderTab({ order }: Props) {
                       ),
                     }}
                     handleChange={(e) => {
-                      console.log(e);
                       setSelectedAddress(
                         Number(typeof e === "string" ? e : e.target.value)
                       );

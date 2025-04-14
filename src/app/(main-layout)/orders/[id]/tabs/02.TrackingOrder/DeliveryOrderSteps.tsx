@@ -17,6 +17,7 @@ import StepConnector, {
 import { StepIconProps } from "@mui/material/StepIcon";
 import { Typography } from "@mui/material";
 import { Order } from "@/types/common/Order";
+import { statusMap } from ".";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -103,18 +104,20 @@ const steps = ["Order Placed", "Printing", "On The Road", "Delivered"];
 
 export default function DeliveryOrderSteps(props: PropsType) {
   const { mainOrder } = props;
+  const orderStatusKey = mainOrder?.status_show?.key ?? "";
+  const numericStatus = statusMap[orderStatusKey] ?? 0;
 
   return (
     <Stack sx={{ width: "100%" }} spacing={3} my={3}>
       <Typography variant="body2">
-        Order expected arrival{" "}
+        Order expected arrival
         {mainOrder?.created_at
           ? new Date(mainOrder?.created_at).toLocaleDateString()
           : ""}
       </Typography>
       <Stepper
         alternativeLabel
-        activeStep={0}
+        activeStep={numericStatus}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (

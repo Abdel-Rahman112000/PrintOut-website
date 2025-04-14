@@ -17,7 +17,7 @@ import { Category } from "@/types/common/Category";
 
 export default function TopCategoriesSection() {
   const { categoriesRegularGiveaway } = useContext(HomeContext);
-
+  console.log("categoriesRegularGiveaway", categoriesRegularGiveaway);
   return (
     <Stack spacing={6} pt={10}>
       {/* title */}

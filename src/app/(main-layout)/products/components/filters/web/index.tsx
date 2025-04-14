@@ -14,6 +14,7 @@ import {
   ListItem,
   Slider,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 
@@ -65,6 +66,38 @@ export default function ProductsFiltersInWebScreen({
           Filter
         </Typography>
         <TuneIcon />
+      </Stack>
+      <Stack sx={{ width: "100%", p: "1.2rem" }}>
+        <TextField
+          placeholder="Search"
+          variant="outlined"
+          size="small"
+          fullWidth
+          onChange={(e) =>
+            handleChangeSearchParams({
+              ...searchParams,
+              search: e.target.value,
+            })
+          }
+          value={searchParams?.search}
+          InputProps={{
+            sx: {
+              color: "white", // Input text color
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+            },
+          }}
+          inputProps={{
+            style: { color: "white" }, // Makes sure typed text is white
+          }}
+        />
       </Stack>
       {/* Types */}
       <Accordion

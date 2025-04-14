@@ -13,7 +13,6 @@ export default async function ProductsPage({
   const headers = await getServerAuthHeaders();
   const products = await getProductsList(headers);
 
-  console.log("Product Name from URL:", params?.productName);
   if (!products) {
     notFound();
   }

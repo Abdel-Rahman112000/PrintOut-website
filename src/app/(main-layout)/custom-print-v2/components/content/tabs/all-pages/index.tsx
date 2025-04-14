@@ -166,7 +166,6 @@ export default function AllPagesSettings() {
                 handleChange={(str) => {
                   if (generalDocSetting) {
                     let arr = generalDocSetting?.customizationChoices ?? [];
-                    console.log("TargetPoint", str);
                     if (arr.indexOf(+str) == -1) arr.push(+str);
                     handleChangeGlobelFileStyle({
                       ...generalDocSetting,

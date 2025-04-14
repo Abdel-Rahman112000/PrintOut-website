@@ -2,7 +2,6 @@ import { Product } from "@/types/common/Product";
 import { Box, Typography } from "@mui/material";
 
 function VideoCard({ product }: PropsType) {
-  console.log("object", product);
   return (
     <>
       {product?.media[0]?.mime_type?.includes("video") && (
