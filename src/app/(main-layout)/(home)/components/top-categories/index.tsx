@@ -2,22 +2,23 @@
 // Icons
 import EastIcon from "@mui/icons-material/East";
 // MUI
-import {
-  Box,
-  Container,
-  Grid,
-  IconButton,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { useContext } from "react";
-import { HomeContext } from "../../context";
+import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
+
 import { Category } from "@/types/common/Category";
+import { useQuery } from "@tanstack/react-query";
+import { getTopCategories } from "@/utils/api/top_category/getTopCategory";
+import { getClientAuthHeaders } from "@/libs/auth/getClientAuthHeaders";
 
 export default function TopCategoriesSection() {
-  const { categoriesRegularGiveaway } = useContext(HomeContext);
-  console.log("categoriesRegularGiveaway", categoriesRegularGiveaway);
+  const { data: featuredCategories } = useQuery({
+    queryKey: [`featured-categories-data`],
+    queryFn: async () => {
+      const headers = await getClientAuthHeaders();
+      const response = await getTopCategories(headers);
+      console.log("featuredCategories", response);
+      return response;
+    },
+  });
   return (
     <Stack spacing={6} pt={10}>
       {/* title */}
@@ -37,8 +38,8 @@ export default function TopCategoriesSection() {
       </Stack>
       {/* Categories Cards */}
       <Grid container spacing={3}>
-        {Array.isArray(categoriesRegularGiveaway) &&
-          categoriesRegularGiveaway?.map((category) => (
+        {Array.isArray(featuredCategories) &&
+          featuredCategories?.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
       </Grid>
@@ -52,17 +53,7 @@ const CategoryCard = ({ category }: { category: Category }) => {
     len > 20 ? `${category?.name?.slice(0, 18)}..` : category?.name;
 
   return (
-    <Grid
-      item
-      lg={3}
-      md={4}
-      sm={6}
-      xs={12}
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"center"}
-      alignItems={"center"}
-    >
+    <Grid item lg={3} md={4} sm={6} xs={12}>
       <img
         src={category?.media?.[0]?.original_url ?? ""}
         width={270}

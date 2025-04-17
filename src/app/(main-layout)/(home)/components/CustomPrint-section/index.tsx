@@ -28,6 +28,7 @@ function CustomPrintSection() {
         sx={{
           backgroundImage: `url(${leftImg.src})`,
           backgroundSize: "cover",
+
           padding: {
             xs: "10px",
             md: "100px",
@@ -49,17 +50,12 @@ function CustomPrintSection() {
         </Typography>
 
         <Button
-          className="hvr-curl-top-right"
+          className="hvr-float-shadow"
           sx={{
             width: "200px",
-            borderRadius: 0,
-            bgcolor: "#fff",
-            color: "red",
             transition: "all 0.5s ease",
             ":hover": {
-              color: "#fff",
-              bgcolor: "red",
-              transform: "scale(1.15)",
+              backgroundColor: "#55bf91",
             },
           }}
           onClick={() => {

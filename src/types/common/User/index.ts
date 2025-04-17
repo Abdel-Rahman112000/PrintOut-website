@@ -28,4 +28,7 @@ export interface Address {
   created_at: string;
   updated_at: string;
   default: number;
+  building: string;
+  apartment: string;
+  notes: string;
 }

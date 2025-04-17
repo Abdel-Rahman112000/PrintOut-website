@@ -1,9 +1,13 @@
+import { ClickAwayListener } from "@mui/material";
+
 export const Services = {
   title: "Services",
+  clickable: true,
+
   items: [
     {
       text: "Custom Print",
-      link: "/products/1",
+      link: "custom-print",
     },
     {
       text: "Ready-made products",
@@ -22,26 +26,29 @@ export const Services = {
 
 export const MoreInfo = {
   title: "More Info",
+  clickable: true,
+
   items: [
     {
       text: "Terms and Conditions",
-      link: "",
+      link: "Terms",
     },
     {
       text: "Privacy Policy",
-      link: "",
+      link: "Terms",
     },
     {
       text: "Shipping Policy",
-      link: "",
+      link: "Terms",
     },
   ],
 };
 export const Location = {
   title: "Location",
+  clickable: false,
   items: [
     {
-      text: "support@printout.eg",
+      text: "Support@printout.eg",
       link: "",
     },
     {

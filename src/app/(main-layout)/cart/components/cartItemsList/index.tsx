@@ -1,7 +1,7 @@
 "use client";
 import {
   Box,
-  Chip,
+  Button,
   Divider,
   IconButton,
   Stack,
@@ -15,12 +15,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { CartItem } from "@/types/cart/CartItem";
 import axios from "axios";
 import { api } from "@/constants/api";
-import { SetStateAction } from "jotai";
 import { getClientAuthHeaders } from "@/libs/auth/getClientAuthHeaders";
 import { CartContext } from "@/contexts/cart/CartContext";
 
 export default function CartItemsList() {
-  const { cartItemsQueryData } = useContext(CartPageCxt);
+  const { cartItemsQueryData, handleCheckout, totalPrice } =
+    useContext(CartPageCxt);
 
   return (
     <Box>
@@ -40,6 +40,76 @@ export default function CartItemsList() {
           cartItemsQueryData?.carts?.map((cartItem) => (
             <CartProduct key={cartItem.id} cartItem={cartItem} />
           ))}
+        <Box>
+          <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+            Price Details
+          </Typography>
+
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={1}
+          >
+            <Typography variant="body2">Order Total</Typography>
+            <Typography variant="body2" fontWeight={600}>
+              {totalPrice}
+            </Typography>
+          </Stack>
+
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={1}
+          >
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography variant="body2" sx={{ color: "text.disabled" }}>
+                Delivery Charges
+              </Typography>
+              <Box
+                sx={{
+                  bgcolor: "#E8FCEB",
+                  color: "#29C76F",
+                  px: 1.2,
+                  py: 0.3,
+                  borderRadius: 1,
+                  fontSize: 12,
+                }}
+              >
+                7 Days
+              </Box>
+            </Stack>
+            <Typography
+              variant="body2"
+              sx={{ color: "text.disabled", textDecoration: "line-through" }}
+            >
+              $5.00
+            </Typography>
+          </Stack>
+
+          <Divider sx={{ my: 1 }} />
+
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography variant="subtitle1" fontWeight={600}>
+              Total
+            </Typography>
+            <Typography variant="subtitle1" fontWeight={600}>
+              {totalPrice}
+            </Typography>
+          </Stack>
+        </Box>
+        <Button
+          sx={{ mt: 3, width: "100%" }}
+          variant="contained"
+          onClick={() => handleCheckout()}
+        >
+          Place Order
+        </Button>
       </Stack>
     </Box>
   );
@@ -85,17 +155,14 @@ const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
       >
         <img
           src={cartItem?.media?.[0]?.original_url}
-          width={170}
-          height={70}
-          alt="product title"
+          width={100}
+          height={100}
+          style={{ objectFit: "cover", borderRadius: "10px" }}
         />
         <Box>
           <Typography variant="body1" fontSize={"h6"} fontWeight={600}>
             {cartItem?.product_name ?? "_"}
           </Typography>
-          {/* <Typography variant="body1" fontSize={"body1"} fontWeight={500}>
-            Product Description
-          </Typography> */}
           <Typography variant="body1" fontSize={"body2"} fontWeight={400}>
             {cartItem?.total_price ?? "0"} EGP
           </Typography>
@@ -103,16 +170,6 @@ const CartProduct = ({ cartItem }: { cartItem: CartItem }) => {
       </Stack>
 
       <Stack direction={"row"} spacing={4} alignItems={"center"}>
-        {/* <IconButton>
-          <AddIcon />
-        </IconButton>
-
-        <Chip label="4" variant="outlined" sx={{ borderRadius: "4px" }} />
-
-        <IconButton>
-          <RemoveIcon />
-        </IconButton> */}
-
         <IconButton
           color="error"
           onClick={handleRemoveFromCart}

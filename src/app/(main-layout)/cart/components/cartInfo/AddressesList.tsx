@@ -1,5 +1,5 @@
 // MUI
-import { IconButton, Stack, Typography } from "@mui/material";
+import { Chip, IconButton, Stack, Typography } from "@mui/material";
 
 import "./loader.css";
 
@@ -32,10 +32,7 @@ export default function AddressesList() {
   };
 
   return (
-    <Stack p={1} spacing={2} border={"1px solid lightgray"}>
-      <Typography variant="body2" fontSize={18} fontWeight={500}>
-        Addresses
-      </Typography>
+    <Stack p={1} spacing={2}>
       {isLoading && (
         <Stack height={150} alignItems={"center"} justifyContent={"center"}>
           <div className="loader"></div>
@@ -82,15 +79,41 @@ const ExisttingAddress = ({
       border={address.default == 1 ? "2px solid lightblue" : undefined}
       justifyContent={"space-between"}
     >
-      <Stack direction={"row"} spacing={2} alignItems={"center"}>
-        <IconButton onClick={handleChangeOrderAddress}>
-          {address.default == 1 ? (
-            <AdjustIcon color="primary" />
-          ) : (
-            <TripOriginIcon />
+      <Stack>
+        <Stack direction={"row"} spacing={2} alignItems={"center"}>
+          <IconButton onClick={handleChangeOrderAddress}>
+            {address.default == 1 ? (
+              <AdjustIcon color="primary" />
+            ) : (
+              <TripOriginIcon />
+            )}
+          </IconButton>
+          <Typography variant="h6" sx={{ fontWeight: 600, fontSize: "22px" }}>
+            {address.label}
+          </Typography>
+        </Stack>
+        <Stack>
+          <Typography
+            variant="body2"
+            fontSize={16}
+            fontWeight={500}
+            sx={{ color: "#2F2B3DB2", ml: 7 }}
+          >
+            {`${address?.address_1 || ""} ${address?.address_2 || ""} ${
+              address?.city || ""
+            } ${address?.building || ""} ${address?.apartment || ""}`}
+          </Typography>
+          {address?.notes && (
+            <Typography
+              variant="body2"
+              fontSize={16}
+              fontWeight={500}
+              sx={{ color: "#2F2B3DB2", ml: 7 }}
+            >
+              Note : {address?.notes}
+            </Typography>
           )}
-        </IconButton>
-        <Typography variant="body2">{address.label}</Typography>
+        </Stack>
       </Stack>
     </Stack>
   );

@@ -17,14 +17,27 @@ export default function FooterMenuList({ items }: any) {
       <List>
         {items?.items.map((item: any, index: number) => (
           <ListItem disablePadding key={index}>
-            <ListItemButton component={Link} href={item.link}>
-              <ListItemText
-                sx={{
-                  "& .MuiTypography-root": { color: "#fff" },
-                }}
-                primary={item.text}
-              />
-            </ListItemButton>
+            {items?.clickable ? (
+              <ListItemButton component={Link} href={item.link}>
+                <ListItemText
+                  sx={{
+                    "& .MuiTypography-root": { color: "#fff" },
+                  }}
+                  primary={item.text}
+                />
+              </ListItemButton>
+            ) : (
+              <Box>
+                <ListItemText
+                  sx={{
+                    mb: 2,
+                    ml: 2,
+                    "& .MuiTypography-root": { color: "#fff" },
+                  }}
+                  primary={item.text}
+                />
+              </Box>
+            )}
           </ListItem>
         ))}
       </List>
