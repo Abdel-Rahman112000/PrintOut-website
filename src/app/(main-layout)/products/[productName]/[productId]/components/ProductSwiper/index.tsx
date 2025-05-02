@@ -29,7 +29,12 @@ export default function ProductSwiper({ product }: PropsType) {
         style={{ height: "500px", marginBottom: "10px" }}
       >
         <SwiperSlide>
-          <img src={product?.media[0]?.original_url} />
+          <img
+            src={product?.media[0]?.original_url}
+            width={500}
+            height={500}
+            style={{ objectFit: "contain" }}
+          />
         </SwiperSlide>
       </Swiper>
       <Swiper

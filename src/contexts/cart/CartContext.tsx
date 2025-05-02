@@ -2,6 +2,7 @@
 
 import { api } from "@/constants/api";
 import { getClientAuthHeaders } from "@/libs/auth/getClientAuthHeaders";
+import { Box, Button } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useState } from "react";
@@ -57,7 +58,21 @@ export const CartContextProvider = (props: PropsType) => {
           toast.success(`Product "${name}"  is added to cart successfully.`);
         } else {
           setCartItems((prev) => [...prev, { productId: id, amount: 1 }]);
-          toast.success(`Product "${name}"  is added to cart successfully.`);
+          toast.success(
+            <Box sx={{ fontSize: "22px" }}>
+              <p>Product is added to cart successfully.</p>
+              <Button variant="text" onClick={() => router.push("/cart")}>
+                Go to Checkout
+              </Button>
+            </Box>,
+            {
+              autoClose: 5000,
+              position: "bottom-right",
+              style: {
+                width: "500px",
+              },
+            }
+          );
         }
         setTotalQuantity((prev) => prev + 1);
       })

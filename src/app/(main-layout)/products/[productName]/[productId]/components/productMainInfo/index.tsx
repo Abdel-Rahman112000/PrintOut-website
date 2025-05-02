@@ -27,16 +27,17 @@ import {
 import { Product } from "@/types/common/Product";
 import { Controller, useForm } from "react-hook-form";
 import { FilePond } from "react-filepond";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "next/navigation";
+import { CartContext } from "@/contexts/cart/CartContext";
 
 export default function ProductDetailsMainInfo({ product }: PropsType) {
+  const { AddItemToCard } = useContext(CartContext);
+
   const params = useParams();
   const [open, setOpen] = useState(false);
   const { control, handleSubmit } = useForm();
-  const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-  });
+
   const customDesc = product.description?.replace(/(\r\n|\n|\r)/g, "\n");
   return (
     <Stack spacing={3} p={"10px"}>
@@ -98,8 +99,9 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
         <Button
           variant="contained"
           startIcon={<ShoppingCartOutlinedIcon />}
-          type="submit"
-          onClick={onSubmit}
+          onClick={() =>
+            AddItemToCard(product.id, product?.type_id, product.name)
+          }
           sx={{
             color: "#fff",
             bgcolor: "#40BFAC",

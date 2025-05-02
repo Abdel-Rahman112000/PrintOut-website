@@ -12,6 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Product } from "@/types/common/Product";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 function CustomProductCard({ product, addToCart }: PropsType) {
   const param = useParams();
@@ -52,9 +53,10 @@ function CustomProductCard({ product, addToCart }: PropsType) {
         justifyContent: "space-between",
         cursor: "pointer",
       }}
-      onClick={handleCardClick}
     >
       <Stack
+        component={Link}
+        href={productUrl}
         sx={{
           p: 2,
           display: "flex",
@@ -132,11 +134,15 @@ function CustomProductCard({ product, addToCart }: PropsType) {
         }}
       >
         <Button
-          startIcon={product?.type_id === 2 && <ShoppingCartIcon />}
+          startIcon={
+            (product?.type_id == 2 || product?.type_id == 3) && (
+              <ShoppingCartIcon />
+            )
+          }
           sx={{ bgcolor: "#40BFAC", borderRadius: 5 }}
           onClick={(e) => {
             e.stopPropagation(); // Prevent card click
-            if (product?.type_id === 2 && addToCart) {
+            if ((product?.type_id == 2 || product?.type_id == 3) && addToCart) {
               addToCart(product.id, product?.type_id, productName);
             } else if (product?.type_id === 1) {
               router.push(productUrl); // Navigate manually
