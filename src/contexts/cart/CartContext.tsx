@@ -12,7 +12,12 @@ export const CartContext = createContext<CartContextType>({
   totalAmount: 0,
   totalQuantity: 0,
   cartItems: [],
-  AddItemToCard: (id: number, typeId: number, name: string) => {},
+  AddItemToCard: (
+    id: number,
+    typeId: number,
+    name: string,
+    selectedIds: number[]
+  ) => {},
   RemoveItemFromCard: (id: number) => {},
   handleUpdateTotalQuantity: (num: number) => {},
 });
@@ -30,7 +35,12 @@ export const CartContextProvider = (props: PropsType) => {
     setTotalQuantity(num);
   };
 
-  async function AddItemToCard(id: number, typeId: number, name: string) {
+  async function AddItemToCard(
+    id: number,
+    typeId: number,
+    name: string,
+    selectedIds: number[]
+  ) {
     const existingItem = cartItems?.find((item) => item.productId == id);
     const headers = await getClientAuthHeaders();
     const body = {
@@ -40,6 +50,7 @@ export const CartContextProvider = (props: PropsType) => {
         {
           product_id: id,
           qty: 1,
+          CustomizationChoices: selectedIds,
         },
       ],
     };
@@ -67,7 +78,7 @@ export const CartContextProvider = (props: PropsType) => {
             </Box>,
             {
               autoClose: 5000,
-              position: "bottom-right",
+              position: "bottom-left",
               style: {
                 width: "500px",
               },
@@ -129,6 +140,11 @@ type CartContextType = {
   totalQuantity: number;
   cartItems: CartItem[];
   RemoveItemFromCard(id: number): void;
-  AddItemToCard(id: number, typeId: number, name: string): void;
+  AddItemToCard(
+    id: number,
+    typeId: number,
+    name: string,
+    selectedIds: number[]
+  ): void;
   handleUpdateTotalQuantity: (num: number) => void;
 };

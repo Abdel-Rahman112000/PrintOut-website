@@ -17,9 +17,14 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Grid,
   IconButton,
   Link,
+  Radio,
+  RadioGroup,
   Rating,
   Stack,
   Typography,
@@ -27,18 +32,42 @@ import {
 import { Product } from "@/types/common/Product";
 import { Controller, useForm } from "react-hook-form";
 import { FilePond } from "react-filepond";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { CartContext } from "@/contexts/cart/CartContext";
 
 export default function ProductDetailsMainInfo({ product }: PropsType) {
   const { AddItemToCard } = useContext(CartContext);
+  const [selectedChoices, setSelectedChoices] = useState<
+    Record<number, number>
+  >({});
 
   const params = useParams();
   const [open, setOpen] = useState(false);
   const { control, handleSubmit } = useForm();
-
   const customDesc = product.description?.replace(/(\r\n|\n|\r)/g, "\n");
+
+  const selectedIds: number[] = Object.values(selectedChoices);
+
+  useEffect(() => {
+    if (product.customizations) {
+      const defaults: Record<number, number> = {};
+      product.customizations.forEach((custom) => {
+        if (custom.choices?.length) {
+          defaults[custom.id] = custom.choices[0].id;
+        }
+      });
+      setSelectedChoices(defaults);
+    }
+  }, [product.customizations]);
+
+  const handleChange =
+    (customId: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelectedChoices((prev) => ({
+        ...prev,
+        [customId]: Number(event.target.value),
+      }));
+    };
   return (
     <Stack spacing={3} p={"10px"}>
       <Breadcrumbs aria-label="breadcrumb">
@@ -83,24 +112,102 @@ export default function ProductDetailsMainInfo({ product }: PropsType) {
           </Typography>
         </Stack> */}
       </Stack>
-      <Stack>
-        <Typography
-          variant="body2"
-          width={"60%"}
-          sx={{ mb: 8, whiteSpace: "pre-wrap" }}
-        >
-          {customDesc}
-        </Typography>
-      </Stack>
+      {customDesc && (
+        <Stack>
+          <Typography
+            variant="body2"
+            width={"60%"}
+            sx={{ mb: 8, whiteSpace: "pre-wrap" }}
+          >
+            {customDesc}
+          </Typography>
+        </Stack>
+      )}
       {/* size */}
+      <Stack spacing={4}>
+        {product.customizations?.map((custom) => (
+          <FormControl key={custom.id} component="fieldset">
+            <FormLabel
+              id={`label-${custom.id}`}
+              sx={{ mb: 1, fontSize: "16px", color: "#000", fontWeight: 600 }}
+            >
+              {custom.name}
+            </FormLabel>
 
+            <RadioGroup
+              aria-labelledby={`label-${custom.id}`}
+              name={`radio-buttons-group-${custom.id}`}
+              value={selectedChoices[custom.id] ?? ""}
+              onChange={handleChange(custom.id)}
+            >
+              <Stack direction="row" flexWrap="wrap" gap={2}>
+                {custom.choices?.map((choose) => {
+                  const isSelected = selectedChoices[custom.id] === choose.id;
+
+                  return (
+                    <Box
+                      key={choose.id}
+                      onClick={() =>
+                        setSelectedChoices((prev) => ({
+                          ...prev,
+                          [custom.id]: choose.id,
+                        }))
+                      }
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        padding: 1,
+                        borderRadius: 1,
+                        border: "1px solid",
+                        borderColor: isSelected ? "primary.main" : "",
+                        backgroundColor: isSelected
+                          ? "primary.main"
+                          : "background.paper",
+                        cursor: "pointer",
+                        minWidth: 120,
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      <Radio
+                        value={choose.id}
+                        checked={isSelected}
+                        onChange={handleChange(custom.id)}
+                        sx={{
+                          mr: 1,
+                          visibility: "hidden",
+                          width: 0,
+                          padding: 0,
+                        }}
+                      />
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          fontWeight: 500,
+                          color: isSelected ? "#fff" : "#000",
+                        }}
+                      >
+                        {choose.name}
+                      </Typography>
+                    </Box>
+                  );
+                })}
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+        ))}
+      </Stack>
       {/* Actions */}
       <Stack spacing={4} direction={"row"} alignItems={"center"}>
         <Button
           variant="contained"
           startIcon={<ShoppingCartOutlinedIcon />}
           onClick={() =>
-            AddItemToCard(product.id, product?.type_id, product.name)
+            AddItemToCard(
+              product.id,
+              product?.type_id,
+              product.name,
+              selectedIds
+            )
           }
           sx={{
             color: "#fff",
