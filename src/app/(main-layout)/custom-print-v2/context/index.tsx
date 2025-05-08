@@ -53,7 +53,7 @@ export const CustomPrintContextProvider = ({
   const [processIsLoading, setProcessIsLoading] = useState(false);
   const searchParams = useSearchParams();
   const [quantity, setQuantity] = useState(1);
-  const orderId = searchParams.get("orderId");
+  const orderId = searchParams?.get("orderId");
   const [selectedPrintTypeId, setSelectedPrintTypeId] = useState(-1);
   const [generalDocSetting, setGeneralDocSetting] = useState<GeneralStyleType>({
     color: undefined,

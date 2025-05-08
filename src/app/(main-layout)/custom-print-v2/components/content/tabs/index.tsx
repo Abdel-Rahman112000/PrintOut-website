@@ -57,7 +57,6 @@ export default function CustomPrintContentTabs() {
   const { processIsLoading, PrintProductLoading } =
     React.useContext(CustomPrintContext);
 
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -65,7 +64,7 @@ export default function CustomPrintContentTabs() {
   return (
     <Box sx={{ flexGrow: 0.4 }}>
       <LoadingBackdrop open={processIsLoading} />
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ mt: 4 }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -74,12 +73,12 @@ export default function CustomPrintContentTabs() {
           <Tab
             label="All Pages Settings"
             {...a11yProps(0)}
-            sx={{ textTransform: "none" }}
+            sx={{ textTransform: "none", fontWeight: 700 }}
           />
           <Tab
             label="Selected Pages"
             {...a11yProps(1)}
-            sx={{ textTransform: "none" }}
+            sx={{ textTransform: "none", fontWeight: 700 }}
           />
         </Tabs>
       </Box>

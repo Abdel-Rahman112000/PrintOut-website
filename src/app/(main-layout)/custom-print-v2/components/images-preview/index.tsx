@@ -12,7 +12,7 @@ export default function FileImagesPreview() {
     pagesCustomizations,
     selectedPage,
   } = useContext(CustomPrintContext);
-
+  console.log("orderData", orderData);
   return (
     <Stack
       spacing={3}
@@ -32,7 +32,7 @@ export default function FileImagesPreview() {
           sx={{ borderRadius: "15px" }}
         />
       ) : (
-        orderData?.media?.map((image, idx) => {
+        orderData?.pictures?.map((image, idx) => {
           let _customStyle = pagesCustomizations?.find(
             (ele) => ele.pageIndex === idx
           );
@@ -42,9 +42,17 @@ export default function FileImagesPreview() {
           let isHorizential = _customStyle
             ? _customStyle.scale == "Horizental"
             : generalDocSetting?.scale === "Horizental";
-          let removedHeight = generalDocSetting?.height
-            ? (selectedPage?.size?.height ?? 0) - generalDocSetting?.height
+          let orignalHeight = selectedPage?.size?.width
+            ? image.custom_properties.height /
+              (selectedPage?.size?.height / 565)
             : 0;
+          let orignalWidth = selectedPage?.size?.width
+            ? image.custom_properties.width / (selectedPage?.size?.width / 400)
+            : 0;
+          let isLandscape = orignalWidth > orignalHeight;
+          let isPortrait = orignalHeight > orignalWidth;
+          let isSquare = orignalHeight === orignalWidth;
+
           let removedWidth = generalDocSetting?.width
             ? (selectedPage?.size?.width ?? 0) - generalDocSetting?.width
             : 0;
@@ -53,27 +61,25 @@ export default function FileImagesPreview() {
             <Stack
               key={image.id}
               width={"100%"}
-              height={"500px"}
+              height={"565px"}
               alignItems={"center"}
               justifyContent={"center"}
             >
               <Stack
                 sx={{
                   width: "400px",
-                  height: "450px",
-                  my: 2,
+                  height: "565px",
                   bgcolor: "#737373",
                   alignItems: "center",
                   justifyContent: "center",
+                  overflow: "hidden",
                 }}
               >
                 <img
                   src={image?.original_url ?? ""}
                   alt={`image num ${idx}`}
                   style={{
-                    height: image?.original_url.endsWith(".pdf")
-                      ? 50
-                      : 400 - removedHeight,
+                    height: `${orignalHeight}px`,
                     width: image?.original_url.endsWith(".pdf")
                       ? 50
                       : 350 - removedWidth,

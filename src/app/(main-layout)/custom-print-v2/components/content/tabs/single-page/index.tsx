@@ -42,7 +42,7 @@ export default function SinglePageSettings() {
   // ** return our ui
   return (
     <>
-      {!Boolean(PrintProduct) ? (
+      {!!Boolean(PrintProduct) ? (
         <Typography
           variant="body2"
           color={"primary.main"}
@@ -56,9 +56,9 @@ export default function SinglePageSettings() {
           <Typography variant="body1" fontSize={22} fontWeight={700} my={3}>
             Add Custom Style For Specific Pages
           </Typography>
-          {pagesCustomizations?.map((pageStyle) => (
+          {/* {pagesCustomizations?.map((pageStyle) => (
             <SinglePageForm key={pageStyle.pageIndex} pageStyle={pageStyle} />
-          ))}
+          ))} */}
           <Stack direction={"row"} spacing={4}>
             <Autocomplete
               id="fixed-tags-demo"
