@@ -11,6 +11,7 @@ export default function FileImagesPreview() {
     generalDocSetting,
     pagesCustomizations,
     selectedPage,
+    zoomLevel, // Access zoomLevel from context
   } = useContext(CustomPrintContext);
   console.log("orderData", orderData);
   return (
@@ -56,7 +57,7 @@ export default function FileImagesPreview() {
           let removedWidth = generalDocSetting?.width
             ? (selectedPage?.size?.width ?? 0) - generalDocSetting?.width
             : 0;
-
+console.log(orignalHeight, orignalWidth);
           return (
             <Stack
               key={image.id}
@@ -80,14 +81,13 @@ export default function FileImagesPreview() {
                   alt={`image num ${idx}`}
                   style={{
                     height: `${orignalHeight}px`,
-                    width: image?.original_url.endsWith(".pdf")
-                      ? 50
-                      : 350 - removedWidth,
+                    width:`${orignalWidth}px` ,
                     filter: isBlackAndWhite
                       ? `grayscale(100%) contrast(200%)`
                       : "",
-                    transform: isHorizential ? "rotate(90deg)" : "",
-                    // size: 'landscape',
+                    transform: `scale(${zoomLevel}) ${
+                      isHorizential ? "rotate(90deg)" : ""
+                    }`, // Apply zoomLevel and rotation dynamically
                     transition: `all 0.3s`,
                   }}
                 />

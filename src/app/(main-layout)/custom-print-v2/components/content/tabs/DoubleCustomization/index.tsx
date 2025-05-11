@@ -124,7 +124,7 @@ export function ScallingOption({
   return (
     <Stack spacing={3} width={"100%"}>
       <Typography variant="body2" fontSize={12} fontWeight={600}>
-        Scalling
+        Orientation
       </Typography>
       <Stack
         direction={{

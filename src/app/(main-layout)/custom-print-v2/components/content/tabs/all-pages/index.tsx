@@ -6,6 +6,7 @@ import {
   Stack,
   TextField,
   Typography,
+  Slider,
 } from "@mui/material";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -28,6 +29,8 @@ export default function AllPagesSettings() {
     handleStoreSelectedPage,
     handleChangeGlobelFileStyle,
     generalDocSetting,
+    zoomLevel,
+    handleSetZoomLevel,
   } = useContext(CustomPrintContext);
 
   // TODO:: declare and define component helper methods
@@ -43,7 +46,7 @@ export default function AllPagesSettings() {
         alignItems={"center"}
         width={{
           xs: "98%",
-          md: "60%",
+          md: "70%",
         }}
       >
         {!!Boolean(PrintProduct) && (
@@ -185,6 +188,23 @@ export default function AllPagesSettings() {
             />
           );
         })}
+
+        <Stack >
+          <Typography variant="body2" fontWeight={600}>
+            Zoom Level: {zoomLevel.toFixed(2)}
+          </Typography>
+          <Slider
+            value={zoomLevel}
+            min={0.5}
+            max={2}
+            step={0.01}
+            onChange={(e, value) => handleSetZoomLevel(value as number)}
+            sx={{
+              width: "80%",
+              mt: 2,
+            }}
+          />
+        </Stack>
 
         {!Boolean(PrintProduct) && (
           <TextField

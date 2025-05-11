@@ -32,6 +32,7 @@ export const CustomPrintContext = createContext<CustomPrintContextType>({
   quantity: 1,
   processIsLoading: false,
   pagesCustomizations: [],
+  zoomLevel: 1,
   increaseQuantity: () => {},
   decreaseQuantity: () => {},
   handleStoreNote: (str: string) => {},
@@ -41,6 +42,7 @@ export const CustomPrintContext = createContext<CustomPrintContextType>({
   handleSetSpecificPageStyle: (style: SpecificPageStyle) => {},
   handleStoreSelectedPage: (page: PaperType | undefined) => {},
   handleChangeGlobelFileStyle: (style: GeneralStyleType) => {},
+  handleSetZoomLevel: (value: number) => {},
 });
 
 export const CustomPrintContextProvider = ({
@@ -106,6 +108,12 @@ export const CustomPrintContextProvider = ({
       return papers.data;
     },
   });
+
+  const [zoomLevel, setZoomLevel] = useState<number>(1); // New state for zooming
+
+  function handleSetZoomLevel(value: number) {
+    setZoomLevel(value);
+  }
 
   // TODO::declare and define helper methods
   function handleStoreNote(str: string) {
@@ -182,6 +190,8 @@ export const CustomPrintContextProvider = ({
         handleStoreSelectedPage,
         handleSetSelectedPrintTypeId,
         handleChangeGlobelFileStyle,
+        zoomLevel,
+        handleSetZoomLevel,
       }}
     >
       {children}
@@ -236,4 +246,6 @@ type CustomPrintContextType = {
   handleSetSpecificPageStyle(style: SpecificPageStyle): void;
   handleStoreSelectedPage(page: PaperType | undefined): void;
   handleChangeGlobelFileStyle(style: GeneralStyleType): void;
+  zoomLevel: number;
+  handleSetZoomLevel(value: number): void;
 };
