@@ -1,35 +1,42 @@
-"use client";
 import { useContext, useState } from "react";
-import SinglePageForm from "./SinglePageForm";
 import { CustomPrintContext } from "@/app/(main-layout)/custom-print-v2/context";
-import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import RoundedButton from "@/components/RoundedButton";
-
-// MUI Icons
+import {
+  Box,
+  IconButton,
+  Radio,
+  Slider,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 export default function SinglePageSettings() {
-  // TODO::declare and define component state and variables
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [textValue, setTextValue] = useState<string>("");
   const [pageIdx, setPageIdx] = useState<number | undefined>();
+  const [scale, setScale] = useState<number>(100);
   const {
     orderData,
     PrintProduct,
     pagesCustomizations,
     handleSetSpecificPageStyle,
   } = useContext(CustomPrintContext);
-  let options = orderData?.media
-    ?.map((ele, index) => ({
-      title: index + 1,
-      value: index + 1,
-    }))
-    .filter((ele) => {
-      if (pagesCustomizations.find((item) => item.pageIndex == ele.value))
-        return false;
-      return true;
-    });
 
-  // TODO::declare and define component methods
+  const handleChange = (value: string) => {
+    setSelectedValue((prev) => {
+      const newValue = prev === value ? null : value;
+      if (!newValue) setTextValue("");
+      return newValue;
+    });
+  };
+
   const handleClick = () => {
+    setTextValue(
+      (prev) =>
+        prev + (prev ? "," : "") + (Number(prev.split(",").pop() || 0) + 1)
+    );
     handleSetSpecificPageStyle({
       pageIndex: pageIdx,
       color: undefined,
@@ -39,7 +46,19 @@ export default function SinglePageSettings() {
     setPageIdx(undefined);
   };
 
-  // ** return our ui
+  const increaseScale = () => {
+    setScale((prev) => Math.min(prev + 10, 200)); 
+    // الحد الأقصى 200
+  };
+
+  const decreaseScale = () => {
+    setScale((prev) => Math.max(prev - 10, 0)); // الحد الأدنى 0
+  };
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    setScale(newValue as number); // تحديث قيمة scale عند تغيير الـ Slider
+  };
+
   return (
     <>
       {!!Boolean(PrintProduct) ? (
@@ -49,44 +68,87 @@ export default function SinglePageSettings() {
           fontSize={22}
           fontWeight={700}
         >
-          Select Print Product Type Firstly
+          Select Print Product Type First
         </Typography>
       ) : (
-        <>
-          <Typography variant="body1" fontSize={22} fontWeight={700} my={3}>
-            Add Custom Style For Specific Pages
-          </Typography>
-          {/* {pagesCustomizations?.map((pageStyle) => (
-            <SinglePageForm key={pageStyle.pageIndex} pageStyle={pageStyle} />
-          ))} */}
-          <Stack direction={"row"} spacing={4}>
-            <Autocomplete
-              id="fixed-tags-demo"
-              onChange={(event, newValue) => {
-                setPageIdx(newValue?.value);
-              }}
-              options={options ?? []}
-              style={{ width: 230 }}
-              getOptionLabel={(option) => option.title.toString()}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Page Number"
-                  placeholder="Select Specific Page"
-                />
-              )}
-            />
-            <RoundedButton
-              startIcon={<AddIcon />}
-              variant={"contained"}
-              fullWidth
-              size="large"
-              onClick={handleClick}
-            >
-              Add Custom Style For Page
-            </RoundedButton>
+        <Stack alignItems="center" spacing={4}>
+          <Stack direction="row" alignItems="center" spacing={4}>
+            <Stack direction="row" alignItems="center">
+              <Radio
+                checked={selectedValue === "a"}
+                onClick={() => handleChange("a")}
+                value="a"
+                name="custom-radio"
+              />
+            </Stack>
+            <Stack>
+              <TextField
+                variant="filled"
+                value={textValue}
+                onChange={(e) => setTextValue(e.target.value)}
+                disabled={selectedValue !== "a"}
+                sx={{
+                  borderRadius: "12px",
+                  input: {
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  },
+                }}
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </Stack>
+            <Stack>
+              <IconButton
+                onClick={handleClick}
+                sx={{
+                  borderRadius: "8px",
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </Stack>
           </Stack>
-        </>
+
+          {/* Scale Section */}
+          <Stack direction="column" alignItems="center" spacing={1}>
+            {/* Scale Label, Buttons, and Value */}
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{ width: "300px" }} // نفس عرض الـ Slider للمحاذاة
+            >
+              <Typography variant="body1" fontSize={19} fontWeight={700}>
+                Scale
+              </Typography>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <IconButton onClick={decreaseScale}>
+                  <RemoveIcon />
+                </IconButton>
+                <Typography variant="body1" fontSize={19} fontWeight={700}>
+                  {scale}
+                </Typography>
+                <IconButton onClick={increaseScale}>
+                  <AddIcon />
+                </IconButton>
+              </Stack>
+            </Stack>
+
+            {/* Slider */}
+            <Box sx={{ width: 300 }}>
+              <Slider
+                value={scale} // ربط قيمة الـ Slider مع scale
+                onChange={handleSliderChange} // تحديث scale عند التغيير
+                min={0} // الحد الأدنى
+                max={200} // الحد الأقصى
+                aria-label="Scale Slider"
+                valueLabelDisplay="auto"
+              />
+            </Box>
+          </Stack>
+        </Stack>
       )}
     </>
   );
