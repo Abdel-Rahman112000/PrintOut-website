@@ -6,6 +6,7 @@ import {
   Stack,
   TextField,
   Typography,
+  Slider,
 } from "@mui/material";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -28,10 +29,12 @@ export default function AllPagesSettings() {
     handleStoreSelectedPage,
     handleChangeGlobelFileStyle,
     generalDocSetting,
+    zoomLevel,
+    handleSetZoomLevel,
   } = useContext(CustomPrintContext);
 
   // TODO:: declare and define component helper methods
-  function handleChage(id: number) {
+  function handleChange(id: number) {
     let _page = papers?.size?.find((paper) => paper.id === id);
     handleStoreSelectedPage(_page);
   }
@@ -43,10 +46,10 @@ export default function AllPagesSettings() {
         alignItems={"center"}
         width={{
           xs: "98%",
-          md: "80%",
+          md: "70%",
         }}
       >
-        {!Boolean(PrintProduct) && (
+        {!!Boolean(PrintProduct) && (
           <Typography
             variant="body2"
             color={"primary.main"}
@@ -57,7 +60,7 @@ export default function AllPagesSettings() {
           </Typography>
         )}
         {/* select paper size */}
-        {PrintProduct?.size == 1 && (
+        {!Boolean(PrintProduct) && (
           <Controller
             control={control}
             name={`order_details.${1}.paper_id`}
@@ -69,7 +72,7 @@ export default function AllPagesSettings() {
                 value={field.value || null}
                 onChange={(e) => {
                   const value = e.target.value as unknown as number;
-                  handleChage(value);
+                  handleChange(value);
                   field.onChange(value);
                 }}
                 sx={{
@@ -140,10 +143,12 @@ export default function AllPagesSettings() {
         )}
 
         {/* Coloring */}
-        {PrintProduct?.color == 1 && <BlackAndWhite />}
+        {/* {PrintProduct?.color == 1 && <BlackAndWhite />} */}
+        <BlackAndWhite />
 
         {/* scliing */}
-        {PrintProduct?.scaling == 1 && <ScallingOption />}
+        {/* {PrintProduct?.scaling == 1 && <ScallingOption />} */}
+        <ScallingOption />
 
         {/* Start Set Customization */}
         {PrintProduct?.customizations?.map((customization) => {
@@ -184,7 +189,24 @@ export default function AllPagesSettings() {
           );
         })}
 
-        {Boolean(PrintProduct) && (
+        <Stack >
+          <Typography variant="body2" fontWeight={600}>
+            Zoom Level: {zoomLevel.toFixed(2)}
+          </Typography>
+          <Slider
+            value={zoomLevel}
+            min={0.5}
+            max={2}
+            step={0.01}
+            onChange={(e, value) => handleSetZoomLevel(value as number)}
+            sx={{
+              width: "80%",
+              mt: 2,
+            }}
+          />
+        </Stack>
+
+        {!Boolean(PrintProduct) && (
           <TextField
             multiline
             minRows={3}

@@ -35,7 +35,7 @@ export default function PageDimension(props: PropsType) {
         direction={"row"}
         justifyContent={"space-between"}
       >
-        <IconButton
+        {/* <IconButton
           disabled={dimentionVal <= 0}
           onClick={() =>
             setDimentionVal((prev) => {
@@ -45,16 +45,16 @@ export default function PageDimension(props: PropsType) {
           }
         >
           <RemoveIcon />
-        </IconButton>
+        </IconButton> */}
         <Typography
           variant="body2"
           fontSize={18}
           fontWeight={700}
           color={"primary.main"}
         >
-          {dimentionVal} mm
+          {dimentionVal} px
         </Typography>
-        <IconButton
+        {/* <IconButton
           disabled={dimentionVal >= value}
           onClick={() =>
             setDimentionVal((prev) => {
@@ -64,7 +64,7 @@ export default function PageDimension(props: PropsType) {
           }
         >
           <AddIcon />
-        </IconButton>
+        </IconButton> */}
       </Stack>
     </Stack>
   );

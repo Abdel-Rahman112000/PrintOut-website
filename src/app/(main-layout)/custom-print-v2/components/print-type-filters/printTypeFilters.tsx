@@ -26,6 +26,8 @@ import { api } from "@/constants/api";
 import { getClientAuthHeaders } from "@/libs/auth/getClientAuthHeaders";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import SideBar from "@/components/SideBar";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const LoadingRendered = () => (
   <>
@@ -125,27 +127,26 @@ export default function PrintTypeFilters() {
 
   // ** return compoent ui
   return (
-    <Box
-      sx={{
-        width: "295px",
-        height: "470.38px",
-        borderRadius: "0px 0px 2px 2px",
-        border: "0px 1px 1px 1px",
-        opacity: "0.8px",
-      }}
-    >
+    <SideBar>
       {/* title */}
       <Stack
+        p={"1.2rem"}
+        width={"100%"}
+        spacing={2}
+        direction={"row"}
         alignItems={"center"}
         justifyContent={"space-between"}
-        direction={"row"}
+        borderBottom={"2px solid #fff"}
       >
-        <Typography variant="body2" fontSize={22} fontWeight={600}>
+        <Typography
+          color={"#fff"}
+          variant="body1"
+          fontSize={25}
+          fontWeight={500}
+        >
           Print Type
         </Typography>
-        <IconButton>
-          <TuneIcon />
-        </IconButton>
+        <TuneIcon />
       </Stack>
       {printFiltersLoading ? (
         <LoadingRendered />
@@ -154,8 +155,14 @@ export default function PrintTypeFilters() {
           {printFiltersData?.map((category) => (
             <div key={category.id}>
               <Accordion
-                elevation={0}
-                // expanded={
+                // expanded={expand1}
+                sx={{
+                  width: "95%",
+                  color: "#fff",
+                  backgroundColor: "transparent",
+                  boxShadow: "none",
+                  my: 2,
+                }} // expanded={
                 //   category.category?.findIndex(
                 //     (x) => x.id == selectedPrintTypeId
                 //   ) !== -1
@@ -163,9 +170,11 @@ export default function PrintTypeFilters() {
                 //     : undefined
                 // }
               >
-                <AccordionSummary expandIcon={<ExpandMore />}>
+                <AccordionSummary
+                  expandIcon={<KeyboardArrowDownIcon sx={{ color: "#fff" }} />}
+                >
                   <Typography fontWeight={900} fontSize={16}>
-                    {category.name}
+                    Cards
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -205,6 +214,6 @@ export default function PrintTypeFilters() {
           </RoundedButton>
         </div>
       )}
-    </Box>
+    </SideBar>
   );
 }

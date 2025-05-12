@@ -11,7 +11,7 @@ export interface Media {
   conversions_disk: string;
   size: number;
   manipulations: any[];
-  custom_properties: any[];
+  custom_properties: CustomPropertiesType;
   generated_conversions: any[];
   responsive_images: any[];
   order_column: number;
@@ -20,3 +20,8 @@ export interface Media {
   original_url: string;
   preview_url: string;
 }
+
+type CustomPropertiesType = {
+  height: number;
+  width: number;
+};
