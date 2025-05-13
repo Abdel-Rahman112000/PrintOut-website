@@ -43,6 +43,8 @@ export const CustomPrintContext = createContext<CustomPrintContextType>({
   handleStoreSelectedPage: (page: PaperType | undefined) => {},
   handleChangeGlobelFileStyle: (style: GeneralStyleType) => {},
   handleSetZoomLevel: (value: number) => {},
+  customTextValue: "",
+  setCustomTextValue: () => {},
 });
 
 export const CustomPrintContextProvider = ({
@@ -62,6 +64,8 @@ export const CustomPrintContextProvider = ({
     scale: undefined,
     mode: undefined,
   });
+  const [customTextValue, setCustomTextValue] = useState("");
+
   const [pagesCustomizations, setPagesCustomizations] = useState<
     SpecificPageStyle[]
   >([]);
@@ -192,6 +196,8 @@ export const CustomPrintContextProvider = ({
         handleChangeGlobelFileStyle,
         zoomLevel,
         handleSetZoomLevel,
+        customTextValue,
+        setCustomTextValue,
       }}
     >
       {children}
@@ -248,4 +254,6 @@ type CustomPrintContextType = {
   handleChangeGlobelFileStyle(style: GeneralStyleType): void;
   zoomLevel: number;
   handleSetZoomLevel(value: number): void;
+  customTextValue: string;
+  setCustomTextValue: (val: string) => void;
 };
