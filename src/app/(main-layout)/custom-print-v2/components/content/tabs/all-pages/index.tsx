@@ -38,6 +38,7 @@ export default function AllPagesSettings() {
     let _page = papers?.size?.find((paper) => paper.id === id);
     handleStoreSelectedPage(_page);
   }
+  console.log("selectedPage",selectedPage)
 
   return (
     <Stack my={2} alignItems={"center"}>

@@ -52,14 +52,26 @@ function a11yProps(index: number) {
 }
 
 export default function CustomPrintContentTabs() {
-  // TODO::declare and defing component state and variables
-  const [value, setValue] = React.useState(0);
-  const { processIsLoading, PrintProductLoading } =
+  // TODO::declare and define component state and variables
+  const { processIsLoading, PrintProductLoading, settingMode, handleSetSettingMode } =
     React.useContext(CustomPrintContext);
 
+  // Map settingMode to the tab value (0 for "AllPages", 1 for "SelectedPages")
+  const [value, setValue] = React.useState(
+    settingMode === "AllPages" ? 0 : 1
+  );
+
+  // Update the tab value and settingMode when the user changes tabs
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    // Update the settingMode in the context based on the selected tab
+    handleSetSettingMode(newValue === 0 ? "AllPages" : "SelectedPages");
   };
+
+  // Sync the tab value with settingMode if it changes externally
+  React.useEffect(() => {
+    setValue(settingMode === "AllPages" ? 0 : 1);
+  }, [settingMode]);
 
   return (
     <Box sx={{ flexGrow: 0.4 }}>

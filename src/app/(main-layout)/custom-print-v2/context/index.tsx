@@ -7,11 +7,18 @@ import { CustomizeOptionType, PaperType } from "@/types/common/Order/Paper";
 import { $ProductType, Product } from "@/types/common/Product";
 import { getCategories } from "@/utils/api/category/get-categories";
 import { getOrder } from "@/utils/api/order/get-order";
+import { usePageSettings } from "@/utils/api/page_settings/post-page-settings";
 import { getPapers } from "@/utils/api/paper/get-papers";
 import { getProduct } from "@/utils/api/product/get-product";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { createContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from "react";
 
 export const CustomPrintContext = createContext<CustomPrintContextType>({
   note: "",
@@ -43,8 +50,14 @@ export const CustomPrintContext = createContext<CustomPrintContextType>({
   handleStoreSelectedPage: (page: PaperType | undefined) => {},
   handleChangeGlobelFileStyle: (style: GeneralStyleType) => {},
   handleSetZoomLevel: (value: number) => {},
-  customTextValue: "",
+  customTextValue: [],
   setCustomTextValue: () => {},
+  handleSubmitPageSettings: () => {},
+  setOrderDataNew: () => {},
+  orderDataNew: undefined,
+  handlecustomTextValue: (val: any) => {},
+  settingMode: "AllPages", // Default initial value
+  handleSetSettingMode: (mode: "AllPages" | "SelectedPages") => {},
 });
 
 export const CustomPrintContextProvider = ({
@@ -53,18 +66,24 @@ export const CustomPrintContextProvider = ({
   children: ReactNode;
 }) => {
   // TODO::declare and define component state and variables
+  const pageSettingsMutation = usePageSettings();
+
   const [note, setNote] = useState("");
   const [processIsLoading, setProcessIsLoading] = useState(false);
   const searchParams = useSearchParams();
   const [quantity, setQuantity] = useState(1);
   const orderId = searchParams?.get("orderId");
   const [selectedPrintTypeId, setSelectedPrintTypeId] = useState(-1);
+  const [settingMode, setSettingMode] = useState<"AllPages" | "SelectedPages">(
+    "AllPages"
+  ); // Default to "AllPages"
   const [generalDocSetting, setGeneralDocSetting] = useState<GeneralStyleType>({
     color: undefined,
     scale: undefined,
     mode: undefined,
   });
-  const [customTextValue, setCustomTextValue] = useState("");
+  const [customTextValue, setCustomTextValue] = useState([""]);
+  const [orderDataNew, setOrderDataNew] = useState<Order>();
 
   const [pagesCustomizations, setPagesCustomizations] = useState<
     SpecificPageStyle[]
@@ -89,6 +108,9 @@ export const CustomPrintContextProvider = ({
       if (!orderId) return;
       const headers = await getClientAuthHeaders();
       const res = await getOrder(headers, orderId);
+      if (res) {
+        setOrderDataNew(res.data);
+      }
       return res.data;
     },
   });
@@ -167,6 +189,49 @@ export const CustomPrintContextProvider = ({
     setProcessIsLoading(val);
   }
 
+  async function handleSubmitPageSettings() {
+    const headers = await getClientAuthHeaders();
+    const data = {
+      // هنا ضع البيانات التي تريد إرسالها، مثلاً:
+      // title: note,
+      // isPublished: true,
+    };
+
+    pageSettingsMutation.mutate({ data, headers });
+  }
+  function handlecustomTextValue(val: string | number) {
+    if (!Array.isArray(orderDataNew?.pictures)) {
+      console.error("orderDataNew.pictures is not an array");
+      return;
+    }
+
+    const index = Number(val) - 1; // Convert val to index (assuming val is 1-based)
+    const newDataImage = orderDataNew.pictures[index]; // Get the item at the index
+    console.log("newDataImage", newDataImage);
+
+    if (!newDataImage) {
+      console.warn(`No image found at index ${index}`);
+      return;
+    }
+
+    setOrderDataNew((prevs) => {
+      if (!prevs) return prevs;
+
+      // Create a new pictures array with the updated item
+      const updatedPictures = [newDataImage];
+      updatedPictures[index] = newDataImage; // Replace or update the item at index
+
+      return {
+        ...prevs,
+        pictures: updatedPictures, // Ensure pictures is Media[]
+      };
+    });
+  }
+  console.log("orderDataNew", orderDataNew);
+  function handleSetSettingMode(mode: "AllPages" | "SelectedPages") {
+    setSettingMode(mode);
+  }
+
   // ** return component ui
   return (
     <CustomPrintContext.Provider
@@ -198,6 +263,12 @@ export const CustomPrintContextProvider = ({
         handleSetZoomLevel,
         customTextValue,
         setCustomTextValue,
+        handleSubmitPageSettings,
+        orderDataNew,
+        setOrderDataNew,
+        handlecustomTextValue,
+        settingMode,
+        handleSetSettingMode,
       }}
     >
       {children}
@@ -254,6 +325,12 @@ type CustomPrintContextType = {
   handleChangeGlobelFileStyle(style: GeneralStyleType): void;
   zoomLevel: number;
   handleSetZoomLevel(value: number): void;
-  customTextValue: string;
-  setCustomTextValue: (val: string) => void;
+  customTextValue: Array<string>;
+  setCustomTextValue: (val: Array<string>) => void;
+  handleSubmitPageSettings: () => void;
+  orderDataNew: Order | undefined;
+  setOrderDataNew: Dispatch<SetStateAction<Order | undefined>>;
+  handlecustomTextValue: (val: any) => void;
+  settingMode: "AllPages" | "SelectedPages";
+  handleSetSettingMode: (mode: "AllPages" | "SelectedPages") => void;
 };

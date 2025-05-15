@@ -24,6 +24,11 @@ import OneCustomization from "../OneCustomization";
 interface SinglePageSettingsProps {
   pageIndex: number;
 }
+type PaperSize = {
+  height?: number;
+  width?: number;
+  bleed?: number;
+};
 
 export default function SinglePageSettings({
   pageIndex,
@@ -31,7 +36,6 @@ export default function SinglePageSettings({
   const { control } = useForm();
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [textValue, setTextValue] = useState<string>("");
-  const [pageIdx, setPageIdx] = useState<number | undefined>();
   const {
     PrintProduct,
     pagesCustomizations,
@@ -46,29 +50,38 @@ export default function SinglePageSettings({
     zoomLevel,
     customTextValue,
     setCustomTextValue,
+    handlecustomTextValue
   } = useContext(CustomPrintContext);
-  console.log("customTextValue", customTextValue);
+  console.log("papers", papers);
 
   const currentPageSettings = pagesCustomizations.find(
     (style) => style.pageIndex === pageIndex
   );
 
-  const handlePaperSizeChange = (id: number) => {
-    const _page = papers?.size?.find((paper) => paper.id === id);
+  const handlePaperSizeChange = (size: PaperSize) => {
+    const _page = papers?.size?.find((paper) =>
+      customTextValue.includes(paper.id.toString())
+    );
+
+    console.log("page", _page);
     handleStoreSelectedPage(_page);
+
     if (_page) {
       handleSetSpecificPageStyle({
-        pageIndex: pageIdx ?? 0,
+        pageIndex: _page.id ?? 0,
         color: "Colored",
         scale: "Vertical",
         mode: "Portrait",
-        height: currentPageSettings?.height ?? _page.size?.height ?? 0,
-        width: currentPageSettings?.width ?? _page.size?.width ?? 0,
-        bleed: currentPageSettings?.bleed ?? _page.size?.bleed ?? 0,
+        height: currentPageSettings?.height ?? size?.height ?? 0,
+        width: currentPageSettings?.width ?? size?.width ?? 0,
+        bleed: currentPageSettings?.bleed ?? size?.bleed ?? 0,
         customizationChoices: [],
       });
     }
   };
+
+  // filed => arry of number
+  // filter or find to rutern obj
 
   const handleChange = (value: string) => {
     setSelectedValue((prev) => {
@@ -78,26 +91,14 @@ export default function SinglePageSettings({
     });
   };
 
-  const handleClick = () => {
-    setTextValue(
-      (prev) =>
-        prev + (prev ? "," : "") + (Number(prev.split(",").pop() || 0) + 1)
-    );
-    handleSetSpecificPageStyle({
-      pageIndex: pageIdx ?? pageIndex,
-      color: undefined,
-      scale: undefined,
-      mode: undefined,
-    });
-    setPageIdx(undefined);
-  };
+
 
   const increaseScale = () => {
-    handleSetZoomLevel(Math.min(zoomLevel + 10, 200));
+    handleSetZoomLevel(Math.min(zoomLevel + 0.1, 200));
   };
 
   const decreaseScale = () => {
-    handleSetZoomLevel(Math.max(zoomLevel - 10, 0));
+    handleSetZoomLevel(Math.max(zoomLevel - 0.1, 0));
   };
 
   return (
@@ -139,7 +140,9 @@ export default function SinglePageSettings({
                       variant="filled"
                       value={customTextValue}
                       onChange={(e) => {
-                        setCustomTextValue(e.target.value);
+                        setCustomTextValue([e.target.value]);
+                        handlecustomTextValue(e.target.value);
+
                         field.onChange(e); // لتحديث react-hook-form أيضاً
                       }}
                       disabled={selectedValue !== "a"}
@@ -155,7 +158,9 @@ export default function SinglePageSettings({
                   )}
                 />
 
-                <IconButton onClick={handleClick} sx={{ borderRadius: "8px" }}>
+              
+
+                <IconButton sx={{ borderRadius: "8px" }}>
                   <AddIcon />
                 </IconButton>
               </Stack>
@@ -181,7 +186,7 @@ export default function SinglePageSettings({
                       fontWeight={700}
                       sx={{ color: "primary.main" }}
                     >
-                      {zoomLevel}
+                      {zoomLevel.toFixed(1)}
                     </Typography>
                     <IconButton onClick={increaseScale}>
                       <AddIcon />
@@ -192,8 +197,9 @@ export default function SinglePageSettings({
                   <Slider
                     value={zoomLevel}
                     onChange={(e, value) => handleSetZoomLevel(value as number)}
+                    step={0.1}
                     min={0}
-                    max={200}
+                    max={10}
                     aria-label="Scale Slider"
                     valueLabelDisplay="auto"
                   />
