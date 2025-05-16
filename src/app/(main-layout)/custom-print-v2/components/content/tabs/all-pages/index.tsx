@@ -33,6 +33,7 @@ export default function AllPagesSettings() {
     handleSetZoomLevel,
   } = useContext(CustomPrintContext);
 
+  console.log("generalDocSetting",generalDocSetting)
   // TODO:: declare and define component helper methods
   function handleChange(id: number) {
     let _page = papers?.size?.find((paper) => paper.id === id);

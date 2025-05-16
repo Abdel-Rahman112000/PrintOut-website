@@ -36,6 +36,8 @@ export default function SinglePageSettings({
   const { control } = useForm();
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [textValue, setTextValue] = useState<string>("");
+  // const [dimensions, setTextdimensions] = useState<string>("");
+
   const {
     PrintProduct,
     pagesCustomizations,
@@ -45,13 +47,14 @@ export default function SinglePageSettings({
     handleStoreSelectedPage,
     papers,
     handleChangeGlobelFileStyle,
-    handleSetZoomLevel,
     handleStoreNote,
-    zoomLevel,
     customTextValue,
     setCustomTextValue,
-    handlecustomTextValue
+    handlecustomTextValue,
+    zoomLevelSinglePage,
+    handleSetZoomLevelSinglePage,
   } = useContext(CustomPrintContext);
+  console.log("zoomLevelSinglePage", zoomLevelSinglePage);
   console.log("papers", papers);
 
   const currentPageSettings = pagesCustomizations.find(
@@ -63,7 +66,7 @@ export default function SinglePageSettings({
       customTextValue.includes(paper.id.toString())
     );
 
-    console.log("page", _page);
+    console.log("asdasdasdasdas", _page);
     handleStoreSelectedPage(_page);
 
     if (_page) {
@@ -91,14 +94,18 @@ export default function SinglePageSettings({
     });
   };
 
-
-
   const increaseScale = () => {
-    handleSetZoomLevel(Math.min(zoomLevel + 0.1, 200));
+    handleSetZoomLevelSinglePage(
+      Math.min(zoomLevelSinglePage + 10, 200),
+      pageIndex
+    );
   };
 
   const decreaseScale = () => {
-    handleSetZoomLevel(Math.max(zoomLevel - 0.1, 0));
+    handleSetZoomLevelSinglePage(
+      Math.max(zoomLevelSinglePage - 10, 0),
+      pageIndex
+    );
   };
 
   return (
@@ -158,8 +165,6 @@ export default function SinglePageSettings({
                   )}
                 />
 
-              
-
                 <IconButton sx={{ borderRadius: "8px" }}>
                   <AddIcon />
                 </IconButton>
@@ -186,7 +191,7 @@ export default function SinglePageSettings({
                       fontWeight={700}
                       sx={{ color: "primary.main" }}
                     >
-                      {zoomLevel.toFixed(1)}
+                      {zoomLevelSinglePage.toFixed(1)}
                     </Typography>
                     <IconButton onClick={increaseScale}>
                       <AddIcon />
@@ -195,8 +200,10 @@ export default function SinglePageSettings({
                 </Stack>
                 <Box sx={{ width: 300 }}>
                   <Slider
-                    value={zoomLevel}
-                    onChange={(e, value) => handleSetZoomLevel(value as number)}
+                    value={zoomLevelSinglePage}
+                    onChange={(e, value) =>
+                      handleSetZoomLevelSinglePage(value as number)
+                    }
                     step={0.1}
                     min={0}
                     max={10}
@@ -231,12 +238,14 @@ export default function SinglePageSettings({
                         },
                       }}
                     >
-                      {papers?.size?.map((paper) => (
-                        <MenuItem key={paper.id} value={paper.id}>
-                          {paper.name} (H:{paper.size?.height}mm, W:
-                          {paper.size?.width}mm, B:{paper.size?.bleed}mm)
-                        </MenuItem>
-                      ))}
+                      {papers?.size &&
+                        Array.isArray(papers?.size) &&
+                        papers?.size?.map((paper) => (
+                          <MenuItem key={paper.id} value={paper.id}>
+                            {paper.name} (H:{paper.size?.height}mm, W:
+                            {paper.size?.width}mm, B:{paper.size?.bleed}mm)
+                          </MenuItem>
+                        ))}
                     </TextField>
                   )}
                 />

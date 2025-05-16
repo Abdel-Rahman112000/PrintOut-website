@@ -58,6 +58,11 @@ export const CustomPrintContext = createContext<CustomPrintContextType>({
   handlecustomTextValue: (val: any) => {},
   settingMode: "AllPages", // Default initial value
   handleSetSettingMode: (mode: "AllPages" | "SelectedPages") => {},
+  // handlePaperScaleChange: (scale: "Vertical" | "Horizontal") => {},
+  zoomLevelSinglePage: 1,
+  handleSetZoomLevelSinglePage: (value: number, pageIndex: number) => {},
+  singlePagesCustomizations: [],
+  handleChangeSingleFileStyle: (style: GeneralStyleType ,pageNumber:number) => {},
 });
 
 export const CustomPrintContextProvider = ({
@@ -83,9 +88,14 @@ export const CustomPrintContextProvider = ({
     mode: undefined,
   });
   const [customTextValue, setCustomTextValue] = useState([""]);
+  const [orderData, setOrderData] = useState<Order>();
+
   const [orderDataNew, setOrderDataNew] = useState<Order>();
 
   const [pagesCustomizations, setPagesCustomizations] = useState<
+    SpecificPageStyle[]
+  >([]);
+  const [singlePagesCustomizations, setSinglePagesCustomizations] = useState<
     SpecificPageStyle[]
   >([]);
   const [selectedPage, setSelectedPage] = useState<PaperType | undefined>(
@@ -102,7 +112,7 @@ export const CustomPrintContextProvider = ({
     },
   });
   // fetch order data according order id
-  const { data: orderData, isLoading: orderLoading } = useQuery({
+  const { data, isLoading: orderLoading } = useQuery({
     queryKey: ["get-order", orderId],
     async queryFn() {
       if (!orderId) return;
@@ -110,6 +120,7 @@ export const CustomPrintContextProvider = ({
       const res = await getOrder(headers, orderId);
       if (res) {
         setOrderDataNew(res.data);
+        setOrderData(res.data)
       }
       return res.data;
     },
@@ -136,9 +147,20 @@ export const CustomPrintContextProvider = ({
   });
 
   const [zoomLevel, setZoomLevel] = useState<number>(1); // New state for zooming
+  const [zoomLevelSinglePage, setZoomLevelSinglePage] = useState<number>(1); // New state for zooming single page
 
   function handleSetZoomLevel(value: number) {
     setZoomLevel(value);
+  }
+
+  function handleSetZoomLevelSinglePage(value: number, pageIndex: number) {
+    setCustomTextValue((prev) => {
+      const updatedValues = [...prev];
+      updatedValues[pageIndex] = value.toString();
+      return updatedValues;
+    });
+
+    setZoomLevelSinglePage(value);
   }
 
   // TODO::declare and define helper methods
@@ -159,6 +181,7 @@ export const CustomPrintContextProvider = ({
 
   function handleSetSpecificPageStyle(style: SpecificPageStyle) {
     let index = style?.pageIndex;
+
     if (index) {
       if (pagesCustomizations?.find((ele) => ele.pageIndex == index))
         setPagesCustomizations((prev) =>
@@ -170,6 +193,13 @@ export const CustomPrintContextProvider = ({
       else setPagesCustomizations((prev) => [...prev, style]);
     }
   }
+  // handleChangeSingleFileStyle  Horizontal and Vertical
+  function handleChangeSingleFileStyle(style: GeneralStyleType, pageNumber: any) {
+    const data = orderData?.pictures?.find((item,index)=> index === pageNumber)
+    console.log(data)
+    setGeneralDocSetting(style);
+  }
+  //
 
   function handleRemoveFromSpecificPageStyle(idx: number) {
     setPagesCustomizations((prev) =>
@@ -199,18 +229,21 @@ export const CustomPrintContextProvider = ({
 
     pageSettingsMutation.mutate({ data, headers });
   }
+
   function handlecustomTextValue(val: string | number) {
     if (!Array.isArray(orderDataNew?.pictures)) {
       console.error("orderDataNew.pictures is not an array");
       return;
     }
 
-    const index = Number(val) - 1; // Convert val to index (assuming val is 1-based)
-    const newDataImage = orderDataNew.pictures[index]; // Get the item at the index
+    const idx = Number(val) - 1; // Convert val to index (assuming val is 1-based)
+    const newDataImage = orderDataNew.pictures.find(
+      (item, index) => index === idx
+    ); // Get the item at the index
     console.log("newDataImage", newDataImage);
 
     if (!newDataImage) {
-      console.warn(`No image found at index ${index}`);
+      console.warn(`No image found`);
       return;
     }
 
@@ -218,19 +251,40 @@ export const CustomPrintContextProvider = ({
       if (!prevs) return prevs;
 
       // Create a new pictures array with the updated item
-      const updatedPictures = [newDataImage];
-      updatedPictures[index] = newDataImage; // Replace or update the item at index
+      // const updatedPictures = [idx];
+      // updatedPictures[idx] = newDataImage; // Replace or update the item at index
 
       return {
         ...prevs,
-        pictures: updatedPictures, // Ensure pictures is Media[]
+        pictures: [newDataImage], // Ensure pictures is Media[]
       };
     });
   }
+
   console.log("orderDataNew", orderDataNew);
   function handleSetSettingMode(mode: "AllPages" | "SelectedPages") {
     setSettingMode(mode);
   }
+
+  // _pageScale Vertical Horizontal
+  // const handlePaperScaleChange = (scale: "Vertical" | "Horizontal") => {
+  //   const _pageScale = papers?.scaling?.find((paper) =>
+  //     customTextValue.includes(paper.id.toString())
+  //   );
+
+  //   console.log("pagescale", _pageScale);
+  //   handleStoreSelectedPage(_pageScale);
+
+  //   if (_pageScale) {
+  //     handleSetSpecificPageStyle({
+  //       pageIndex: _pageScale.id ?? 0,
+  //       color: "Colored",
+  //       scale: "Vertical",
+  //       mode: "Portrait",
+  //       customizationChoices: [],
+  //     });
+  //   }
+  // };
 
   // ** return component ui
   return (
@@ -269,6 +323,11 @@ export const CustomPrintContextProvider = ({
         handlecustomTextValue,
         settingMode,
         handleSetSettingMode,
+        zoomLevelSinglePage,
+        handleSetZoomLevelSinglePage,
+        singlePagesCustomizations,
+        
+        handleChangeSingleFileStyle
       }}
     >
       {children}
@@ -333,4 +392,10 @@ type CustomPrintContextType = {
   handlecustomTextValue: (val: any) => void;
   settingMode: "AllPages" | "SelectedPages";
   handleSetSettingMode: (mode: "AllPages" | "SelectedPages") => void;
+  // handlePaperScaleChange(scale: "Vertical" | "Horizontal"): void;
+  zoomLevelSinglePage: number;
+  handleSetZoomLevelSinglePage(value: number, pageIndex: number): void;
+
+  singlePagesCustomizations: SpecificPageStyle[];
+  handleChangeSingleFileStyle(style: GeneralStyleType,pageNumber:number): void;
 };
