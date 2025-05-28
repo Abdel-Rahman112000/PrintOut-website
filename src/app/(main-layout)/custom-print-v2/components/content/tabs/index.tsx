@@ -1,13 +1,13 @@
-"use client";
-import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import { CustomPrintContext } from "../../../context";
-import { Skeleton } from "@mui/material";
-import AllPagesSettings from "./all-pages";
-import SinglePageSettings from "./single-page";
-import LoadingBackdrop from "@/components/LoadingBackdrop";
+'use client';
+import * as React from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import { CustomPrintContext } from '../../../context';
+import { Skeleton } from '@mui/material';
+import AllPagesSettings from './all-pages';
+import SinglePageSettings from './single-page';
+import LoadingBackdrop from '@/components/LoadingBackdrop';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -35,42 +35,44 @@ function CustomTabPanel(props: TabPanelProps & { loading: boolean }) {
 
 const LoadingRendered = () => (
   <>
-    <Skeleton width={"100%"} height="49px" sx={{ borderRadius: "15px" }} />
-    <Skeleton width={"100%"} height="49px" sx={{ borderRadius: "15px" }} />
-    <Skeleton width={"100%"} height="49px" sx={{ borderRadius: "15px" }} />
-    <Skeleton width={"100%"} height="49px" sx={{ borderRadius: "15px" }} />
-    <Skeleton width={"100%"} height="99px" sx={{ borderRadius: "15px" }} />
-    <Skeleton width={"100%"} height="55px" sx={{ borderRadius: "15px" }} />
+    <Skeleton width={'100%'} height="49px" sx={{ borderRadius: '15px' }} />
+    <Skeleton width={'100%'} height="49px" sx={{ borderRadius: '15px' }} />
+    <Skeleton width={'100%'} height="49px" sx={{ borderRadius: '15px' }} />
+    <Skeleton width={'100%'} height="49px" sx={{ borderRadius: '15px' }} />
+    <Skeleton width={'100%'} height="99px" sx={{ borderRadius: '15px' }} />
+    <Skeleton width={'100%'} height="55px" sx={{ borderRadius: '15px' }} />
   </>
 );
 
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 export default function CustomPrintContentTabs() {
   // TODO::declare and define component state and variables
-  const { processIsLoading, PrintProductLoading, settingMode, handleSetSettingMode } =
-    React.useContext(CustomPrintContext);
+  const {
+    processIsLoading,
+    PrintProductLoading,
+    settingMode,
+    handleSetSettingMode,
+  } = React.useContext(CustomPrintContext);
 
   // Map settingMode to the tab value (0 for "AllPages", 1 for "SelectedPages")
-  const [value, setValue] = React.useState(
-    settingMode === "AllPages" ? 0 : 1
-  );
+  const [value, setValue] = React.useState(settingMode === 'AllPages' ? 0 : 1);
 
   // Update the tab value and settingMode when the user changes tabs
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     // Update the settingMode in the context based on the selected tab
-    handleSetSettingMode(newValue === 0 ? "AllPages" : "SelectedPages");
+    handleSetSettingMode(newValue === 0 ? 'AllPages' : 'SelectedPages');
   };
 
   // Sync the tab value with settingMode if it changes externally
   React.useEffect(() => {
-    setValue(settingMode === "AllPages" ? 0 : 1);
+    setValue(settingMode === 'AllPages' ? 0 : 1);
   }, [settingMode]);
 
   return (
@@ -85,12 +87,12 @@ export default function CustomPrintContentTabs() {
           <Tab
             label="All Pages Settings"
             {...a11yProps(0)}
-            sx={{ textTransform: "none", fontWeight: 700 }}
+            sx={{ textTransform: 'none', fontWeight: 700 }}
           />
           <Tab
             label="Selected Pages"
             {...a11yProps(1)}
-            sx={{ textTransform: "none", fontWeight: 700 }}
+            sx={{ textTransform: 'none', fontWeight: 700 }}
           />
         </Tabs>
       </Box>
@@ -98,7 +100,7 @@ export default function CustomPrintContentTabs() {
         <AllPagesSettings />
       </CustomTabPanel>
       <CustomTabPanel loading={PrintProductLoading} value={value} index={1}>
-        <SinglePageSettings />
+        <SinglePageSettings pageIndex={1} />
       </CustomTabPanel>
     </Box>
   );

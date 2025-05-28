@@ -1,17 +1,17 @@
-"use client";
+'use client';
 // Hooks
-import { useContext, useState } from "react";
+import { useContext, useState } from 'react';
 
 // MUI
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
 
 // Icons
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { CustomPrintContext } from "../../context";
-import { getClientAuthHeaders } from "@/libs/auth/getClientAuthHeaders";
-import axios from "axios";
-import { api } from "@/constants/api";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { CustomPrintContext } from '../../context';
+import { getClientAuthHeaders } from '@/libs/auth/getClientAuthHeaders';
+import axios from 'axios';
+import { api } from '@/constants/api';
 
 export default function QuantityBox() {
   //   ** seclare and define component state and variables
@@ -27,7 +27,7 @@ export default function QuantityBox() {
     increaseQuantity,
     decreaseQuantity,
   } = useContext(CustomPrintContext);
-  const [totalPrice, setTotalPrice] = useState("?");
+  const [totalPrice, setTotalPrice] = useState('?');
 
   // Start send request
   async function CalcTotalPrice() {
@@ -47,12 +47,12 @@ export default function QuantityBox() {
           height: generalDocSetting?.height ?? selectedPage?.size?.height,
           width: generalDocSetting?.width ?? selectedPage?.size?.width,
           bleed: generalDocSetting?.bleed ?? selectedPage?.size?.bleed,
-          color: generalDocSetting?.color ?? "Colored",
+          color: generalDocSetting?.color ?? 'Colored',
           scaling: !generalDocSetting?.scale
-            ? "verticale"
-            : generalDocSetting?.scale == "Vertical"
-            ? "verticale"
-            : "horizentale",
+            ? 'verticale'
+            : generalDocSetting?.scale == 'Vertical'
+            ? 'verticale'
+            : 'horizentale',
           CustomizationChoices: generalDocSetting?.customizationChoices ?? [],
         },
         ...pagesCustomizations?.map((pageStyle) => {
@@ -63,12 +63,12 @@ export default function QuantityBox() {
             height: pageStyle?.height ?? selectedPage?.size?.height,
             width: pageStyle?.width ?? selectedPage?.size?.width,
             bleed: pageStyle?.bleed ?? selectedPage?.size?.bleed,
-            color: pageStyle?.color ?? "Colored",
+            color: pageStyle?.color ?? 'Colored',
             scaling: !pageStyle?.scale
-              ? "verticale"
-              : pageStyle?.scale == "Vertical"
-              ? "verticale"
-              : "horizentale",
+              ? 'verticale'
+              : pageStyle?.scale == 'Vertical'
+              ? 'verticale'
+              : 'horizentale',
             CustomizationChoices: pageStyle?.customizationChoices ?? [],
           };
         }),
@@ -79,7 +79,7 @@ export default function QuantityBox() {
     axios
       .post(api`client/get-total-order`, body, { headers })
       .then((response) => {
-        setTotalPrice(response?.data?.total_order + "");
+        setTotalPrice(response?.data?.total_order + '');
       })
       .catch(() => {});
   }
@@ -87,40 +87,40 @@ export default function QuantityBox() {
   return (
     <Box
       sx={{
-        my: "3rem",
         py: 5,
-        width: "296.21px",
-        padding: "10px",
-        gap: "2.98px",
-        borderRadius: "10px",
-        boxShadow: "0px 8px 18px 0px #0000001A",
+        width: '100%',
+        padding: '10px',
+        gap: '2.98px',
+        borderRadius: '10px',
+        boxShadow: '0px 8px 18px 0px #0000001A',
+        color: '#fff',
       }}
     >
       {/* Stack */}
       <Stack
-        direction={"row"}
-        alignItems={"center"}
-        justifyContent={"space-between"}
+        direction={'row'}
+        alignItems={'center'}
+        justifyContent={'space-between'}
       >
         <Typography
           variant="body1"
           fontWeight={600}
           fontSize={16}
-          color={"#000"}
+          color={'#000'}
         >
           Quantity
         </Typography>
         {/* counter */}
         <Stack
-          direction={"row-reverse"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
+          direction={'row-reverse'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
           sx={{
-            width: "135.42px",
-            height: "47.8px",
-            borderRadius: "9.37px 0px 0px 0px",
-            border: "1.17px 0px 0px 0px",
-            bgcolor: "#F7F8F9",
+            width: '135.42px',
+            height: '47.8px',
+            borderRadius: '9.37px 0px 0px 0px',
+            border: '1.17px 0px 0px 0px',
+            bgcolor: '#F7F8F9',
           }}
         >
           <IconButton
@@ -135,7 +135,7 @@ export default function QuantityBox() {
             variant="body1"
             fontSize={18}
             fontWeight={600}
-            color={"primary"}
+            color={'primary'}
           >
             {quantity}
           </Typography>
@@ -151,9 +151,9 @@ export default function QuantityBox() {
       {/* calc price */}
       <Stack
         my={3}
-        direction={"row"}
-        alignItems={"center"}
-        justifyContent={"space-between"}
+        direction={'row'}
+        alignItems={'center'}
+        justifyContent={'space-between'}
       >
         <Button
           variant="outlined"
@@ -167,7 +167,7 @@ export default function QuantityBox() {
           variant="body2"
           fontSize={30}
           fontWeight={700}
-          color={"#000"}
+          color={'#000'}
         >
           $ {totalPrice}
         </Typography>

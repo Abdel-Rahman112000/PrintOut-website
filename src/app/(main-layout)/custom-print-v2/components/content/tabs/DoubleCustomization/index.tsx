@@ -1,19 +1,19 @@
-import Image from "next/image";
+import Image from 'next/image';
 
-import RoundedButton from "@/components/RoundedButton";
-import { Stack, Typography } from "@mui/material";
+import RoundedButton from '@/components/RoundedButton';
+import { Stack, Typography } from '@mui/material';
 
 // media
-import originalImg from "@/assets/images/originalMode.png";
-import blackAndWhiteImg from "@/assets/images/blackandWhite.png";
-import verticalImg from "@/assets/images/vertical.png";
-import horizentalImg from "@/assets/images/horizental.png";
-import { useContext, useState } from "react";
-import { Choice } from "@/types/common/Product";
+import originalImg from '@/assets/images/originalMode.png';
+import blackAndWhiteImg from '@/assets/images/blackandWhite.png';
+import verticalImg from '@/assets/images/vertical.png';
+import horizentalImg from '@/assets/images/horizental.png';
+import { useContext, useState } from 'react';
+import { Choice } from '@/types/common/Product';
 import {
   CustomPrintContext,
   SpecificPageStyle,
-} from "@/app/(main-layout)/custom-print-v2/context";
+} from '@/app/(main-layout)/custom-print-v2/context';
 
 export function BlackAndWhite({
   pageStyle,
@@ -32,17 +32,18 @@ export function BlackAndWhite({
 
   // ** return component ui
   return (
-    <Stack spacing={3} width={"100%"}>
+    <Stack spacing={3} width={'100%'}>
       <Typography variant="body2" fontSize={12} fontWeight={600}>
         Coloring
       </Typography>
       <Stack
+        style={{ width: '100%', gap: '10px' }}
         direction={{
-          sx: "column",
-          md: "row",
+          sx: 'column',
+          md: 'row',
         }}
-        alignItems={"center"}
-        justifyContent={"space-between"}
+        alignItems={'center'}
+        justifyContent={'space-between'}
       >
         <RoundedButton
           startIcon={
@@ -53,19 +54,20 @@ export function BlackAndWhite({
               alt="original image"
             />
           }
-          variant={color == "BlackAndWhite" ? "contained" : "text"}
+          variant={color == 'BlackAndWhite' ? 'contained' : 'text'}
           fullWidth
+          style={{ border: '1px solid #E0E0E0' }}
           size="large"
           onClick={() => {
             if (pageStyle) {
               handleSetSpecificPageStyle({
                 ...pageStyle,
-                color: "BlackAndWhite",
+                color: 'BlackAndWhite',
               });
             } else if (generalDocSetting) {
               handleChangeGlobelFileStyle({
                 ...generalDocSetting,
-                color: "BlackAndWhite",
+                color: 'BlackAndWhite',
               });
             }
           }}
@@ -82,19 +84,20 @@ export function BlackAndWhite({
               alt="original image"
             />
           }
-          variant={color == "Colored" ? "contained" : "text"}
+          style={{ border: '1px solid #E0E0E0' }}
+          variant={color == 'Colored' ? 'contained' : 'text'}
           fullWidth
           size="large"
           onClick={() => {
             if (pageStyle) {
               handleSetSpecificPageStyle({
                 ...pageStyle,
-                color: "Colored",
+                color: 'Colored',
               });
             } else if (generalDocSetting) {
               handleChangeGlobelFileStyle({
                 ...generalDocSetting,
-                color: "Colored",
+                color: 'Colored',
               });
             }
           }}
@@ -122,17 +125,18 @@ export function ScallingOption({
   // TODO::declare and define component helper methods
   // ** return component ui
   return (
-    <Stack spacing={3} width={"100%"}>
+    <Stack spacing={3} width={'100%'}>
       <Typography variant="body2" fontSize={12} fontWeight={600}>
         Orientation
       </Typography>
       <Stack
         direction={{
-          sx: "column",
-          md: "row",
+          sx: 'column',
+          md: 'row',
         }}
-        alignItems={"center"}
-        justifyContent={"space-between"}
+        style={{ width: '100%', gap: '10px' }}
+        alignItems={'center'}
+        justifyContent={'space-between'}
       >
         <RoundedButton
           startIcon={
@@ -143,19 +147,20 @@ export function ScallingOption({
               alt="original image"
             />
           }
-          variant={scale === "Horizental" ? "contained" : "text"}
+          style={{ border: '1px solid #E0E0E0' }}
+          variant={scale === 'Horizental' ? 'contained' : 'text'}
           fullWidth
           size="large"
           onClick={() => {
             if (pageStyle) {
               handleSetSpecificPageStyle({
                 ...pageStyle,
-                scale: "Horizental",
+                scale: 'Horizental',
               });
             } else if (generalDocSetting) {
               handleChangeGlobelFileStyle({
                 ...generalDocSetting,
-                scale: "Horizental",
+                scale: 'Horizental',
               });
             }
           }}
@@ -172,19 +177,20 @@ export function ScallingOption({
               alt="original image"
             />
           }
-          variant={scale === "Vertical" ? "contained" : "text"}
+          style={{ border: '1px solid #E0E0E0' }}
+          variant={scale === 'Vertical' ? 'contained' : 'text'}
           fullWidth
           size="large"
           onClick={() => {
             if (pageStyle) {
               handleSetSpecificPageStyle({
                 ...pageStyle,
-                scale: "Vertical",
+                scale: 'Vertical',
               });
             } else if (generalDocSetting) {
               handleChangeGlobelFileStyle({
                 ...generalDocSetting,
-                scale: "Vertical",
+                scale: 'Vertical',
               });
             }
           }}
@@ -199,28 +205,30 @@ export function ScallingOption({
 export default function DoubleCustomization(props: PropsType) {
   // TODO::declare and define component state and variables
   const [activeBtn, setActiveBtn] = useState(1);
-  const { label, choices, helperText = "", handleChange } = props;
+  const { label, choices, helperText = '', handleChange } = props;
 
   // TODO::declare and define component helper methods
   // ** return component ui
   return (
-    <Stack spacing={3} width={"100%"}>
+    <Stack spacing={3} width={'100%'}>
       <Typography variant="body2" fontSize={12} fontWeight={600}>
         {label}
       </Typography>
       <Stack
         direction={{
-          sx: "column",
-          md: "row",
+          sx: 'column',
+          md: 'row',
         }}
-        alignItems={"center"}
-        justifyContent={"space-between"}
+        style={{ width: '100%', gap: '10px' }}
+        alignItems={'center'}
+        justifyContent={'space-between'}
       >
         {choices?.map((choice) => {
           return (
             <RoundedButton
               key={choice.id}
-              variant={activeBtn == choice.id ? "contained" : "text"}
+              variant={activeBtn == choice.id ? 'contained' : 'text'}
+              style={{ border: '1px solid #E0E0E0' }}
               fullWidth
               size="large"
               onClick={() => {
@@ -236,10 +244,10 @@ export default function DoubleCustomization(props: PropsType) {
       <Typography
         variant="body2"
         sx={{
-          fontSize: "17.56px",
+          fontSize: '17.56px',
           fontWeight: 500,
-          lineHeight: "21.43px",
-          textAlign: "left",
+          lineHeight: '21.43px',
+          textAlign: 'left',
         }}
       >
         {helperText}
